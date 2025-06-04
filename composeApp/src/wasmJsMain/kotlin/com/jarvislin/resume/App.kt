@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jarvislin.resume.ui.components.SkillsSection
 import com.jarvislin.resume.ui.components.WorkExperience
 import com.jarvislin.resume.ui.components.WorkExperienceSection
 
@@ -27,6 +28,7 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
+            SkillsSection()
             WorkExperienceSection(
                 listOf(
                     WorkExperience(
