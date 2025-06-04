@@ -9,11 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
@@ -31,6 +29,11 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
 
     val leftAttrs = remember { mutableStateListOf<CardAttribute>() }
     val rightAttrs = remember { mutableStateListOf<CardAttribute>() }
+
+    val colorCardBackground = MaterialTheme.colorScheme.surfaceContainerHighest
+    val colorDivider = MaterialTheme.colorScheme.primaryContainer
+    val colorCircle = MaterialTheme.colorScheme.primary
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,7 +61,6 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
             }
         }
 
-        val color = MaterialTheme.colorScheme.surfaceContainerHighest
 
         // Divider + Triangle Path
         Box(
@@ -79,18 +81,21 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
                 }
 
                 // vertical divider
-                drawRect(Color.Black, topLeft = Offset(0f, minY), size = Size(width = 2.dp.toPx(), maxY - minY))
+                drawRect(colorDivider, topLeft = Offset(0f, minY), size = Size(width = 2.dp.toPx(), maxY - minY))
 
                 leftAttrs.forEachIndexed { index, attr ->
                     val path = Path().apply {
-                        moveTo(-offsetX, attr.trianglePeakY - triangleBaseHeight)         // 左上角
-                        lineTo(-offsetX, attr.trianglePeakY + triangleBaseHeight)         // 左下角
-                        lineTo(dividerX - dividerXOffset, attr.trianglePeakY)           // 中間尖角
+                        // left top
+                        moveTo(-offsetX, attr.trianglePeakY - triangleBaseHeight)
+                        // left bottom
+                        lineTo(-offsetX, attr.trianglePeakY + triangleBaseHeight)
+                        // peak
+                        lineTo(dividerX - dividerXOffset, attr.trianglePeakY)
                         close()
                     }
-                    drawPath(path, color)
+                    drawPath(path, colorCardBackground)
                     drawCircle(
-                        color = Color.Black,
+                        color = colorCircle,
                         radius = 4.dp.toPx(),
                         center = Offset(dividerX, attr.trianglePeakY)
                     )
@@ -98,23 +103,17 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
 
                 rightAttrs.forEachIndexed { index, attr ->
                     val path = Path().apply {
-                        moveTo(
-                            size.width + offsetX,
-                            attr.calculatedTrianglePeakY!! - triangleBaseHeight
-                        ) // 右上角
-                        lineTo(
-                            size.width + offsetX,
-                            attr.calculatedTrianglePeakY + triangleBaseHeight
-                        ) // 右下角
-                        lineTo(
-                            dividerX + dividerXOffset,
-                            attr.calculatedTrianglePeakY
-                        )               // 中間尖角
+                        // right top
+                        moveTo(size.width + offsetX, attr.calculatedTrianglePeakY!! - triangleBaseHeight)
+                        // right bottom
+                        lineTo(size.width + offsetX, attr.calculatedTrianglePeakY + triangleBaseHeight)
+                        // peak
+                        lineTo(dividerX + dividerXOffset, attr.calculatedTrianglePeakY)
                         close()
                     }
-                    drawPath(path, color)
+                    drawPath(path, colorCardBackground)
                     drawCircle(
-                        color = Color.Black,
+                        color = colorCircle,
                         radius = 4.dp.toPx(),
                         center = Offset(dividerX, attr.calculatedTrianglePeakY!!)
                     )
@@ -153,7 +152,7 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
 fun WorkCard(
     experience: WorkExperience,
     onPositioned: (CardAttribute) -> Unit,
-    modifier: Modifier = Modifier.padding(horizontal = 16.dp).padding(top = 12.dp)
+    textModifier: Modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()
 ) {
     Card(
         modifier = Modifier
@@ -165,13 +164,14 @@ fun WorkCard(
                 onPositioned(CardAttribute(y, height))
             }
     ) {
-        Spacer(Modifier.fillMaxWidth().height(8.dp).background(MaterialTheme.colorScheme.onPrimaryContainer))
+        Spacer(Modifier.fillMaxWidth().height(8.dp).background(MaterialTheme.colorScheme.primary))
         experience.duration?.let {
             Text(
                 it,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = modifier.align(Alignment.CenterHorizontally)
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold,
+                modifier = textModifier.padding(top = 12.dp)
             )
         }
         experience.company?.let {
@@ -179,7 +179,7 @@ fun WorkCard(
                 it,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                modifier = modifier.align(Alignment.CenterHorizontally)
+                modifier = textModifier.padding(top = 12.dp)
             )
         }
         experience.title?.let {
@@ -187,14 +187,14 @@ fun WorkCard(
                 it,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                modifier = modifier.align(Alignment.CenterHorizontally)
+                modifier = textModifier.padding(top = 8.dp)
             )
         }
         experience.description?.let {
             Text(
                 it,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = modifier.align(Alignment.CenterHorizontally)
+                modifier = textModifier.padding(top = 12.dp),
             )
         }
         Spacer(Modifier.size(12.dp))

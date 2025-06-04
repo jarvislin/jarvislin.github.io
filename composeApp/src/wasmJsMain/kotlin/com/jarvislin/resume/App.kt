@@ -129,7 +129,7 @@ fun App() {
                                 "\n\n" +
                                 "Assisted with product testing and feature validation to improve usability." +
                                 "\n\n" +
-                                "Contributed to the implementation of Scen3D and SaaSPhoto, focusing on front-end and integration tasks"
+                                "Contributed to the implementation of Scen3D and SaaSPhoto, focusing on front-end and integration tasks."
                     ),
                 )
             )
