@@ -38,9 +38,7 @@ fun App() {
                                 "\n\n" +
                                 "Built and launched AI-powered multilingual communication products used in tourism, hospitality, and social impact sectors." +
                                 "\n\n"
-                                + "Engaged directly with enterprise clients to identify pain points and deliver custom solutions." +
-                                "\n\n" +
-                                "Advocated for inclusive technology to bridge language barriers in underserved communities."
+                                + "Engaged directly with enterprise clients to identify pain points and deliver custom solutions."
                     ),
                     WorkExperience(
                         duration = "Nov 2022 - Jun 2024",
@@ -127,7 +125,11 @@ fun App() {
                         duration = "Jun 2012 - Jul 2014",
                         title = "Software Engineer",
                         company = "Ortery Technologies, Inc",
-                        description = "Implemented product improvements by actively collaborating with owners to better understand an application's capabilities before testing scenarios."
+                        description = "Participated in the development of mobile apps and websites." +
+                                "\n\n" +
+                                "Assisted with product testing and feature validation to improve usability." +
+                                "\n\n" +
+                                "Contributed to the implementation of Scen3D and SaaSPhoto, focusing on front-end and integration tasks"
                     ),
                 )
             )

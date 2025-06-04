@@ -22,9 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
 @Composable
-fun WorkExperienceSection(items: List<WorkExperience>) {
-    val leftItems = items.filterIndexed { i, _ -> i % 2 == 0 }
-    val rightItems = items.filterIndexed { i, _ -> i % 2 != 0 }
+fun WorkExperienceSection(workExps: List<WorkExperience>) {
+    if (workExps.isEmpty()) {
+        return
+    }
+    val leftItems = workExps.filterIndexed { i, _ -> i % 2 == 0 }
+    val rightItems = workExps.filterIndexed { i, _ -> i % 2 != 0 }
 
     val leftAttrs = remember { mutableStateListOf<CardAttribute>() }
     val rightAttrs = remember { mutableStateListOf<CardAttribute>() }
@@ -39,7 +42,7 @@ fun WorkExperienceSection(items: List<WorkExperience>) {
                 .weight(1f)
                 .zIndex(1f)
                 .padding(end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             leftItems.forEachIndexed { index, item ->
                 WorkCard(
@@ -55,6 +58,8 @@ fun WorkExperienceSection(items: List<WorkExperience>) {
             }
         }
 
+        val color = MaterialTheme.colorScheme.surfaceContainerHighest
+
         // Divider + Triangle Path
         Box(
             modifier = Modifier
@@ -67,30 +72,52 @@ fun WorkExperienceSection(items: List<WorkExperience>) {
                 val triangleBaseHeight = 40f
                 val offsetX = 40f
 
-                val minY = (leftAttrs + rightAttrs).minBy { it.trianglePeakY }.trianglePeakY
-                val maxY = (leftAttrs + rightAttrs).maxBy { it.trianglePeakY }.trianglePeakY
+
+                val minY = leftAttrs.first().trianglePeakY
+                val maxY = (leftAttrs + rightAttrs).maxBy { it.calculatedTrianglePeakY ?: it.trianglePeakY }.let {
+                    it.calculatedTrianglePeakY ?: it.trianglePeakY
+                }
 
                 // vertical divider
                 drawRect(Color.Black, topLeft = Offset(0f, minY), size = Size(width = 2.dp.toPx(), maxY - minY))
 
-                leftAttrs.forEach { attr ->
+                leftAttrs.forEachIndexed { index, attr ->
                     val path = Path().apply {
                         moveTo(-offsetX, attr.trianglePeakY - triangleBaseHeight)         // 左上角
                         lineTo(-offsetX, attr.trianglePeakY + triangleBaseHeight)         // 左下角
                         lineTo(dividerX - dividerXOffset, attr.trianglePeakY)           // 中間尖角
                         close()
                     }
-                    drawPath(path, Color.Gray)
+                    drawPath(path, color)
+                    drawCircle(
+                        color = Color.Black,
+                        radius = 4.dp.toPx(),
+                        center = Offset(dividerX, attr.trianglePeakY)
+                    )
                 }
 
-                rightAttrs.forEach { attr ->
+                rightAttrs.forEachIndexed { index, attr ->
                     val path = Path().apply {
-                        moveTo(size.width + offsetX, attr.trianglePeakY - triangleBaseHeight) // 右上角
-                        lineTo(size.width + offsetX, attr.trianglePeakY + triangleBaseHeight) // 右下角
-                        lineTo(dividerX + dividerXOffset, attr.trianglePeakY)               // 中間尖角
+                        moveTo(
+                            size.width + offsetX,
+                            attr.calculatedTrianglePeakY!! - triangleBaseHeight
+                        ) // 右上角
+                        lineTo(
+                            size.width + offsetX,
+                            attr.calculatedTrianglePeakY + triangleBaseHeight
+                        ) // 右下角
+                        lineTo(
+                            dividerX + dividerXOffset,
+                            attr.calculatedTrianglePeakY
+                        )               // 中間尖角
                         close()
                     }
-                    drawPath(path, Color.Gray)
+                    drawPath(path, color)
+                    drawCircle(
+                        color = Color.Black,
+                        radius = 4.dp.toPx(),
+                        center = Offset(dividerX, attr.calculatedTrianglePeakY!!)
+                    )
                 }
             }
         }
@@ -100,19 +127,20 @@ fun WorkExperienceSection(items: List<WorkExperience>) {
                 .weight(1f)
                 .zIndex(1f)
                 .padding(start = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             rightItems.forEachIndexed { index, item ->
                 if (index == 0) {
-                    Spacer(Modifier.height(24.dp))
+                    Spacer(Modifier.height(32.dp))
                 }
                 WorkCard(
                     experience = item,
                     onPositioned = { attr ->
                         if (rightAttrs.size > index) {
-                            rightAttrs[index] = attr
+                            rightAttrs[index] =
+                                attr.copy(calculatedTrianglePeakY = attr.getCalculatedTrianglePeakY(leftAttrs[index].trianglePeakY))
                         } else {
-                            rightAttrs.add(attr)
+                            rightAttrs.add(attr.copy(calculatedTrianglePeakY = attr.getCalculatedTrianglePeakY(leftAttrs[index].trianglePeakY)))
                         }
                     }
                 )
@@ -173,10 +201,14 @@ fun WorkCard(
     }
 }
 
-class CardAttribute(val y: Float, val height: Float) {
+data class CardAttribute(val y: Float, val height: Float, val calculatedTrianglePeakY: Float? = null) {
     val trianglePeakY: Float
         get() = y + 80f
 }
+
+fun CardAttribute.getCalculatedTrianglePeakY(previousY: Float): Float =
+    if (trianglePeakY - previousY <= 20) previousY + 80f
+    else trianglePeakY
 
 class WorkExperience(
     val duration: String?,
