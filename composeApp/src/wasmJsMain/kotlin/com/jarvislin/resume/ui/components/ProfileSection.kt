@@ -1,7 +1,6 @@
 package com.jarvislin.resume.ui.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -39,7 +38,7 @@ fun ProfileSection() {
 
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Text("Jarvis Lin", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
-                Text("Mobile Expert")
+                Text("Founder · Developer · Impact Creator", style = MaterialTheme.typography.bodyLarge)
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -107,26 +106,68 @@ fun ProfileSection() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // 下載 CV 按鈕
-        ElevatedButton(
-            onClick = { /* TODO: download CV */ },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(4.dp)
         ) {
-            Text("DOWNLOAD CV")
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            ) {
+                // 簡介段
+                Text(
+                    text = "With over 13 years of experience building high-quality mobile apps across industries and platforms.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // 條列區塊
+                val points = listOf(
+                    "Specialized in taking products from concept to launch, including defining specs and analyzing metrics.",
+                    "Effective in both independent and cross-functional team environments with clear communication.",
+                    "Delivered 20+ app products, including those with 100M+ downloads and Editor’s Choice awards.",
+                    "Experienced in supervising engineering and product teams across international settings.",
+                    "Open source contributor and former organizer of Android Taipei, Taiwan’s leading Android developer event."
+                )
+
+                points.forEachIndexed { index, point ->
+                    Row(
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Text(
+                            text = "•",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = point,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+
+                    // 不在最後一項才加 Divider
+                    if (index < points.lastIndex) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        HorizontalDivider(
+                            modifier = Modifier.padding(start = 12.dp, top = 4.dp),
+                            thickness = 0.5.dp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    onClick = { /* TODO: download CV */ },
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                ) {
+                    Text("DOWNLOAD CV")
+                }
+            }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // 簡介文字區塊
-        Text(
-            text = "With over 13 years of software development experience, proficient in creating high-quality apps.",
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        Text("• Specialized in taking products from concept to completion, including defining specifications and analyzing metrics, treating each project as a personal endeavor.")
-        Text("• Experienced in both independent work and collaborative team environments, with a strong emphasis on high-quality communication.")
-        Text("• Handled over 20 app products, including those with 100M+ downloads and official Editor’s Choice awards for best app of the year.")
-        Text("• Possesses experience in supervising various units, including engineering and product, in a multinational environment.")
-        Text("• Passionate about open source, and served as an organizer for Android Taipei, the most significant monthly event for Android Developers in Taiwan.")
     }
 }
 
