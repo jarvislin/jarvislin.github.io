@@ -15,11 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
 @Composable
-fun WaterfallDemo(items: List<String>) {
+fun WorkExperienceSection(items: List<WorkExperience>) {
     val leftItems = items.filterIndexed { i, _ -> i % 2 == 0 }
     val rightItems = items.filterIndexed { i, _ -> i % 2 != 0 }
 
@@ -39,8 +40,8 @@ fun WaterfallDemo(items: List<String>) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             leftItems.forEachIndexed { index, item ->
-                WaterfallCard(
-                    text = item,
+                WorkCard(
+                    experience = item,
                     onPositioned = { attr ->
                         if (leftAttrs.size > index) {
                             leftAttrs[index] = attr
@@ -103,8 +104,8 @@ fun WaterfallDemo(items: List<String>) {
                 if (index == 0) {
                     Spacer(Modifier.height(24.dp))
                 }
-                WaterfallCard(
-                    text = item,
+                WorkCard(
+                    experience = item,
                     onPositioned = { attr ->
                         if (rightAttrs.size > index) {
                             rightAttrs[index] = attr
@@ -119,9 +120,10 @@ fun WaterfallDemo(items: List<String>) {
 }
 
 @Composable
-fun WaterfallCard(
-    text: String,
-    onPositioned: (CardAttribute) -> Unit
+fun WorkCard(
+    experience: WorkExperience,
+    onPositioned: (CardAttribute) -> Unit,
+    modifier: Modifier = Modifier.padding(horizontal = 16.dp).padding(top = 12.dp)
 ) {
     Card(
         modifier = Modifier
@@ -133,13 +135,11 @@ fun WaterfallCard(
                 onPositioned(CardAttribute(y, height))
             }
     ) {
-        Box(
-            modifier = Modifier
-                .padding(8.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text)
-        }
+        experience.duration?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
+        experience.title?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
+        experience.company?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
+        experience.description?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
+        Spacer(Modifier.size(12.dp))
     }
 }
 
@@ -147,3 +147,10 @@ class CardAttribute(val y: Float, val height: Float) {
     val trianglePeakY: Float
         get() = y + 80f
 }
+
+class WorkExperience(
+    val duration: String?,
+    val title: String?,
+    val company: String?,
+    val description: String?
+)
