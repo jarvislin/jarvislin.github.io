@@ -9,6 +9,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -21,10 +23,8 @@ fun WaterfallDemo(items: List<String>) {
     val leftItems = items.filterIndexed { i, _ -> i % 2 == 0 }
     val rightItems = items.filterIndexed { i, _ -> i % 2 != 0 }
 
-    val leftY = remember { mutableStateListOf<Float>() }
-    val rightY = remember { mutableStateListOf<Float>() }
-    val offsetY = 60f
-    val tipOffset = 12f     // 尖端偏移（越大越遠離中線）
+    val leftAttrs = remember { mutableStateListOf<CardAttribute>() }
+    val rightAttrs = remember { mutableStateListOf<CardAttribute>() }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,17 +35,17 @@ fun WaterfallDemo(items: List<String>) {
             modifier = Modifier
                 .weight(1f)
                 .zIndex(1f)
-                .padding(end = 24.dp),
+                .padding(end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             leftItems.forEachIndexed { index, item ->
                 WaterfallCard(
                     text = item,
-                    onPositioned = { y ->
-                        if (leftY.size > index) {
-                            leftY[index] = y
+                    onPositioned = { attr ->
+                        if (leftAttrs.size > index) {
+                            leftAttrs[index] = attr
                         } else {
-                            leftY.add(y)
+                            leftAttrs.add(attr)
                         }
                     }
                 )
@@ -59,27 +59,32 @@ fun WaterfallDemo(items: List<String>) {
                 .fillMaxHeight()
         ) {
             Canvas(modifier = Modifier.fillMaxSize()) {
-                // 垂直黑線
-                drawRect(Color.Black)
-
                 val dividerX = size.width / 2f
                 val dividerXOffset = 20f
+                val triangleBaseHeight = 40f
+                val offsetX = 40f
 
-                leftY.forEach { y ->
+                val minY = (leftAttrs + rightAttrs).minBy { it.trianglePeakY }.trianglePeakY
+                val maxY = (leftAttrs + rightAttrs).maxBy { it.trianglePeakY }.trianglePeakY
+
+                // vertical divider
+                drawRect(Color.Black, topLeft = Offset(0f, minY), size = Size(width = 2.dp.toPx(), maxY - minY))
+
+                leftAttrs.forEach { attr ->
                     val path = Path().apply {
-                        moveTo(-40f, y - 10f)         // 左上角
-                        lineTo(-40f, y + 10f)         // 左下角
-                        lineTo(dividerX, y)           // 中間尖角
+                        moveTo(-offsetX, attr.trianglePeakY - triangleBaseHeight)         // 左上角
+                        lineTo(-offsetX, attr.trianglePeakY + triangleBaseHeight)         // 左下角
+                        lineTo(dividerX - dividerXOffset, attr.trianglePeakY)           // 中間尖角
                         close()
                     }
                     drawPath(path, Color.Gray)
                 }
 
-                rightY.forEach { y ->
+                rightAttrs.forEach { attr ->
                     val path = Path().apply {
-                        moveTo(size.width + 40f, y - 10f) // 右上角
-                        lineTo(size.width + 40f, y + 10f) // 右下角
-                        lineTo(dividerX, y)               // 中間尖角
+                        moveTo(size.width + offsetX, attr.trianglePeakY - triangleBaseHeight) // 右上角
+                        lineTo(size.width + offsetX, attr.trianglePeakY + triangleBaseHeight) // 右下角
+                        lineTo(dividerX + dividerXOffset, attr.trianglePeakY)               // 中間尖角
                         close()
                     }
                     drawPath(path, Color.Gray)
@@ -91,7 +96,7 @@ fun WaterfallDemo(items: List<String>) {
             modifier = Modifier
                 .weight(1f)
                 .zIndex(1f)
-                .padding(start = 4.dp),
+                .padding(start = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             rightItems.forEachIndexed { index, item ->
@@ -100,11 +105,11 @@ fun WaterfallDemo(items: List<String>) {
                 }
                 WaterfallCard(
                     text = item,
-                    onPositioned = { y ->
-                        if (rightY.size > index) {
-                            rightY[index] = y
+                    onPositioned = { attr ->
+                        if (rightAttrs.size > index) {
+                            rightAttrs[index] = attr
                         } else {
-                            rightY.add(y)
+                            rightAttrs.add(attr)
                         }
                     }
                 )
@@ -116,26 +121,29 @@ fun WaterfallDemo(items: List<String>) {
 @Composable
 fun WaterfallCard(
     text: String,
-    onPositioned: (Float) -> Unit
+    onPositioned: (CardAttribute) -> Unit
 ) {
-    val height = remember { (80..200).random().dp }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .onGloballyPositioned { layoutCoordinates ->
                 val y = layoutCoordinates.positionInParent().y
-                onPositioned(y)
+                val height = layoutCoordinates.size.height.toFloat()
+                onPositioned(CardAttribute(y, height))
             }
     ) {
         Box(
             modifier = Modifier
-                .height(height)
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(text)
         }
     }
+}
+
+class CardAttribute(val y: Float, val height: Float) {
+    val trianglePeakY: Float
+        get() = y + 80f
 }
