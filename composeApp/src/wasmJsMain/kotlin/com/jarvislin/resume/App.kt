@@ -28,7 +28,26 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
+            Text(
+                "Professional Skills",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
             SkillsSection()
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                "Work Experiences",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
             WorkExperienceSection(
                 listOf(
                     WorkExperience(

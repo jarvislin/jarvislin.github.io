@@ -31,14 +31,14 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
     val rightAttrs = remember { mutableStateListOf<CardAttribute>() }
 
     val colorCardBackground = MaterialTheme.colorScheme.surfaceContainerHighest
-    val colorDivider = MaterialTheme.colorScheme.primaryContainer
+    val colorDivider = MaterialTheme.colorScheme.secondaryContainer
     val colorCircle = MaterialTheme.colorScheme.primary
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .padding(8.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Column(
             modifier = Modifier
