@@ -1,8 +1,10 @@
 package com.jarvislin.resume.ui.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -15,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
@@ -135,10 +137,38 @@ fun WorkCard(
                 onPositioned(CardAttribute(y, height))
             }
     ) {
-        experience.duration?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
-        experience.title?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
-        experience.company?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
-        experience.description?.let { Text(it, modifier.align(Alignment.CenterHorizontally)) }
+        Spacer(Modifier.fillMaxWidth().height(8.dp).background(MaterialTheme.colorScheme.onPrimaryContainer))
+        experience.duration?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
+        }
+        experience.company?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
+        }
+        experience.title?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
+        }
+        experience.description?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = modifier.align(Alignment.CenterHorizontally)
+            )
+        }
         Spacer(Modifier.size(12.dp))
     }
 }

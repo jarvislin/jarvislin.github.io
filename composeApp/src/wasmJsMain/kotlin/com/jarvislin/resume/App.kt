@@ -32,15 +32,15 @@ fun App() {
                     WorkExperience(
                         duration = "Nov 2024 - Present",
                         title = "Founder & CEO",
-                        company = "JINNO LLC",
+                        company = "JINNO",
                         description =
-                        "Defined and executed the company’s vision, mission, and long-term strategy" +
+                        "Defined and executed the company’s vision, mission, and long-term strategy." +
                                 "\n\n" +
-                                "Built and launched AI-powered multilingual communication products used in tourism, hospitality, and social impact sectors" +
+                                "Built and launched AI-powered multilingual communication products used in tourism, hospitality, and social impact sectors." +
                                 "\n\n"
-                                + "Engaged directly with enterprise clients to identify pain points and deliver custom solutions" +
+                                + "Engaged directly with enterprise clients to identify pain points and deliver custom solutions." +
                                 "\n\n" +
-                                "Advocated for inclusive technology to bridge language barriers in underserved communities"
+                                "Advocated for inclusive technology to bridge language barriers in underserved communities."
                     ),
                     WorkExperience(
                         duration = "Nov 2022 - Jun 2024",
