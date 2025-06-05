@@ -1,18 +1,17 @@
 package com.jarvislin.resume
 
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jarvislin.resume.ui.components.ProfileSection
-import com.jarvislin.resume.ui.components.SkillsSection
-import com.jarvislin.resume.ui.components.WorkExperience
-import com.jarvislin.resume.ui.components.WorkExperienceSection
+import com.jarvislin.resume.ui.components.*
 
 @Composable
 fun App() {
@@ -26,12 +25,20 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ProfileSection()
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                "About",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            AboutSection()
             Spacer(modifier = Modifier.height(32.dp))
             Text(
                 "Professional Skills",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
@@ -40,9 +47,8 @@ fun App() {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
                 "Work Experiences",
-                fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
