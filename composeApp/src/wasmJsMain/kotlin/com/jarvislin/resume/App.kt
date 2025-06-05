@@ -159,6 +159,17 @@ fun App() {
                     ),
                 )
             )
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                "Awards and Achievements",
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            AchievementSection()
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
