@@ -27,7 +27,6 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
-
                 ProfileSection()
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
@@ -181,6 +180,15 @@ fun App() {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 PortfolioSection()
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = "References",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                ReferenceSection()
                 Spacer(modifier = Modifier.height(32.dp))
             }
         }
