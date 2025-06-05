@@ -101,10 +101,12 @@ fun TestimonialCard(
                 Text(
                     text = author,
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(start = 36.dp)
                 )
                 Text(
                     text = title.uppercase(),
                     style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 36.dp)
                 )
             }
 
