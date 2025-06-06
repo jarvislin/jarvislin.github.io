@@ -190,6 +190,15 @@ fun App() {
                 Spacer(modifier = Modifier.height(16.dp))
                 ReferenceSection()
                 Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    "Contact Me",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                ContactSection()
+                Spacer(modifier = Modifier.height(32.dp))
             }
         }
     }
