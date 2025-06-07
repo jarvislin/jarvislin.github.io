@@ -40,11 +40,21 @@ fun App() {
                     "Professional Skills",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
                 SkillsSection(useMobileLayout)
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    "Achievements",
+                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                AchievementSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Work Experiences",
@@ -164,19 +174,9 @@ fun App() {
                     useMobileLayout
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                Text(
-                    "Awards and Achievements",
-                    fontWeight = FontWeight.Medium,
-                    style = MaterialTheme.typography.headlineMedium,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
 
-                Spacer(modifier = Modifier.height(16.dp))
-                AchievementSection(useMobileLayout)
-                Spacer(modifier = Modifier.height(32.dp))
                 Text(
-                    text = "Portfolio",
+                    text = "Projects",
                     fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onSurface,

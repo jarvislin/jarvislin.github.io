@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -33,6 +34,7 @@ fun PortfolioSection(useMobileLayout: Boolean) {
 
     var selectedTab by remember { mutableStateOf<ProjectCategory>(ProjectCategory.All) }
     val tabs = ProjectCategory.getAll()
+    var countOfLoadedProjects by remember { mutableStateOf(12) }
 
     val projects = listOf(
         Project("KMP Hub", ProjectCategory.Side, Res.drawable.kmp_hub),
@@ -94,11 +96,21 @@ fun PortfolioSection(useMobileLayout: Boolean) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth().heightIn(max = 3000.dp)
         ) {
-            val filtered =
-                if (selectedTab == ProjectCategory.All) projects else projects.filter { it.category == selectedTab }
+            val filtered = if (selectedTab == ProjectCategory.All) projects.take(countOfLoadedProjects)
+            else projects.filter { it.category == selectedTab }
             items(filtered) { item ->
                 PortfolioCard(item, useMobileLayout)
             }
+        }
+
+        if (countOfLoadedProjects != projects.size && selectedTab == ProjectCategory.All) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Button(onClick = {
+                countOfLoadedProjects = projects.size
+            }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text("LOAD MORE", fontWeight = FontWeight.Bold)
+            }
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
@@ -148,7 +160,7 @@ data class Project(
 sealed class ProjectCategory(val displayName: String) {
     data object All : ProjectCategory("All")
     data object Work : ProjectCategory("Work")
-    data object Side : ProjectCategory("Side Project")
+    data object Side : ProjectCategory("Side Hustle")
 
     companion object {
         fun getAll() = listOf(All, Work, Side)

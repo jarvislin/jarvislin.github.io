@@ -1,6 +1,7 @@
 package com.jarvislin.resume.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -73,7 +74,7 @@ fun MobileProfileCard(profile: Profile, handler: UriHandler) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row {
+            Row(Modifier.clickable { NewTabUriHandler.openUri("mailto:${profile.email}") }) {
                 Icon(painter = painterResource(Res.drawable.mail_24px), contentDescription = "Email")
                 Text(
                     profile.email,

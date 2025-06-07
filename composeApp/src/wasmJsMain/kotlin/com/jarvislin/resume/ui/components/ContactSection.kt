@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
@@ -39,7 +40,7 @@ fun ContactSection() {
         )
         Spacer(Modifier.size(16.dp))
         Button(onClick = { }, modifier = Modifier.padding(horizontal = 16.dp).align(CenterHorizontally)) {
-            Text("Submit")
+            Text("SUBMIT", fontWeight = FontWeight.Bold)
         }
     }
 }
