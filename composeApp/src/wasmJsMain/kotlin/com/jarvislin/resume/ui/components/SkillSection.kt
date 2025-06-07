@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SkillsSection() {
+fun SkillsSection(useMobileLayout: Boolean) {
     val allSkills: List<Skill> = listOf(
         "Android Development" to 0.95f,
         "Git" to 0.7f,
@@ -34,15 +34,23 @@ fun SkillsSection() {
     val skillsLeft = allSkills.filterIndexed { index, skill -> index % 2 == 0 }
     val skillsRight = allSkills.filterIndexed { index, skill -> index % 2 == 1 }
 
-    Card(
+    Column(
         modifier = Modifier
-            .widthIn(max= maxWebComponentWidth)
-            .fillMaxWidth()
-    ) {
-        Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            Column(modifier = Modifier.weight(1f)) { skillsLeft.map { SkillBar(it) } }
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) { skillsRight.map { SkillBar(it) } }
+            .padding(horizontal = 16.dp)
+            .widthIn(max = maxWebComponentWidth)
+    )  {
+        Card{
+            if (useMobileLayout) {
+                Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                    allSkills.map { SkillBar(it) }
+                }
+            } else {
+                Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                    Column(modifier = Modifier.weight(1f)) { skillsLeft.map { SkillBar(it) } }
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Column(modifier = Modifier.weight(1f)) { skillsRight.map { SkillBar(it) } }
+                }
+            }
         }
     }
 }

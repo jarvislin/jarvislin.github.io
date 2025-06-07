@@ -3,13 +3,8 @@ package com.jarvislin.resume
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,10 +13,8 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.jarvislin.resume.ui.components.*
 import com.jarvislin.resume.ui.darkScheme
-import com.jarvislin.resume.ui.lightScheme
 
 @Composable
 fun App() {
@@ -57,7 +50,7 @@ fun App() {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-                SkillsSection()
+                SkillsSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Work Experiences",
@@ -173,7 +166,8 @@ fun App() {
                                     "\n\n" +
                                     "Contributed to the implementation of Scen3D and SaaSPhoto, focusing on front-end and integration tasks."
                         ),
-                    )
+                    ),
+                    useMobileLayout
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
@@ -185,7 +179,7 @@ fun App() {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-                AchievementSection()
+                AchievementSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = "Portfolio",

@@ -3,9 +3,7 @@ package com.jarvislin.resume.ui.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -21,10 +19,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 
 @Composable
-fun WorkExperienceSection(workExps: List<WorkExperience>) {
+fun WorkExperienceSection(workExps: List<WorkExperience>, useMobileLayout: Boolean) {
     if (workExps.isEmpty()) {
         return
     }
+
+    if (useMobileLayout) {
+        Column(Modifier.padding(horizontal = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            workExps.forEachIndexed { index, workExperience ->
+                WorkCard(workExperience)
+                if (index != workExps.lastIndex && workExps.size > 1) {
+                    VerticalDivider(
+                        modifier = Modifier.height(16.dp),
+                        color = MaterialTheme.colorScheme.secondaryContainer,
+                        thickness = 2.dp
+                    )
+                }
+            }
+        }
+    } else {
+        WebWorkLayout(workExps)
+    }
+}
+
+@Composable
+fun WebWorkLayout(workExps: List<WorkExperience>) {
     val leftItems = workExps.filterIndexed { i, _ -> i % 2 == 0 }
     val rightItems = workExps.filterIndexed { i, _ -> i % 2 != 0 }
 
@@ -35,8 +54,11 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
     val colorDivider = MaterialTheme.colorScheme.secondaryContainer
     val colorCircle = MaterialTheme.colorScheme.primary
 
-
-    Row(modifier = Modifier.widthIn(max = maxWebComponentWidth)) {
+    Row(
+        modifier = Modifier
+            .widthIn(max = maxWebComponentWidth + 32.dp) // todo: why?
+            .padding(horizontal = 16.dp)
+    ) {
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -148,14 +170,13 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
                 )
             }
         }
-
     }
 }
 
 @Composable
 fun WorkCard(
     experience: WorkExperience,
-    onPositioned: (CardAttribute) -> Unit,
+    onPositioned: (CardAttribute) -> Unit = {},
     textModifier: Modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()
 ) {
     Card(

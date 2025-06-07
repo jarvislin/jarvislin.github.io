@@ -14,55 +14,60 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
+import resume.composeapp.generated.resources.*
 import resume.composeapp.generated.resources.Res
-import resume.composeapp.generated.resources.avatar_16_9
+import resume.composeapp.generated.resources.competition
+import resume.composeapp.generated.resources.mvp
 
 @Composable
-fun AchievementSection() {
+fun AchievementSection(useMobileLayout: Boolean) {
     val achievements = listOf(
         Achievement(
             "From Doubt to MVP",
             "Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.",
-            painterResource(Res.drawable.avatar_16_9)
+            painterResource(Res.drawable.mvp)
         ),
         Achievement(
             "A Celebration of Victory",
             "As the Co-founder and Technical Director, I participated in the startup competition among 141 teams, and we emerged as the champions.",
-            painterResource(Res.drawable.avatar_16_9)
+            painterResource(Res.drawable.competition)
         ),
         Achievement(
             "Google Play Conquest",
             "My self-crafted app soared to the top of the play store’s free rankings, a testament to my passion and dedication.",
-            painterResource(Res.drawable.avatar_16_9)
+            painterResource(Res.drawable.top)
         )
     )
 
-    achievements.chunked(3) // todo
-        .forEach { items ->
-            Row(
-                modifier = Modifier
-                    .widthIn(max= maxWebComponentWidth)
-                    .let {
-                        if (items.size > 1) {
-                            // make items the same height
-                            it.height(IntrinsicSize.Max)
-                        } else {
-                            // .height() will not work when the row has only one item
-                            it
-                        }
-                    },
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items.forEach {
-                    AchievementCard(
-                        it.title,
-                        it.description,
-                        it.image,
-                        modifier = Modifier.weight(1f).fillMaxHeight()
-                    )
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        achievements.chunked(if (useMobileLayout) 1 else 3)
+            .forEach { items ->
+                Row(
+                    modifier = Modifier
+                        .widthIn(max = maxWebComponentWidth + 32.dp) // todo: why?
+                        .padding(horizontal = 16.dp)
+                        .let {
+                            if (items.size > 1) {
+                                // make items the same height
+                                it.height(IntrinsicSize.Max)
+                            } else {
+                                // .height(IntrinsicSize.Max) will not work when the row has only one item
+                                it
+                            }
+                        },
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items.forEach {
+                        AchievementCard(
+                            it.title,
+                            it.description,
+                            it.image,
+                            modifier = Modifier.weight(1f).fillMaxHeight()
+                        )
+                    }
                 }
             }
-        }
+    }
 }
 
 @Composable
@@ -80,8 +85,9 @@ fun AchievementCard(
             contentDescription = title,
             modifier = Modifier
                 .fillMaxWidth()
+                .aspectRatio(16f / 9f)
                 .clip(RoundedCornerShape(12.dp)),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.Crop
         )
         Text(
             text = title,
