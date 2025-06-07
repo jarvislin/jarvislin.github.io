@@ -36,8 +36,8 @@ fun SkillsSection() {
 
     Card(
         modifier = Modifier
+            .widthIn(max= maxWebComponentWidth)
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Column(modifier = Modifier.weight(1f)) { skillsLeft.map { SkillBar(it) } }

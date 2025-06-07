@@ -67,8 +67,7 @@ fun TestimonialCard(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .widthIn(max= maxWebComponentWidth)
     ) {
         Row(
             modifier = Modifier

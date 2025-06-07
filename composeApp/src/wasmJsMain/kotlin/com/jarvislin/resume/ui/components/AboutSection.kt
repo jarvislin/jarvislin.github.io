@@ -13,7 +13,7 @@ fun AboutSection() {
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .fillMaxWidth(),
+            .widthIn(max = maxWebComponentWidth),
     ) {
         Column(
             modifier = Modifier

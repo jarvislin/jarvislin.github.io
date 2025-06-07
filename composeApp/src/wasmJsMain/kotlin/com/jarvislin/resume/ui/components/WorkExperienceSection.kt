@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -34,12 +35,8 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
     val colorDivider = MaterialTheme.colorScheme.secondaryContainer
     val colorCircle = MaterialTheme.colorScheme.primary
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-            .padding(horizontal = 16.dp)
-    ) {
+
+    Row(modifier = Modifier.widthIn(max = maxWebComponentWidth)) {
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -139,12 +136,19 @@ fun WorkExperienceSection(workExps: List<WorkExperience>) {
                             rightAttrs[index] =
                                 attr.copy(calculatedTrianglePeakY = attr.getCalculatedTrianglePeakY(leftAttrs[index].trianglePeakY))
                         } else {
-                            rightAttrs.add(attr.copy(calculatedTrianglePeakY = attr.getCalculatedTrianglePeakY(leftAttrs[index].trianglePeakY)))
+                            rightAttrs.add(
+                                attr.copy(
+                                    calculatedTrianglePeakY = attr.getCalculatedTrianglePeakY(
+                                        leftAttrs[index].trianglePeakY
+                                    )
+                                )
+                            )
                         }
                     }
                 )
             }
         }
+
     }
 }
 

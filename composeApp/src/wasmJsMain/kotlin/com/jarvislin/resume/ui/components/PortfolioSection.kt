@@ -38,7 +38,7 @@ fun PortfolioSection() {
         Project("TUMBLR", "WORK", Res.drawable.avatar_16_9)
     )
 
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
 
         // Tabs
         Row(

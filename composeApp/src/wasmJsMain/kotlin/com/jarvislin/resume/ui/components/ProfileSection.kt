@@ -17,7 +17,7 @@ import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
 
 @Composable
-fun ProfileSection(useMobileLayout: Boolean = false) {
+fun ProfileSection(useMobileLayout: Boolean) {
     val profile = Profile(
         name = "Jarvis Lin",
         title = "Founder · Developer · Impact Creator",
@@ -131,7 +131,7 @@ fun MobileProfileCard(profile: Profile, handler: UriHandler) {
 @Composable
 fun WebProfileCard(profile: Profile, handler: UriHandler) {
     Card(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).widthIn(max = 840.dp).heightIn(max = 320.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).widthIn(max = maxWebComponentWidth).heightIn(max = 320.dp),
     ) {
         Row(
             modifier = Modifier
@@ -207,6 +207,8 @@ fun WebProfileCard(profile: Profile, handler: UriHandler) {
         }
     }
 }
+
+val maxWebComponentWidth = 840.dp
 
 
 data class Profile(

@@ -13,7 +13,7 @@ fun ContactSection() {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
-    Card(Modifier.padding(horizontal = 16.dp)) {
+    Card(Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
         Spacer(Modifier.height(12.dp))
         Text(
             text = "Consulting Inquiry",

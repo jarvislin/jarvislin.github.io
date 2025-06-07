@@ -37,12 +37,11 @@ fun AchievementSection() {
         )
     )
 
-    achievements.chunked(2) // todo
+    achievements.chunked(3) // todo
         .forEach { items ->
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                    .widthIn(max= maxWebComponentWidth)
                     .let {
                         if (items.size > 1) {
                             // make items the same height
