@@ -34,15 +34,7 @@ fun App() {
         ) {
             item {
                 ProfileSection(useMobileLayout)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    "About",
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                AboutSection()
+                AboutSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Professional Skills",
