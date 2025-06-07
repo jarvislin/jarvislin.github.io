@@ -22,20 +22,38 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import resume.composeapp.generated.resources.*
 import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.avatar_16_9
+import resume.composeapp.generated.resources.hackernews
+import resume.composeapp.generated.resources.jetpack
 
 @Composable
-fun PortfolioSection() {
+fun PortfolioSection(useMobileLayout: Boolean) {
 
-    var selectedTab by remember { mutableStateOf("ALL") }
-    val tabs = listOf("ALL", "SIDE PROJECT", "WORK")
+    var selectedTab by remember { mutableStateOf<ProjectCategory>(ProjectCategory.All) }
+    val tabs = ProjectCategory.getAll()
 
     val projects = listOf(
-        Project("HACKER NEWS KMP", "SIDE PROJECT", Res.drawable.avatar_16_9),
-        Project("JETPACK", "WORK", Res.drawable.avatar_16_9),
-        Project("WORDPRESS", "WORK", Res.drawable.avatar_16_9),
-        Project("TUMBLR", "WORK", Res.drawable.avatar_16_9)
+        Project("KMP Hub", ProjectCategory.Side, Res.drawable.kmp_hub),
+        Project("Hacker News KMP", ProjectCategory.Side, Res.drawable.hackernews),
+        Project("Jetpack", ProjectCategory.Work, Res.drawable.jetpack),
+        Project("WordPress", ProjectCategory.Work, Res.drawable.wordpress),
+        Project("Tumblr", ProjectCategory.Work, Res.drawable.tumblr),
+        Project("BikesHere", ProjectCategory.Side, Res.drawable.bike),
+        Project("Life in Taiwan", ProjectCategory.Side, Res.drawable.life),
+        Project("Mask Map", ProjectCategory.Side, Res.drawable.mask),
+        Project("Adoptly", ProjectCategory.Side, Res.drawable.adoptly),
+        Project("IndoChat", ProjectCategory.Work, Res.drawable.indochat),
+        Project("Autopass", ProjectCategory.Work, Res.drawable.autopass),
+        Project("PKLOT App", ProjectCategory.Work, Res.drawable.pklotapp),
+        Project("Calories 100", ProjectCategory.Work, Res.drawable.calories100),
+        Project("Crops Price Checker", ProjectCategory.Side, Res.drawable.crops_price_checker),
+        Project("Water Restriction Info", ProjectCategory.Side, Res.drawable.water_rectriction_info),
+        Project("Car Finder", ProjectCategory.Side, Res.drawable.car_finder),
+        Project("Baby Formula", ProjectCategory.Side, Res.drawable.baby_formula),
+        Project("Small Trade", ProjectCategory.Work, Res.drawable.small_trade),
+        Project("VR for 3D", ProjectCategory.Work, Res.drawable.vr_for_3d),
     )
 
     Column(modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
@@ -48,7 +66,7 @@ fun PortfolioSection() {
             tabs.forEach { tab ->
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = tab,
+                        text = tab.displayName,
                         color = if (selectedTab == tab) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
@@ -71,13 +89,13 @@ fun PortfolioSection() {
 
         // Grid
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(if (useMobileLayout) 3 else 4),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
-                .heightIn(max = 1000.dp), // 限高避免內部無限展開
+            modifier = Modifier.fillMaxWidth().heightIn(max = 3000.dp)
         ) {
-            val filtered = if (selectedTab == "ALL") projects else projects.filter { it.category == selectedTab }
+            val filtered =
+                if (selectedTab == ProjectCategory.All) projects else projects.filter { it.category == selectedTab }
             items(filtered) { item ->
                 PortfolioCard(item)
             }
@@ -114,13 +132,23 @@ fun PortfolioCard(item: Project) {
                 .padding(12.dp)
         ) {
             Text(text = item.title, color = Color.White, fontWeight = FontWeight.Bold)
-            Text(text = item.category, color = Color.LightGray, fontSize = 12.sp)
+            Text(text = item.category.displayName, color = Color.LightGray, fontSize = 12.sp)
         }
     }
 }
 
 data class Project(
     val title: String,
-    val category: String,
+    val category: ProjectCategory,
     val imageRes: DrawableResource
 )
+
+sealed class ProjectCategory(val displayName: String) {
+    data object All : ProjectCategory("All")
+    data object Work : ProjectCategory("Work")
+    data object Side : ProjectCategory("Side Project")
+
+    companion object {
+        fun getAll() = listOf(All, Work, Side)
+    }
+}
