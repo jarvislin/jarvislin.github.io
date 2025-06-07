@@ -8,107 +8,219 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.utils.NewTabUriHandler
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
 
 @Composable
-fun ProfileSection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        // 頭像與基本資料卡
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-
-            Image(
-                painter = painterResource(Res.drawable.avatar_16_9),
-                contentDescription = "Jarvis Lin",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp))
+fun ProfileSection(useMobileLayout: Boolean = false) {
+    val profile = Profile(
+        name = "Jarvis Lin",
+        title = "Founder · Developer · Impact Creator",
+        email = "admin@jarvislin.com",
+        location = "Taipei, Taiwan",
+        education = "National Formosa University, Bachelor, Computer Science and Information Engineering (2007-2011)",
+        avatar = Res.drawable.avatar_16_9,
+        links = listOf(
+            SocialLink(
+                icon = Res.drawable.home,
+                contentDescription = "Homepage",
+                url = "https://jarvislin.com"
+            ),
+            SocialLink(
+                icon = Res.drawable.github,
+                contentDescription = "GitHub",
+                url = "https://github.com/jarvislin"
+            ),
+            SocialLink(
+                icon = Res.drawable.linkedin,
+                contentDescription = "LinkedIn",
+                url = "https://linkedin.com/in/jarvislin"
             )
+        )
+    )
+    val handler = NewTabUriHandler
+    if (useMobileLayout) {
+        MobileProfileCard(profile, handler)
+    } else {
+        WebProfileCard(profile, handler)
+    }
+}
 
-            Spacer(modifier = Modifier.height(12.dp))
+@Composable
+fun MobileProfileCard(profile: Profile, handler: UriHandler) {
+    Card(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+    ) {
+        Image(
+            painter = painterResource(profile.avatar),
+            contentDescription = profile.name,
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+        )
 
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                Text("Jarvis Lin", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
-                Text("Founder · Developer · Impact Creator", style = MaterialTheme.typography.bodyLarge)
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Text(profile.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
+            Text(profile.title, style = MaterialTheme.typography.bodyLarge)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row {
+                Icon(painter = painterResource(Res.drawable.mail_24px), contentDescription = "Email")
+                Text(
+                    profile.email,
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            Row {
+                Icon(painter = painterResource(Res.drawable.location_on_24px), contentDescription = "Location")
+                Text(
+                    profile.location,
+                    Modifier.padding(horizontal = 8.dp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            Row {
+                Icon(painter = painterResource(Res.drawable.school_24px), contentDescription = "School")
+                Text(
+                    profile.education,
+                    Modifier.padding(horizontal = 8.dp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        HorizontalDivider()
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(top = 8.dp, bottom = 12.dp),
+        ) {
+            profile.links.forEachIndexed { index, link ->
+                IconButton(
+                    onClick = { handler.openUri(link.url) },
+                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(
+                        painter = painterResource(link.icon),
+                        contentDescription = link.contentDescription,
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+                if (index != profile.links.lastIndex) Spacer(Modifier.width(8.dp))
+            }
+        }
+    }
+}
+
+
+@Composable
+fun WebProfileCard(profile: Profile, handler: UriHandler) {
+    Card(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).widthIn(max = 840.dp).heightIn(max = 320.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)
+        ) {
+            Image(
+                painter = painterResource(profile.avatar),
+                contentDescription = profile.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .heightIn(max = 320.dp)
+                    .fillMaxHeight()
+                    .aspectRatio(3f / 4f)
+            )
+            Column(Modifier.padding(horizontal = 32.dp).weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+                Text(profile.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
+                Text(profile.title, style = MaterialTheme.typography.bodyLarge)
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row {
                     Icon(painter = painterResource(Res.drawable.mail_24px), contentDescription = "Email")
-                    Text("admin@jarvislin.com", modifier = Modifier.padding(horizontal = 8.dp))
+                    Text(
+                        profile.email,
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
                 Spacer(modifier = Modifier.height(6.dp))
                 Row {
                     Icon(painter = painterResource(Res.drawable.location_on_24px), contentDescription = "Location")
-                    Text("Taipei, Taiwan", Modifier.padding(horizontal = 8.dp))
+                    Text(
+                        profile.location,
+                        Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
                 Spacer(modifier = Modifier.height(6.dp))
                 Row {
                     Icon(painter = painterResource(Res.drawable.school_24px), contentDescription = "School")
                     Text(
-                        "National Formosa University, Bachelor, Computer Science and Information Engineering",
-                        Modifier.padding(horizontal = 8.dp)
+                        profile.education,
+                        Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-            HorizontalDivider()
-            // 社群連結
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp).padding(top = 8.dp, bottom = 12.dp),
-            ) {
+                Spacer(modifier = Modifier.height(12.dp))
 
-                IconButton(
-                    onClick = {},
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
+                HorizontalDivider()
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical =  12.dp),
                 ) {
-                    Icon(
-                        painter = painterResource(Res.drawable.home),
-                        contentDescription = "Homepage",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-                Spacer(Modifier.width(8.dp))
-                IconButton(
-                    onClick = {},
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
-                ) {
-                    Icon(
-                        painter = painterResource(Res.drawable.github),
-                        contentDescription = "GitHub",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-                Spacer(Modifier.width(8.dp))
-                IconButton(
-                    onClick = {},
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
-                ) {
-                    Icon(
-                        painter = painterResource(Res.drawable.linkedin),
-                        contentDescription = "LinkedIn",
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
+                    profile.links.forEachIndexed { index, link ->
+                        IconButton(
+                            onClick = { handler.openUri(link.url) },
+                            colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
+                        ) {
+                            Icon(
+                                painter = painterResource(link.icon),
+                                contentDescription = link.contentDescription,
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                        if (index != profile.links.lastIndex) Spacer(Modifier.width(12.dp))
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun InfoRow(label: String, value: String) {
-    Column(modifier = Modifier.padding(vertical = 2.dp)) {
-        Text(label, style = MaterialTheme.typography.bodySmall)
-        Text(value, style = MaterialTheme.typography.bodyMedium)
-    }
-}
+
+data class Profile(
+    val name: String,
+    val title: String,
+    val email: String,
+    val location: String,
+    val education: String,
+    val avatar: DrawableResource,
+    val links: List<SocialLink>
+)
+
+data class SocialLink(
+    val icon: DrawableResource,
+    val contentDescription: String,
+    val url: String
+)

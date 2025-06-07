@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -22,6 +23,8 @@ fun AboutSection() {
             Text(
                 text = "With over 13 years of experience building high-quality mobile apps across industries and platforms.",
                 style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -42,12 +45,13 @@ fun AboutSection() {
                     Text(
                         text = "•",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier.padding(end = 8.dp)
                     )
                     Text(
                         text = point,
                         style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 

@@ -1,5 +1,6 @@
 package com.jarvislin.resume
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -8,31 +9,42 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jarvislin.resume.ui.components.*
+import com.jarvislin.resume.ui.darkScheme
+import com.jarvislin.resume.ui.lightScheme
 
 @Composable
 fun App() {
-    MaterialTheme {
+    val density = LocalDensity.current.density
+    val screenWidth = LocalWindowInfo.current.containerSize.width / density
+    val useMobileLayout = screenWidth <= 768
+
+    MaterialTheme(colorScheme = darkScheme) {
         LazyColumn(
             modifier = Modifier
                 .safeContentPadding()
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surface),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
-                ProfileSection()
+                ProfileSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     "About",
                     style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 AboutSection()
@@ -40,7 +52,8 @@ fun App() {
                 Text(
                     "Professional Skills",
                     style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -48,8 +61,9 @@ fun App() {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Work Experiences",
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -164,9 +178,10 @@ fun App() {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Awards and Achievements",
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -174,8 +189,9 @@ fun App() {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = "Portfolio",
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -183,8 +199,9 @@ fun App() {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     text = "References",
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -192,8 +209,9 @@ fun App() {
                 Spacer(modifier = Modifier.height(32.dp))
                 Text(
                     "Contact Me",
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
