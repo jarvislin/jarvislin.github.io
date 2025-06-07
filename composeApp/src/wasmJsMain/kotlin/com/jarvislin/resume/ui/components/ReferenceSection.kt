@@ -36,11 +36,6 @@ fun ReferenceSection() {
 
     var currentIndex by remember { mutableStateOf(0) }
 
-    LaunchedEffect(currentIndex) {
-        delay(5000L)
-        currentIndex = (currentIndex + 1) % references.size
-    }
-
     Crossfade(targetState = currentIndex, label = "TestimonialCrossfade") { index ->
         val reference = references[index]
         TestimonialCard(

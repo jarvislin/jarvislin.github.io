@@ -18,13 +18,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
 import resume.composeapp.generated.resources.Res
-import resume.composeapp.generated.resources.avatar_16_9
 import resume.composeapp.generated.resources.hackernews
 import resume.composeapp.generated.resources.jetpack
 
@@ -49,7 +49,7 @@ fun PortfolioSection(useMobileLayout: Boolean) {
         Project("PKLOT App", ProjectCategory.Work, Res.drawable.pklotapp),
         Project("Calories 100", ProjectCategory.Work, Res.drawable.calories100),
         Project("Crops Price Checker", ProjectCategory.Side, Res.drawable.crops_price_checker),
-        Project("Water Restriction Info", ProjectCategory.Side, Res.drawable.water_rectriction_info),
+        Project("Water Restriction", ProjectCategory.Side, Res.drawable.water_rectriction_info),
         Project("Car Finder", ProjectCategory.Side, Res.drawable.car_finder),
         Project("Baby Formula", ProjectCategory.Side, Res.drawable.baby_formula),
         Project("Small Trade", ProjectCategory.Work, Res.drawable.small_trade),
@@ -97,20 +97,20 @@ fun PortfolioSection(useMobileLayout: Boolean) {
             val filtered =
                 if (selectedTab == ProjectCategory.All) projects else projects.filter { it.category == selectedTab }
             items(filtered) { item ->
-                PortfolioCard(item)
+                PortfolioCard(item, useMobileLayout)
             }
         }
     }
 }
 
 @Composable
-fun PortfolioCard(item: Project) {
+fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)
             .clip(RoundedCornerShape(8.dp))
-            .background(Color.DarkGray)
+            .background(Color.White)
     ) {
         Image(
             painter = painterResource(item.imageRes),
@@ -119,7 +119,7 @@ fun PortfolioCard(item: Project) {
             modifier = Modifier.matchParentSize()
         )
 
-        // 遮罩
+        // mask
         Box(
             modifier = Modifier
                 .matchParentSize()
@@ -128,11 +128,13 @@ fun PortfolioCard(item: Project) {
 
         Column(
             modifier = Modifier
-                .align(Alignment.BottomStart)
+                .align(if (useMobileLayout) Alignment.BottomCenter else Alignment.BottomStart)
                 .padding(12.dp)
         ) {
-            Text(text = item.title, color = Color.White, fontWeight = FontWeight.Bold)
-            Text(text = item.category.displayName, color = Color.LightGray, fontSize = 12.sp)
+            Text(text = item.title, color = Color.White, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            if (useMobileLayout.not()) {
+                Text(text = item.category.displayName, color = Color.LightGray, fontSize = 12.sp)
+            }
         }
     }
 }
