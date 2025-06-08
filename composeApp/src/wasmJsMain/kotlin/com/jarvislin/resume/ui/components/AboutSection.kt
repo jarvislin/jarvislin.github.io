@@ -24,7 +24,7 @@ fun AboutSection(useMobileLayout: Boolean) {
     ) {
         OutlinedButton(
             onClick = { /* TODO */ },
-            modifier = Modifier.padding(horizontal = 8.dp).align(CenterHorizontally),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).align(CenterHorizontally),
         ) {
             Text("DOWNLOAD RESUME")
         }

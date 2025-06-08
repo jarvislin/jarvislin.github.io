@@ -1,13 +1,18 @@
 package com.jarvislin.resume
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
@@ -16,16 +21,23 @@ import androidx.compose.ui.unit.dp
 import com.jarvislin.resume.ui.components.*
 import com.jarvislin.resume.ui.darkScheme
 import com.jarvislin.resume.ui.lightScheme
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
+import resume.composeapp.generated.resources.Res
+import resume.composeapp.generated.resources.logo
 
 @Composable
 fun App() {
     val density = LocalDensity.current.density
     val screenWidth = LocalWindowInfo.current.containerSize.width / density
     val useMobileLayout = screenWidth <= 768
-    var useDarkTheme by remember { mutableStateOf(true) }
+    var useDarkTheme by remember { mutableStateOf(false) }
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
     MaterialTheme(colorScheme = if (useDarkTheme) darkScheme else lightScheme) {
         LazyColumn(
+            state = listState,
             modifier = Modifier
                 .safeContentPadding()
                 .fillMaxSize()
@@ -33,19 +45,62 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
+                Box(
+                    Modifier.fillMaxWidth().shadow(elevation = 4.dp)
+                        .background(color = MaterialTheme.colorScheme.secondaryContainer)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Image(
+                            painterResource(Res.drawable.logo),
+                            "logo",
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(1) } }) {
+                            Text("ABOUT", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(2) } }) {
+                            Text("SKILLS", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(3) } }) {
+                            Text("ACHIEVEMENTS", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(4) } }) {
+                            Text("EXPERIENCES", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(5) } }) {
+                            Text("PROJECTS", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(6) } }) {
+                            Text("REFERENCES", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                        TextButton(onClick = { scope.launch { listState.animateScrollToItem(7) } }) {
+                            Text("CONTACT", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 ProfileSection(useMobileLayout)
                 AboutSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 Text(
                     "Professional Skills",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
                 SkillsSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 Text(
                     "Achievements",
                     fontWeight = FontWeight.Medium,
@@ -56,6 +111,8 @@ fun App() {
                 Spacer(modifier = Modifier.height(16.dp))
                 AchievementSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 Text(
                     "Work Experiences",
                     fontWeight = FontWeight.Medium,
@@ -174,7 +231,8 @@ fun App() {
                     useMobileLayout
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-
+            }
+            item {
                 Text(
                     text = "Projects",
                     fontWeight = FontWeight.Medium,
@@ -185,6 +243,8 @@ fun App() {
                 Spacer(modifier = Modifier.height(16.dp))
                 PortfolioSection(useMobileLayout)
                 Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 Text(
                     text = "References",
                     fontWeight = FontWeight.Medium,
@@ -195,6 +255,8 @@ fun App() {
                 Spacer(modifier = Modifier.height(16.dp))
                 ReferenceSection()
                 Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
                 Text(
                     "Contact Me",
                     fontWeight = FontWeight.Medium,
