@@ -77,7 +77,7 @@ fun TestimonialCard(
                     Icon(
                         painter = painterResource(Res.drawable.quote),
                         contentDescription = "Quote",
-                        tint = MaterialTheme.colorScheme.tertiary,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(28.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
