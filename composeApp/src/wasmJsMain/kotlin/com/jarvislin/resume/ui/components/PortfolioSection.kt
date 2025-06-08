@@ -270,26 +270,24 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
     Column(modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
 
         // Tabs
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
+        Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
             tabs.forEach { tab ->
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = tab.displayName,
-                        color = if (selectedTab == tab) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier
-                            .clickable { selectedTab = tab }
-                    )
+                Box(contentAlignment = Alignment.TopCenter) {
+                    TextButton(onClick = { selectedTab = tab }) {
+                        Text(
+                            text = tab.displayName,
+                            color = if (selectedTab == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                    }
                     if (selectedTab == tab) {
-                        Box(
+                        HorizontalDivider(
+                            thickness = 2.dp,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
-                                .padding(top = 4.dp)
-                                .height(2.dp)
+                                .padding(top = MaterialTheme.typography.bodyMedium.fontSize.value.dp + 24.dp)
                                 .width(24.dp)
-                                .background(MaterialTheme.colorScheme.tertiary)
                         )
                     }
                 }
@@ -315,7 +313,7 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
         if (countOfLoadedProjects < projects.size && selectedTab == Project.Category.All) {
             Spacer(modifier = Modifier.height(24.dp))
             AssistChip(
-                onClick = {  onClickLoad() },
+                onClick = { onClickLoad() },
                 label = { Text("LOAD MORE") },
                 leadingIcon = {
                     Icon(
