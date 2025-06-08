@@ -23,7 +23,6 @@ import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.logo
 
 
-
 @Composable
 fun ResponsiveMenuBar(menuItems: List<MenuItem>, listState: LazyListState) {
     val density = LocalDensity.current.density
@@ -87,12 +86,17 @@ fun ResponsiveMenuBar(menuItems: List<MenuItem>, listState: LazyListState) {
 }
 
 @Composable
-fun MenuDialog(onDismissRequest: () -> Unit, menuItems: List<MenuItem>, scope: CoroutineScope, listState: LazyListState) {
+fun MenuDialog(
+    onDismissRequest: () -> Unit,
+    menuItems: List<MenuItem>,
+    scope: CoroutineScope,
+    listState: LazyListState
+) {
     Dialog(onDismissRequest = onDismissRequest) {
         Card {
             Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                 menuItems.forEach {
-                    TextButton(onClick = {
+                    TextButton(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = {
                         scope.launch {
                             onDismissRequest()
                             listState.animateScrollToItem(it.index)
@@ -100,6 +104,9 @@ fun MenuDialog(onDismissRequest: () -> Unit, menuItems: List<MenuItem>, scope: C
                     }) {
                         Text(it.text, color = MaterialTheme.colorScheme.onSecondaryContainer)
                     }
+                }
+                TextButton(onClick = { onDismissRequest() }, Modifier.align(Alignment.CenterHorizontally)) {
+                    Text("Dismiss")
                 }
             }
         }

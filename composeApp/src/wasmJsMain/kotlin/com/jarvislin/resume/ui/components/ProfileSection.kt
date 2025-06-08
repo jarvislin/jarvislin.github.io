@@ -26,7 +26,7 @@ fun ProfileSection(useMobileLayout: Boolean) {
         title = "Founder · Developer · Impact Creator",
         email = "admin@jarvislin.com",
         location = "Taipei, Taiwan",
-        education = "National Formosa University, Bachelor, Computer Science and Information Engineering (2007-2011)",
+        education = "National Formosa University, Bachelor, Computer Science and Information Engineering",
         avatar = Res.drawable.avatar_16_9,
         links = listOf(
             SocialLink(
