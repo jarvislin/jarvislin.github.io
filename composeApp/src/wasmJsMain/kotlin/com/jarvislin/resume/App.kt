@@ -84,7 +84,7 @@ fun App() {
                         color = MaterialTheme.colorScheme.onSurface,
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     PortfolioSection(useMobileLayout, { countOfLoadedProjects = 100 }, countOfLoadedProjects)
                 }
                 item {

@@ -268,7 +268,6 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
     )
 
     Column(modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
-
         // Tabs
         Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
             tabs.forEach { tab ->
