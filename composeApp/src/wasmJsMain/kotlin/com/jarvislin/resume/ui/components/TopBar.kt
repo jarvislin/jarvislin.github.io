@@ -95,17 +95,21 @@ fun MenuDialog(
     Dialog(onDismissRequest = onDismissRequest) {
         Card {
             Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-                menuItems.forEach {
-                    TextButton(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = {
+                Text("Navigate to", fontWeight = FontWeight.Bold)
+                menuItems.forEachIndexed { index, item ->
+                    TextButton(onClick = {
                         scope.launch {
                             onDismissRequest()
-                            listState.animateScrollToItem(it.index)
+                            listState.animateScrollToItem(item.index)
                         }
-                    }) {
-                        Text(it.text, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    }, modifier = Modifier.widthIn(200.dp)) {
+                        Text(item.text, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    }
+                    if (index != menuItems.lastIndex) {
+                        HorizontalDivider(modifier = Modifier.widthIn(max = 200.dp))
                     }
                 }
-                TextButton(onClick = { onDismissRequest() }, Modifier.align(Alignment.CenterHorizontally)) {
+                TextButton(onClick = { onDismissRequest() }, modifier = Modifier.align(Alignment.End)) {
                     Text("Dismiss")
                 }
             }
