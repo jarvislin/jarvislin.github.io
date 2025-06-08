@@ -199,19 +199,20 @@ fun WorkCard(
                 modifier = textModifier.padding(top = 12.dp)
             )
         }
-        experience.company?.let {
-            Text(
-                it,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = textModifier.padding(top = 12.dp)
-            )
-        }
+
         experience.title?.let {
             Text(
                 it,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 modifier = textModifier.padding(top = 8.dp)
+            )
+        }
+        experience.company?.let {
+            Text(
+                it,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = textModifier
             )
         }
         experience.description?.let {
