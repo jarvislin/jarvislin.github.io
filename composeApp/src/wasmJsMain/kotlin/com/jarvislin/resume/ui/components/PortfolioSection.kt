@@ -34,25 +34,139 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
     var selectedTab by remember { mutableStateOf<ProjectCategory>(ProjectCategory.All) }
     val tabs = ProjectCategory.getAll()
     val projects = listOf(
-        Project("KMP Hub", ProjectCategory.Side, Res.drawable.kmp_hub),
-        Project("Hacker News KMP", ProjectCategory.Side, Res.drawable.hackernews),
-        Project("Jetpack", ProjectCategory.Work, Res.drawable.jetpack),
-        Project("WordPress", ProjectCategory.Work, Res.drawable.wordpress),
-        Project("Tumblr", ProjectCategory.Work, Res.drawable.tumblr),
-        Project("BikesHere", ProjectCategory.Side, Res.drawable.bike),
-        Project("Life in Taiwan", ProjectCategory.Side, Res.drawable.life),
-        Project("Mask Map", ProjectCategory.Side, Res.drawable.mask),
-        Project("Adoptly", ProjectCategory.Side, Res.drawable.adoptly),
-        Project("IndoChat", ProjectCategory.Work, Res.drawable.indochat),
-        Project("Autopass", ProjectCategory.Work, Res.drawable.autopass),
-        Project("PKLOT App", ProjectCategory.Work, Res.drawable.pklotapp),
-        Project("Calories 100", ProjectCategory.Work, Res.drawable.calories100),
-        Project("Crops Price Checker", ProjectCategory.Side, Res.drawable.crops_price_checker),
-        Project("Water Restriction", ProjectCategory.Side, Res.drawable.water_rectriction_info),
-        Project("Car Finder", ProjectCategory.Side, Res.drawable.car_finder),
-        Project("Baby Formula", ProjectCategory.Side, Res.drawable.baby_formula),
-        Project("Small Trade", ProjectCategory.Work, Res.drawable.small_trade),
-        Project("VR for 3D", ProjectCategory.Work, Res.drawable.vr_for_3d),
+        Project(
+            "KMP Hub",
+            category = ProjectCategory.Side,
+            image = Res.drawable.kmp_hub,
+            tags = listOf("Web", "Compose Multiplatform", "Kotlin"),
+            description = "KMP Hub is a curated platform for discovering Kotlin Multiplatform libraries and tools. We aim to help developers explore the KMP ecosystem, accelerate cross-platform development, and foster community collaboration."
+        ),
+        Project(
+            "Hacker News KMP",
+            category = ProjectCategory.Side,
+            image = Res.drawable.hackernews,
+            tags = listOf("App", "Android", "iOS", "Compose Multiplatform", "Kotlin"),
+            description = "This app is an open-source project, designed to showcase the capabilities of Kotlin Multiplatform Compose, delivering a seamless reading experience across Android and iOS platforms."
+        ),
+        Project(
+            "Jetpack",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Kotlin"),
+            image = Res.drawable.jetpack,
+            description = "Jetpack is an app that provides powerful tools and features to enhance WordPress sites, including site security, performance optimization, and content management. It allows users to monitor their site’s activity, manage plugins, and view detailed statistics, all from their devices."
+        ),
+        Project(
+            "WordPress",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.wordpress,
+            description = "WordPress is a mobile app that allows users to create, manage, and publish content on their WordPress blogs or websites directly from their devices. It offers features for writing posts, uploading photos, managing comments, and viewing site statistics, making it a powerful tool for bloggers and website owners on the go."
+        ),
+        Project(
+            "Tumblr",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.tumblr,
+            description = "Tumblr is a microblogging and social networking app where users can post multimedia content and follow other users' blogs. It combines elements of blogging and social networking, allowing for a wide range of creative expression."
+        ),
+        Project(
+            "BikesHere",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.bike,
+            description = "Provides geographic information for over 6,000 public bikes across Taiwan, including YouBike, YouBike 2.0, iBike, T-Bike, Pbike, K-bike, and more."
+        ),
+        Project(
+            "Life in Taiwan",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.life,
+            description = "It is a comprehensive science education app that provides detailed information on various species, including animals, plants, and insects, to enhance biodiversity knowledge. It offers visual and written content in both English and Chinese, sourced from reputable institutions like the Biodiversity Research Center and Academia Sinica."
+        ),
+        Project(
+            "Mask Map",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.mask,
+            description = "When the epidemic broke out, the Taiwanese government restricted the quantity of masks that each citizen was able to buy. Also, the pharmacies are the only place where the public can purchase the mask. Therefore, this information can be helpful for those people who want to buy masks from surrounding pharmacies. <strong>It took Top 1 in Free Apps on Google Play in March 2020 in Taiwan.</strong>"
+        ),
+        Project(
+            "Adoptly",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.adoptly,
+            description = "Adoptly provides a way to adopt animals which live in shelters. It also shows information about shelters."
+        ),
+        Project(
+            "IndoChat",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.indochat,
+            description = "This is a comprehensive mobile application developed for the Indonesian government that offers a suite of features including chat, video/audio calling, social media integration, news feeds, and invoice scanning capabilities."
+        ),
+        Project(
+            "Autopass",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.autopass,
+            description = "This is a location-based platform offering a range of services for drivers, including finding parking and refueling options."
+        ),
+        Project(
+            "PKLOT App",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.pklotapp,
+            description = "This app is a parking and refueling assistant that allows users to locate available parking spaces and make payments. It was recognized as one of the best apps on Google Play in Taiwan in both 2016 and 2017."
+        ),
+        Project(
+            "Calories 100",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Kotlin"),
+            image = Res.drawable.calories100,
+            description = "It's an app for calculating calorie content in foods which also provides features of social media platform which integrated Facebook API. Our nutritionists will reply to users by using this function."
+        ),
+        Project(
+            "Crops Price Checker",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "iOS", "Compose Multiplatform", "Kotlin", "Java"),
+            image = Res.drawable.crops_price_checker,
+            description = "It is a tool that retrieves open data from Taiwan's Council of Agriculture to display current and historical prices of fruits and vegetables."
+        ),
+        Project(
+            "Water Restriction",
+            category = ProjectCategory.Side,
+            image = Res.drawable.water_rectriction_info,
+            tags = listOf("App", "Android", "Java"),
+            description = "It's an app which fetches information about water restriction from our government because we had a serious drought in 2016. It also provided reservoirs' water levels to remind people to save water resource."
+        ),
+        Project(
+            "Car Finder",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Android", "Kotlin", "Java"),
+            image = Res.drawable.car_finder,
+            description = "Car Finder is for people who can't find their car just like me. It uses GPS to detect location, and takes pictures to assist in recording parking information. It also provides navigation so we can find our car easily."
+        ),
+        Project(
+            "Baby Formula",
+            category = ProjectCategory.Side,
+            tags = listOf("App", "Backend", "Android", "Java", "PHP"),
+            image = Res.drawable.baby_formula,
+            description = "This application was developed for a programming contest hosted by Taiwan's Food and Drug Administration, Ministry of Health and Welfare. It utilizes a milk formula dataset approved for sale in Taiwan. To enhance the dataset's utility, I expanded its scope and integrated a platform for user information sharing."
+        ),
+        Project(
+            "Small Trade",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Java"),
+            image = Res.drawable.small_trade,
+            description = "It's a C2C platform, sellers can post their products online, upload pictures and videos that make their products authentic."
+        ),
+        Project(
+            "VR for 3D",
+            category = ProjectCategory.Work,
+            tags = listOf("App", "Android", "Java"),
+            image = Res.drawable.vr_for_3d,
+            description = "This is a 3D model viewer designed to showcase models created with Ortery's'hardware. Users can explore a variety of sample models through this app."
+        ),
     )
 
     Column(modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)) {
@@ -112,15 +226,17 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
 
 @Composable
 fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
+    var showDialog by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)
             .clip(RoundedCornerShape(8.dp))
             .background(Color.White)
+            .clickable { showDialog = true }
     ) {
         Image(
-            painter = painterResource(item.imageRes),
+            painter = painterResource(item.image),
             contentDescription = item.title,
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
@@ -143,13 +259,19 @@ fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
                 Text(text = item.category.displayName, color = Color.LightGray, fontSize = 12.sp)
             }
         }
+        if (showDialog) {
+            PortfolioDialog(project = item, { showDialog = false })
+        }
     }
 }
 
 data class Project(
     val title: String,
+    val description: String,
+    val tags: List<String> = emptyList(),
     val category: ProjectCategory,
-    val imageRes: DrawableResource
+    val image: DrawableResource,
+    val screenShots: List<DrawableResource> = emptyList(),
 )
 
 sealed class ProjectCategory(val displayName: String) {
