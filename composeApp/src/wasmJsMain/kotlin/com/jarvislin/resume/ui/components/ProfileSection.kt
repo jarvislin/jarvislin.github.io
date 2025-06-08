@@ -2,10 +2,12 @@ package com.jarvislin.resume.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -74,7 +76,10 @@ fun MobileProfileCard(profile: Profile, handler: UriHandler) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row(Modifier.clickable { NewTabUriHandler.openUri("mailto:${profile.email}") }) {
+            Row(Modifier.clickable(indication = null, // remove ripple / hover
+                interactionSource = remember { MutableInteractionSource() }) {
+                NewTabUriHandler.openUri("mailto:${profile.email}")
+            }) {
                 Icon(painter = painterResource(Res.drawable.mail_24px), contentDescription = "Email")
                 Text(
                     profile.email,
@@ -132,7 +137,8 @@ fun MobileProfileCard(profile: Profile, handler: UriHandler) {
 @Composable
 fun WebProfileCard(profile: Profile, handler: UriHandler) {
     Card(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).widthIn(max = maxWebComponentWidth).heightIn(max = 320.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).widthIn(max = maxWebComponentWidth)
+            .heightIn(max = 320.dp),
     ) {
         Row(
             modifier = Modifier
@@ -149,7 +155,10 @@ fun WebProfileCard(profile: Profile, handler: UriHandler) {
                     .fillMaxHeight()
                     .aspectRatio(3f / 4f)
             )
-            Column(Modifier.padding(horizontal = 32.dp).weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Column(
+                Modifier.padding(horizontal = 32.dp).weight(1f).fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
                 Text(profile.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge)
                 Text(profile.title, style = MaterialTheme.typography.bodyLarge)
 
@@ -188,7 +197,7 @@ fun WebProfileCard(profile: Profile, handler: UriHandler) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical =  12.dp),
+                        .padding(vertical = 12.dp),
                 ) {
                     profile.links.forEachIndexed { index, link ->
                         IconButton(
