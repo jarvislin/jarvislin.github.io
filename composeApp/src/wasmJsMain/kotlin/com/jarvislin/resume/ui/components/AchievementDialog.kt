@@ -1,10 +1,6 @@
 package com.jarvislin.resume.ui.components
 
-import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,12 +36,13 @@ fun AchievementDialog(achievement: Achievement, onDismiss: () -> Unit) {
                     Text(achievement.article, Modifier.padding(horizontal = 16.dp, vertical = 12.dp))
                 }
             }
+
             IconButton(
-                onClick = onDismiss,
                 modifier = Modifier.align(Alignment.TopStart).padding(vertical = 32.dp, horizontal = 16.dp),
+                onClick = onDismiss,
                 colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    contentColor = MaterialTheme.colorScheme.onSurface,
+                    containerColor = MaterialTheme.colorScheme.inverseSurface,
+                    contentColor = MaterialTheme.colorScheme.inverseOnSurface,
                 )
             ) {
                 Icon(painterResource(Res.drawable.close), "Dismiss")
