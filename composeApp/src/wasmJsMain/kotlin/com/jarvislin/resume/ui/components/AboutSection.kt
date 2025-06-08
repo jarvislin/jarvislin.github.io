@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.utils.NewTabUriHandler
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
@@ -23,7 +24,7 @@ fun AboutSection(useMobileLayout: Boolean) {
         modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)
     ) {
         OutlinedButton(
-            onClick = { /* TODO */ },
+            onClick = { NewTabUriHandler.openUri("https://docs.google.com/document/d/1wDqUnpi0reyuV5TDLAdiXqFRug8cZcEg/edit?usp=sharing&ouid=105112559597624733277&rtpof=true&sd=true") },
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).align(CenterHorizontally),
         ) {
             Text("DOWNLOAD RESUME")
