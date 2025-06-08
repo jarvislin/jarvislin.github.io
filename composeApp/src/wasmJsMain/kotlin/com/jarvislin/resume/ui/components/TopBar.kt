@@ -25,9 +25,9 @@ import resume.composeapp.generated.resources.logo
 
 @Composable
 fun ResponsiveMenuBar(menuItems: List<MenuItem>, listState: LazyListState, useMobileLayout: Boolean) {
-//    val density = LocalDensity.current.density
-//    val screenWidth = LocalWindowInfo.current.containerSize.width / density
-//    val useMobileLayout = screenWidth <= 840
+    val density = LocalDensity.current.density
+    val screenWidth = LocalWindowInfo.current.containerSize.width / density
+    val maxMenuBarWidth = 1200.dp.value
     val scope = rememberCoroutineScope()
     var showDialog by remember { mutableStateOf(false) }
     var currentIndex by remember { mutableStateOf(0) }
@@ -50,7 +50,10 @@ fun ResponsiveMenuBar(menuItems: List<MenuItem>, listState: LazyListState, useMo
             .background(color = MaterialTheme.colorScheme.secondaryContainer)
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier.padding(
+                horizontal = if (screenWidth >= maxMenuBarWidth) ((screenWidth - maxMenuBarWidth) / 2).dp else 16.dp,
+                vertical = 8.dp
+            ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
