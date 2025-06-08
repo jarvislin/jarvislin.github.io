@@ -14,7 +14,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.jarvislin.resume.utils.NewTabUriHandler
 import org.jetbrains.compose.resources.painterResource
+import resume.composeapp.generated.resources.Res
+import resume.composeapp.generated.resources.apple
+import resume.composeapp.generated.resources.github
+import resume.composeapp.generated.resources.play_store
 
 @Composable
 fun PortfolioDialog(project: Project, onDismiss: () -> Unit) {
@@ -62,6 +67,31 @@ fun PortfolioDialog(project: Project, onDismiss: () -> Unit) {
                         Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    project.links.takeIf { it.isNotEmpty() }?.let { links ->
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        ) {
+                            links.forEach {
+                                AssistChip(
+                                    onClick = { NewTabUriHandler.openUri(it.url) },
+                                    label = { Text(it.title) },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(
+                                                when (it.type) {
+                                                    Project.Link.Type.GitHub -> Res.drawable.github
+                                                    Project.Link.Type.PlayStore -> Res.drawable.play_store
+                                                    Project.Link.Type.AppStore -> Res.drawable.apple
+                                                }
+                                            ),
+                                            contentDescription = it.title
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
                 }
                 TextButton(
                     onClick = { onDismiss() },
