@@ -42,6 +42,7 @@ fun App() {
                     .padding(paddingValues)
                     .safeContentPadding()
                     .fillMaxSize()
+                    .widthIn(min = 240.dp)
                     .background(MaterialTheme.colorScheme.surface),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
