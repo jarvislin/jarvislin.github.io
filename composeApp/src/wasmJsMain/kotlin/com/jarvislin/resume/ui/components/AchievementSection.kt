@@ -96,12 +96,14 @@ fun AchievementCard(
         Text(
             text = achievement.title,
             style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(top = 12.dp, bottom = 6.dp).padding(horizontal = 16.dp)
         )
         Text(
             text = achievement.description,
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
         Spacer(Modifier.height(12.dp))

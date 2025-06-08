@@ -203,7 +203,6 @@ fun WorkCard(
             Text(
                 it,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
                 modifier = textModifier.padding(top = 12.dp)
             )
         }
@@ -211,7 +210,7 @@ fun WorkCard(
             Text(
                 it,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 modifier = textModifier.padding(top = 8.dp)
             )
         }
@@ -219,6 +218,7 @@ fun WorkCard(
             Text(
                 it,
                 style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = textModifier.padding(top = 12.dp),
             )
         }

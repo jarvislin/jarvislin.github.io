@@ -101,6 +101,7 @@ fun TestimonialCard(
                 Text(
                     text = title.uppercase(),
                     style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 36.dp)
                 )
             }

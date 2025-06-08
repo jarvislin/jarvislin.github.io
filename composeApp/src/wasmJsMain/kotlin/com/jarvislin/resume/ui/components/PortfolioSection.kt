@@ -362,9 +362,18 @@ fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
                 .align(if (useMobileLayout) Alignment.BottomCenter else Alignment.BottomStart)
                 .padding(12.dp)
         ) {
-            Text(text = item.title, color = Color.White, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            Text(
+                text = item.title,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
             if (useMobileLayout.not()) {
-                Text(text = item.category.displayName, color = Color.LightGray, fontSize = 12.sp)
+                Text(
+                    text = item.category.displayName,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 12.sp
+                )
             }
         }
         if (showDialog) {
