@@ -39,10 +39,7 @@ fun ResponsiveMenuBar(menuItems: List<MenuItem>, listState: LazyListState) {
                 val lastVisibleItemIndex = visibleItems.lastOrNull()?.index ?: 0
 
                 currentIndex = when {
-                    firstVisibleItemIndex <= 1 -> 0
-                    lastVisibleItemIndex == 6 || (firstVisibleItemIndex == 5 && lastVisibleItemIndex == 6) -> 5
-                    lastVisibleItemIndex == 8 -> 7
-                    lastVisibleItemIndex == 7 -> 6
+                    lastVisibleItemIndex == menuItems.lastIndex -> lastVisibleItemIndex
                     else -> firstVisibleItemIndex
                 }
             }

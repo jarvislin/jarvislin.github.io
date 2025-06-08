@@ -27,12 +27,12 @@ fun App() {
 
     val menuItems = listOf(
         MenuItem("ABOUT", 0),
-        MenuItem("SKILLS", 2),
-        MenuItem("ACHIEVEMENTS", 3),
-        MenuItem("EXPERIENCES", 4),
-        MenuItem("PROJECTS", 5),
-        MenuItem("REFERENCES", 6),
-        MenuItem("CONTACT", 7),
+        MenuItem("SKILLS", 1),
+        MenuItem("ACHIEVEMENTS", 2),
+        MenuItem("PROJECTS", 3),
+        MenuItem("REFERENCES", 4),
+        MenuItem("EXPERIENCES", 5),
+        MenuItem("CONTACT", 6),
     )
 
     MaterialTheme(colorScheme = if (useDarkTheme) darkScheme else lightScheme) {
@@ -47,13 +47,13 @@ fun App() {
                     .background(MaterialTheme.colorScheme.surface),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                item { Spacer(modifier = Modifier.height(32.dp)) }
                 item {
+                    Spacer(modifier = Modifier.height(32.dp))
                     ProfileSection(useMobileLayout)
                     AboutSection(useMobileLayout)
-                    Spacer(modifier = Modifier.height(32.dp))
                 }
                 item {
+                    Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         "Professional Skills",
                         style = MaterialTheme.typography.headlineMedium,
@@ -62,9 +62,9 @@ fun App() {
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     SkillsSection(useMobileLayout)
-                    Spacer(modifier = Modifier.height(32.dp))
                 }
                 item {
+                    Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         "Achievements",
                         fontWeight = FontWeight.Medium,
@@ -74,9 +74,34 @@ fun App() {
 
                     Spacer(modifier = Modifier.height(16.dp))
                     AchievementSection(useMobileLayout)
-                    Spacer(modifier = Modifier.height(32.dp))
                 }
                 item {
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = "Projects",
+                        fontWeight = FontWeight.Medium,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    PortfolioSection(useMobileLayout, { countOfLoadedProjects = 100 }, countOfLoadedProjects)
+                }
+                item {
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = "References",
+                        fontWeight = FontWeight.Medium,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    ReferenceSection()
+
+                }
+                item {
+                    Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         "Work Experiences",
                         fontWeight = FontWeight.Medium,
@@ -194,33 +219,9 @@ fun App() {
                         ),
                         useMobileLayout
                     )
-                    Spacer(modifier = Modifier.height(32.dp))
                 }
                 item {
-                    Text(
-                        text = "Projects",
-                        fontWeight = FontWeight.Medium,
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    PortfolioSection(useMobileLayout, { countOfLoadedProjects = 100 }, countOfLoadedProjects)
                     Spacer(modifier = Modifier.height(32.dp))
-                }
-                item {
-                    Text(
-                        text = "References",
-                        fontWeight = FontWeight.Medium,
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    ReferenceSection()
-                    Spacer(modifier = Modifier.height(32.dp))
-                }
-                item {
                     Text(
                         "Contact Me",
                         fontWeight = FontWeight.Medium,
@@ -230,8 +231,6 @@ fun App() {
 
                     Spacer(modifier = Modifier.height(16.dp))
                     ContactSection()
-                }
-                item {
                     Spacer(modifier = Modifier.height(32.dp))
                 }
             }
