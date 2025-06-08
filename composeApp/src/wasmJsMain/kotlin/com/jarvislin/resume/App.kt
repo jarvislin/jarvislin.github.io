@@ -30,13 +30,13 @@ fun App() {
         MenuItem("SKILLS", 1),
         MenuItem("ACHIEVEMENTS", 2),
         MenuItem("PROJECTS", 3),
-        MenuItem("REFERENCES", 4),
-        MenuItem("EXPERIENCES", 5),
-        MenuItem("CONTACT", 6),
+        MenuItem("EXPERIENCES", 4),
+        MenuItem("REFERENCES", 5),
+//        MenuItem("CONTACT", 6),
     )
 
     MaterialTheme(colorScheme = if (useDarkTheme) darkScheme else lightScheme) {
-        Scaffold(topBar = { ResponsiveMenuBar(menuItems, listState) }) { paddingValues ->
+        Scaffold(topBar = { ResponsiveMenuBar(menuItems, listState, useMobileLayout) }) { paddingValues ->
             LazyColumn(
                 state = listState,
                 modifier = Modifier
@@ -86,19 +86,6 @@ fun App() {
 
                     Spacer(modifier = Modifier.height(16.dp))
                     PortfolioSection(useMobileLayout, { countOfLoadedProjects = 100 }, countOfLoadedProjects)
-                }
-                item {
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Text(
-                        text = "References",
-                        fontWeight = FontWeight.Medium,
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    ReferenceSection()
-
                 }
                 item {
                     Spacer(modifier = Modifier.height(32.dp))
@@ -223,16 +210,29 @@ fun App() {
                 item {
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
-                        "Contact Me",
+                        text = "References",
                         fontWeight = FontWeight.Medium,
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
-                    ContactSection()
+                    ReferenceSection()
                     Spacer(modifier = Modifier.height(32.dp))
                 }
+//                item {
+//                    Spacer(modifier = Modifier.height(32.dp))
+//                    Text(
+//                        "Contact Me",
+//                        fontWeight = FontWeight.Medium,
+//                        style = MaterialTheme.typography.headlineMedium,
+//                        color = MaterialTheme.colorScheme.onSurface,
+//                    )
+//
+//                    Spacer(modifier = Modifier.height(16.dp))
+//                    ContactSection()
+//                    Spacer(modifier = Modifier.height(32.dp))
+//                }
             }
         }
     }
