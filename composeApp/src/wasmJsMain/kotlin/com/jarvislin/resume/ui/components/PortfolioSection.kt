@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.jarvislin.resume.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,15 +11,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,6 +35,11 @@ import resume.composeapp.generated.resources.*
 fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfLoadedProjects: Int) {
     var selectedTab by remember { mutableStateOf<Project.Category>(Project.Category.All) }
     val tabs = Project.Category.getAll()
+    var isHovered by remember { mutableStateOf(false) }
+    val rotation by animateFloatAsState(
+        targetValue = if (isHovered) 90f else 0f,
+        label = "icon rotation"
+    )
     val projects = listOf(
         Project(
             "KMP Hub",
@@ -303,10 +313,22 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
         }
 
         if (countOfLoadedProjects < projects.size && selectedTab == Project.Category.All) {
-            Spacer(modifier = Modifier.height(12.dp))
-            Button(onClick = { onClickLoad() }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                Text("LOAD MORE", fontWeight = FontWeight.Bold)
-            }
+            Spacer(modifier = Modifier.height(24.dp))
+            AssistChip(
+                onClick = {  onClickLoad() },
+                label = { Text("LOAD MORE") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(Res.drawable.add),
+                        contentDescription = "Load more",
+                        modifier = Modifier.rotate(rotation)
+                    )
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .onPointerEvent(eventType = PointerEventType.Enter) { isHovered = true }
+                    .onPointerEvent(eventType = PointerEventType.Exit) { isHovered = false }
+            )
             Spacer(modifier = Modifier.height(12.dp))
         }
     }
