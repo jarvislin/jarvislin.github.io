@@ -83,9 +83,7 @@ fun AchievementCard(
     modifier: Modifier = Modifier
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    Card(
-        modifier = modifier.clickable { showDialog = true },
-    ) {
+    Card(onClick = { showDialog = true }, modifier = modifier) {
         Image(
             painter = achievement.image,
             contentDescription = achievement.title,
