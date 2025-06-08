@@ -23,6 +23,7 @@ fun App() {
     val useMobileLayout = screenWidth <= 768
     var useDarkTheme by remember { mutableStateOf(true) }
     val listState = rememberLazyListState()
+    var countOfLoadedProjects by remember { mutableStateOf(12) }
 
     val menuItems = listOf(
         MenuItem("ABOUT", 0),
@@ -204,7 +205,7 @@ fun App() {
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
-                    PortfolioSection(useMobileLayout)
+                    PortfolioSection(useMobileLayout, { countOfLoadedProjects = 100 }, countOfLoadedProjects)
                     Spacer(modifier = Modifier.height(32.dp))
                 }
                 item {

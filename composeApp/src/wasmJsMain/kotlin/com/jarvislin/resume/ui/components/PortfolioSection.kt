@@ -30,12 +30,9 @@ import resume.composeapp.generated.resources.hackernews
 import resume.composeapp.generated.resources.jetpack
 
 @Composable
-fun PortfolioSection(useMobileLayout: Boolean) {
-
+fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfLoadedProjects: Int) {
     var selectedTab by remember { mutableStateOf<ProjectCategory>(ProjectCategory.All) }
     val tabs = ProjectCategory.getAll()
-    var countOfLoadedProjects by remember { mutableStateOf(12) }
-
     val projects = listOf(
         Project("KMP Hub", ProjectCategory.Side, Res.drawable.kmp_hub),
         Project("Hacker News KMP", ProjectCategory.Side, Res.drawable.hackernews),
@@ -103,11 +100,9 @@ fun PortfolioSection(useMobileLayout: Boolean) {
             }
         }
 
-        if (countOfLoadedProjects != projects.size && selectedTab == ProjectCategory.All) {
+        if (countOfLoadedProjects < projects.size && selectedTab == ProjectCategory.All) {
             Spacer(modifier = Modifier.height(12.dp))
-            Button(onClick = {
-                countOfLoadedProjects = projects.size
-            }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Button(onClick = { onClickLoad() }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
                 Text("LOAD MORE", fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.height(12.dp))
