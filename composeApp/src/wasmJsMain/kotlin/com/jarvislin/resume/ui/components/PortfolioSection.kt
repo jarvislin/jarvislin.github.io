@@ -307,24 +307,18 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
         // Tabs
         Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
             tabs.forEach { tab ->
-                Box(contentAlignment = Alignment.TopCenter) {
-                    TextButton(onClick = { selectedTab = tab }) {
-                        Text(
-                            text = tab.displayName,
-                            color = if (selectedTab == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                    }
-                    if (selectedTab == tab) {
-                        HorizontalDivider(
-                            thickness = 2.dp,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier
-                                .padding(top = MaterialTheme.typography.bodyMedium.fontSize.value.dp + 24.dp)
-                                .width(24.dp)
-                        )
-                    }
+                TextButton(
+                    onClick = { selectedTab = tab },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = if (selectedTab == tab) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        containerColor = if (selectedTab == tab) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
+                    )
+                ) {
+                    Text(
+                        text = tab.displayName,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
             }
         }
