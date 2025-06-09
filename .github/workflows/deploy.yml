@@ -25,6 +25,9 @@ jobs:
       - name: Build Kotlin WASM Project
         run: ./gradlew wasmJsBrowserDistribution
 
+      - name: Copy loading.gif
+        run: cp assets/loading.gif composeApp/build/dist/wasmJs/productionExecutable/
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
