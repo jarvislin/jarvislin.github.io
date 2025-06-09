@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -163,6 +165,9 @@ fun ThumbnailGallery(screenShots: List<DrawableResource>) {
 
 @Composable
 fun GalleryViewerDialog(screenShots: List<DrawableResource>, index: Int, onDismiss: () -> Unit) {
+    val density = LocalDensity.current.density
+    val screenWidth = LocalWindowInfo.current.containerSize.width / density
+    val useMobileLayout = screenWidth < 768 // dp
     var currentImageIndex by remember { mutableStateOf(index) }
     Dialog(onDismissRequest = { onDismiss() }) {
         Column {
@@ -218,7 +223,12 @@ fun GalleryViewerDialog(screenShots: List<DrawableResource>, index: Int, onDismi
                         containerColor = MaterialTheme.colorScheme.secondary,
                         contentColor = MaterialTheme.colorScheme.onSecondary,
                         onClick = { currentImageIndex -= 1 },
-                        modifier = Modifier.align(Alignment.CenterStart).padding(horizontal = 16.dp)
+                        modifier = Modifier.align(Alignment.CenterStart)
+                            .padding(horizontal = if (useMobileLayout) 12.dp else 32.dp)
+                            .let {
+                                if (useMobileLayout) it.size(40.dp)
+                                else it
+                            }
                     ) {
                         Icon(painterResource(Res.drawable.arrow_left), contentDescription = "previous")
                     }
@@ -229,7 +239,12 @@ fun GalleryViewerDialog(screenShots: List<DrawableResource>, index: Int, onDismi
                         containerColor = MaterialTheme.colorScheme.secondary,
                         contentColor = MaterialTheme.colorScheme.onSecondary,
                         onClick = { currentImageIndex += 1 },
-                        modifier = Modifier.align(Alignment.CenterEnd).padding(horizontal = 16.dp)
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                            .padding(horizontal = if (useMobileLayout) 12.dp else 32.dp)
+                            .let {
+                                if (useMobileLayout) it.size(40.dp)
+                                else it
+                            }
                     ) {
                         Icon(painterResource(Res.drawable.arrow_right), contentDescription = "next")
                     }

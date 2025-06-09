@@ -20,7 +20,7 @@ import com.jarvislin.resume.ui.lightScheme
 fun App() {
     val density = LocalDensity.current.density
     val screenWidth = LocalWindowInfo.current.containerSize.width / density
-    val useMobileLayout = screenWidth <= 768 // dp
+    val useMobileLayout = screenWidth < 768 // dp
     var useDarkTheme by remember { mutableStateOf(true) }
     val listState = rememberLazyListState()
     var countOfLoadedProjects by remember { mutableStateOf(12) }

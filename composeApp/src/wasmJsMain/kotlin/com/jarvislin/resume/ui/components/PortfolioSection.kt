@@ -120,6 +120,13 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Side,
             tags = listOf("App", "Android", "Kotlin"),
             logo = Res.drawable.bike,
+            screenShots = listOf(
+                Res.drawable.screenshot_bikeshere_1,
+                Res.drawable.screenshot_bikeshere_2,
+                Res.drawable.screenshot_bikeshere_3,
+                Res.drawable.screenshot_bikeshere_4,
+                Res.drawable.screenshot_bikeshere_5,
+            ),
             description = "Provides geographic information for over 6,000 public bikes across Taiwan, including YouBike, YouBike 2.0, iBike, T-Bike, Pbike, K-bike, and more."
         ),
         Project(
@@ -127,6 +134,11 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Side,
             tags = listOf("App", "Android", "Kotlin"),
             logo = Res.drawable.life,
+            screenShots = listOf(
+                Res.drawable.screenshot_life_1,
+                Res.drawable.screenshot_life_2,
+                Res.drawable.screenshot_life_3,
+            ),
             description = "It is a comprehensive science education app that provides detailed information on various species, including animals, plants, and insects, to enhance biodiversity knowledge. It offers visual and written content in both English and Chinese, sourced from reputable institutions like the Biodiversity Research Center and Academia Sinica."
         ),
         Project(
@@ -153,6 +165,10 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Side,
             tags = listOf("App", "Android", "Kotlin"),
             logo = Res.drawable.adoptly,
+            screenShots = listOf(
+                Res.drawable.screenshot_adoptly_1,
+                Res.drawable.screenshot_adoptly_2,
+            ),
             description = "Adoptly provides a way to adopt animals which live in shelters. It also shows information about shelters."
         ),
         Project(
@@ -202,6 +218,11 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Work,
             tags = listOf("App", "Android", "Kotlin"),
             logo = Res.drawable.calories100,
+            screenShots = listOf(
+                Res.drawable.screenshot_calories_1,
+                Res.drawable.screenshot_calories_2,
+                Res.drawable.screenshot_calories_3,
+            ),
             description = "It's an app for calculating calorie content in foods which also provides features of social media platform which integrated Facebook API. Our nutritionists will reply to users by using this function."
         ),
         Project(
@@ -227,6 +248,10 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             "Water Restriction",
             category = Project.Category.Side,
             logo = Res.drawable.water_rectriction_info,
+            screenShots = listOf(
+                Res.drawable.screenshot_water_1,
+                Res.drawable.screenshot_water_2,
+            ),
             tags = listOf("App", "Android", "Java"),
             description = "It's an app which fetches information about water restriction from our government because we had a serious drought in 2016. It also provided reservoirs' water levels to remind people to save water resource."
         ),
@@ -249,6 +274,11 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Side,
             tags = listOf("App", "Backend", "Android", "Java", "PHP"),
             logo = Res.drawable.baby_formula,
+            screenShots = listOf(
+                Res.drawable.screenshot_babyformula_1,
+                Res.drawable.screenshot_babyformula_2,
+                Res.drawable.screenshot_babyformula_3
+            ),
             description = "This application was developed for a programming contest hosted by Taiwan's Food and Drug Administration, Ministry of Health and Welfare. It utilizes a milk formula dataset approved for sale in Taiwan. To enhance the dataset's utility, I expanded its scope and integrated a platform for user information sharing."
         ),
         Project(
@@ -264,6 +294,11 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             category = Project.Category.Work,
             tags = listOf("App", "Android", "Java"),
             logo = Res.drawable.vr_for_3d,
+            screenShots = listOf(
+                Res.drawable.screenshot_vrfor3d_1,
+                Res.drawable.screenshot_vrfor3d_2,
+                Res.drawable.screenshot_vrfor3d_3
+            ),
             description = "This is a 3D model viewer designed to showcase models created with Ortery's'hardware. Users can explore a variety of sample models through this app."
         ),
     )
