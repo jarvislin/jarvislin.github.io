@@ -11,6 +11,7 @@
       padding: 0;
       height: 100%;
       background-color: #0E1514;
+      overflow: hidden;
     }
 
     #loading-screen {
@@ -40,20 +41,13 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
-    #compose-container {
-      width: 100vw;
-      height: 100vh;
-    }
   </style>
 </head>
 <body>
-  <div id="loading-screen">
-    <div class="spinner"></div>
-  </div>
+<div id="loading-screen">
+  <div class="spinner"></div>
+</div>
 
-  <div id="compose-container"></div>
-
-  <script src="composeApp.js"></script>
+<script src="composeApp.js"></script>
 </body>
 </html>
