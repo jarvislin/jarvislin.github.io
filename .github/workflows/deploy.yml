@@ -25,8 +25,8 @@ jobs:
       - name: Build Kotlin WASM Project
         run: ./gradlew wasmJsBrowserDistribution
 
-      - name: Copy index.html
-        run: cp assets/index.html composeApp/build/dist/wasmJs/productionExecutable/
+      - name: Copy files
+        run: cp -r assets/* composeApp/build/dist/wasmJs/productionExecutable/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
