@@ -36,17 +36,12 @@ fun AchievementDialog(achievement: Achievement, onDismiss: () -> Unit) {
                     Text(achievement.article, Modifier.padding(horizontal = 16.dp, vertical = 12.dp))
                 }
             }
-
-            IconButton(
-                modifier = Modifier.align(Alignment.TopStart).padding(vertical = 32.dp, horizontal = 16.dp),
+            RotateIconButton(
                 onClick = onDismiss,
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.inverseSurface,
-                    contentColor = MaterialTheme.colorScheme.inverseOnSurface,
-                )
-            ) {
-                Icon(painterResource(Res.drawable.close), "Dismiss")
-            }
+                icon = painterResource(Res.drawable.close),
+                modifier = Modifier.align(Alignment.TopStart).padding(vertical = 32.dp, horizontal = 16.dp),
+                iconDesc = "Dismiss"
+            )
         }
     }
 }

@@ -2,17 +2,19 @@ package com.jarvislin.resume.ui.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -23,10 +25,6 @@ import com.jarvislin.resume.utils.NewTabUriHandler
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
-import resume.composeapp.generated.resources.Res
-import resume.composeapp.generated.resources.apple
-import resume.composeapp.generated.resources.github
-import resume.composeapp.generated.resources.play_store
 
 @Composable
 fun PortfolioDialog(project: Project, onDismiss: () -> Unit) {
@@ -171,16 +169,12 @@ fun GalleryViewerDialog(screenShots: List<DrawableResource>, index: Int, onDismi
     var currentImageIndex by remember { mutableStateOf(index) }
     Dialog(onDismissRequest = { onDismiss() }) {
         Column {
-            IconButton(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                onClick = { onDismiss() },
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Black
-                ),
-            ) {
-                Icon(painterResource(Res.drawable.close), contentDescription = "previous")
-            }
+            RotateIconButton(
+                onClick = onDismiss,
+                icon = painterResource(Res.drawable.close),
+                iconDesc = "Dismiss",
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
