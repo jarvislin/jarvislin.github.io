@@ -63,8 +63,8 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
             modifier = Modifier
                 .weight(1f)
                 .zIndex(1f)
-                .padding(end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(end = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             leftItems.forEachIndexed { index, item ->
                 WorkCard(
@@ -89,11 +89,9 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
         ) {
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val dividerX = size.width / 2f
-                val dividerXOffset = 20f
+                val dividerXOffset = 36f
                 val triangleBaseHeight = 40f
-                val offsetX = 40f
-
-
+                val offsetX = 60f
                 val minY = leftAttrs.first().trianglePeakY
                 val maxY = (leftAttrs + rightAttrs).maxBy { it.calculatedTrianglePeakY ?: it.trianglePeakY }.let {
                     it.calculatedTrianglePeakY ?: it.trianglePeakY
@@ -144,8 +142,8 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
             modifier = Modifier
                 .weight(1f)
                 .zIndex(1f)
-                .padding(start = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(start = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             rightItems.forEachIndexed { index, item ->
                 if (index == 0) {
