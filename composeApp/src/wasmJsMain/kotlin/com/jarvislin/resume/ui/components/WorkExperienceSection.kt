@@ -3,7 +3,10 @@ package com.jarvislin.resume.ui.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -17,6 +20,7 @@ import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.jarvislin.resume.data.WorkExperience
 
 @Composable
 fun WorkExperienceSection(workExps: List<WorkExperience>, useMobileLayout: Boolean) {
@@ -234,9 +238,3 @@ fun CardAttribute.getCalculatedTrianglePeakY(previousY: Float): Float =
     if (trianglePeakY - previousY <= 20) previousY + 80f
     else trianglePeakY
 
-class WorkExperience(
-    val duration: String?,
-    val title: String?,
-    val company: String?,
-    val description: String?
-)

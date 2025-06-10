@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
+import com.jarvislin.resume.data.Reference
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.arrow_left
@@ -128,8 +128,3 @@ fun TestimonialCard(
     }
 }
 
-data class Reference(
-    val author: String,
-    val title: String,
-    val quote: String,
-)

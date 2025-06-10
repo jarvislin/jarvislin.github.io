@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.DrawableResource
+import com.jarvislin.resume.data.Project
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
 
@@ -407,36 +407,6 @@ fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
         }
         if (showDialog) {
             PortfolioDialog(project = item) { showDialog = false }
-        }
-    }
-}
-
-data class Project(
-    val title: String,
-    val description: String,
-    val tags: List<String> = emptyList(),
-    val category: Category,
-    val logo: DrawableResource,
-    val links: List<Link> = emptyList(),
-    val screenShots: List<DrawableResource> = emptyList(),
-) {
-    data class Link(
-        val title: String,
-        val type: Type,
-        val url: String,
-    ) {
-        enum class Type {
-            GitHub, PlayStore, AppStore
-        }
-    }
-
-    sealed class Category(val displayName: String) {
-        data object All : Category("All")
-        data object Work : Category("Work")
-        data object Side : Category("Side Hustle")
-
-        companion object {
-            fun getAll() = listOf(All, Work, Side)
         }
     }
 }

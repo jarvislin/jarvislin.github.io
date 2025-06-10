@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.data.WorkExperience
 import com.jarvislin.resume.ui.components.*
 import com.jarvislin.resume.ui.darkScheme
 import com.jarvislin.resume.ui.lightScheme

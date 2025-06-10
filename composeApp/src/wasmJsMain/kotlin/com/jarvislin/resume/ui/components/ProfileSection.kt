@@ -14,8 +14,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.data.Profile
+import com.jarvislin.resume.data.SocialLink
 import com.jarvislin.resume.utils.NewTabUriHandler
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
 
@@ -221,18 +222,3 @@ fun WebProfileCard(profile: Profile, handler: UriHandler) {
 val maxWebComponentWidth = 840.dp
 
 
-data class Profile(
-    val name: String,
-    val title: String,
-    val email: String,
-    val location: String,
-    val education: String,
-    val avatar: DrawableResource,
-    val links: List<SocialLink>
-)
-
-data class SocialLink(
-    val icon: DrawableResource,
-    val contentDescription: String,
-    val url: String
-)

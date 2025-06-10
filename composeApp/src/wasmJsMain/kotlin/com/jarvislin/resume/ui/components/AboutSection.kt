@@ -11,12 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.data.About
 import com.jarvislin.resume.utils.NewTabUriHandler
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.*
-import resume.composeapp.generated.resources.Res
-import resume.composeapp.generated.resources.barchart
 
 @Composable
 fun AboutSection(useMobileLayout: Boolean) {
@@ -81,4 +79,3 @@ fun AboutCard(about: About, useMobileLayout: Boolean) {
     }
 }
 
-data class About(val description: String, val resource: DrawableResource)

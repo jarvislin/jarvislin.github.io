@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.jarvislin.resume.data.Achievement
 import org.jetbrains.compose.resources.painterResource
 import resume.composeapp.generated.resources.Res
 import resume.composeapp.generated.resources.close
