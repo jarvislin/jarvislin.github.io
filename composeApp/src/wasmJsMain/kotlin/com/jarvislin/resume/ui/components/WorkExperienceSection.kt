@@ -84,7 +84,7 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
         // Divider + Triangle Path
         Box(
             modifier = Modifier
-                .width(2.dp)
+                .width(4.dp)
                 .fillMaxHeight()
         ) {
             Canvas(modifier = Modifier.fillMaxSize()) {
@@ -98,7 +98,7 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
                 }
 
                 // vertical divider
-                drawRect(colorDivider, topLeft = Offset(0f, minY), size = Size(width = 2.dp.toPx(), maxY - minY))
+                drawRect(colorDivider, topLeft = Offset(0f, minY), size = Size(width = 4.dp.toPx(), maxY - minY))
 
                 leftAttrs.forEachIndexed { index, attr ->
                     val path = Path().apply {
@@ -113,7 +113,7 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
                     drawPath(path, colorCardBackground)
                     drawCircle(
                         color = colorCircle,
-                        radius = 4.dp.toPx(),
+                        radius = 6.dp.toPx(),
                         center = Offset(dividerX, attr.trianglePeakY)
                     )
                 }
@@ -131,7 +131,7 @@ fun WebWorkLayout(workExps: List<WorkExperience>) {
                     drawPath(path, colorCardBackground)
                     drawCircle(
                         color = colorCircle,
-                        radius = 4.dp.toPx(),
+                        radius = 6.dp.toPx(),
                         center = Offset(dividerX, attr.calculatedTrianglePeakY!!)
                     )
                 }
