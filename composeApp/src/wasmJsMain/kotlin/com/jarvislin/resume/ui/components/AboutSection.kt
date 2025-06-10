@@ -24,7 +24,7 @@ fun AboutSection(useMobileLayout: Boolean) {
         modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)
     ) {
         OutlinedButton(
-            onClick = { NewTabUriHandler.openUri("https://docs.google.com/document/d/1wDqUnpi0reyuV5TDLAdiXqFRug8cZcEg/edit?usp=sharing&ouid=105112559597624733277&rtpof=true&sd=true") },
+            onClick = { NewTabUriHandler.openUri("https://drive.google.com/file/d/19rTCemHp7vG50n-AOHgcrF5jJC7Vsuii/view?usp=sharing") },
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).align(CenterHorizontally),
         ) {
             Text("DOWNLOAD RESUME")

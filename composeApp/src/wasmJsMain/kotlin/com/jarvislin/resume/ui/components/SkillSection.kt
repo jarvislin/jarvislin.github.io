@@ -15,14 +15,14 @@ fun SkillsSection(useMobileLayout: Boolean) {
     val allSkills: List<Skill> = listOf(
         Skill("Fullstack Development", 0.9f),
         Skill("Mobile Development", 1.0f),
-        Skill("Scalable Architecture", 0.95f),
+        Skill("Scalable Architecture", 0.9f),
         Skill("CI/CD Automation", 0.9f),
         Skill("Cross-functional Collaboration", 1.0f),
         Skill("Product Strategy", 0.8f),
         Skill("Analytics Integration", 0.85f),
         Skill("UI/UX Collaboration", 0.9f),
         Skill("Location-Based Services", 0.85f),
-        Skill("Team Leadership", 0.8f)
+        Skill("Project Management", 0.85f)
     )
 
     val midpoint = (allSkills.size + 1) / 2
