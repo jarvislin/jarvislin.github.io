@@ -31,7 +31,7 @@ fun AboutSection(useMobileLayout: Boolean) {
         }
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "With over 13 years of experience building high-quality mobile apps across industries and platforms.",
+            text = "Tech lead with 13+ years of experience building end-to-end software solutions, driving cross-team execution, and aligning product vision with engineering excellence.",
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.secondary,

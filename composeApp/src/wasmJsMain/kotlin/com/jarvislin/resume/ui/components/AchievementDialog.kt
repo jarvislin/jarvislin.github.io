@@ -25,15 +25,21 @@ fun AchievementDialog(achievement: Achievement, onDismiss: () -> Unit) {
             Card(Modifier.padding(vertical = 16.dp)) {
                 Image(
                     painter = achievement.image,
-                    contentDescription = achievement.article,
+                    contentDescription = achievement.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(16f / 10f)
                         .clip(RoundedCornerShape(12.dp))
                 )
-                Column(Modifier.verticalScroll(scrollState)) {
-                    Text(achievement.article, Modifier.padding(horizontal = 16.dp, vertical = 12.dp))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.verticalScroll(scrollState)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                ) {
+                    achievement.paragraphs.forEach { paragraph ->
+                        Text(paragraph)
+                    }
                 }
             }
             RotateIconButton(

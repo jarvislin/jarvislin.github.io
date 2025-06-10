@@ -27,27 +27,28 @@ fun AchievementSection(useMobileLayout: Boolean) {
             title = "From Doubt to MVP",
             description = "Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.",
             image = painterResource(Res.drawable.mvp),
-            article = "Today at the Taipei 101 project showcase, I pitched my AI-powered translation solution to a room full of officials and industry leaders. Despite a technical hiccup cutting my presentation short and a shaky Q&A, a tourism association representative approached me during the break and said, “Your solution directly addresses the challenges our industry faces. We need more people like you.”\n" +
-                    "\n" +
-                    "That moment meant everything.\n" +
-                    "\n" +
-                    "Later, I was named MVP—an unexpected honor as a one-person team among well-established teams. The recognition affirmed that my product isn’t just about technology, but about solving real-world problems in the tourism sector."
+            paragraphs = listOf(
+                "At the Taipei 101 project showcase, I pitched my AI-powered translation tool to a room of industry leaders. Despite a technical hiccup, a tourism rep told me, “Your solution directly addresses the challenges we face.”",
+                "Later, I was named MVP — a solo creator recognized among established teams. It affirmed that this work isn’t just about tech, but real-world impact."
+            )
         ),
         Achievement(
             title = "A Celebration of Victory",
             description = "As the Co-founder and Technical Director, I participated in the startup competition among 141 teams, and we emerged as the champions.",
             image = painterResource(Res.drawable.competition),
-            article = "Out of 141 competing teams, we emerged as champions in Taiwan’s prestigious Economic Daily startup competition — a recognition that placed us on the front page of one of the country’s most influential newspapers. Our proposal to introduce a centralized e-invoice system for the Indonesian government received high praise from the judges for its bold vision and potential to streamline taxation at a national scale.\n" +
-                    "\n" +
-                    "What began as a small, cross-border effort grew into a mission-driven startup dedicated to public sector innovation. Despite early challenges and pandemic disruptions, our team remained resilient, collaborating across cultures and geographies to deliver impactful solutions. This award marked a turning point in our journey — validating not just our technical capabilities, but also our commitment to meaningful, systemic change."
+            paragraphs = listOf(
+                "Out of 141 teams, we won first place in Taiwan’s Economic Daily startup competition—earning front-page coverage for our bold proposal to modernize Indonesia’s tax system with a centralized e-invoice platform.",
+                "What began as a small cross-border effort became a mission-driven startup for public sector innovation. This award marked a turning point in our journey."
+            )
         ),
         Achievement(
             title = "Google Play Conquest",
             description = "My self-crafted app soared to the top of the play store’s free rankings, a testament to my passion and dedication.",
             image = painterResource(Res.drawable.top),
-            article = "During the height of the COVID-19 pandemic, one of the most urgent challenges was the global shortage of protective masks. In Taiwan, the government implemented a mask rationing system to ensure fair distribution. In response, I independently designed and developed a mobile app to help people easily check real-time mask availability at nearby pharmacies.\n" +
-                    "\n" +
-                    "Within just one month, the app rose to the #1 spot on the Google Play Free Apps chart in Taiwan. It became a widely used tool that provided clarity and accessibility during a time of uncertainty. This project remains one of my proudest accomplishments — blending technical execution with meaningful social impact."
+            paragraphs = listOf(
+                "Amid Taiwan’s COVID-19 mask shortage, I independently built a real-time pharmacy mask tracker.",
+                "Within a month, it reached #1 on Google Play and became a vital public tool during the crisis—blending tech with real-world impact."
+            )
         )
     )
 
@@ -115,6 +116,6 @@ fun AchievementCard(
 class Achievement(
     val title: String,
     val description: String,
-    val article: String,
+    val paragraphs: List<String>,
     val image: Painter,
 )
