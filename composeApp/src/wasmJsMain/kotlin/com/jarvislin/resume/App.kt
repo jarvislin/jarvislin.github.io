@@ -124,40 +124,29 @@ fun App() {
                                 duration = "Dec 2021 - Nov 2022",
                                 title = "Co-Founder & Technical Director",
                                 company = "QTCOMM",
-                                description =
-                                "Led engineers in identifying technical issues and performing corrective active procedures to provide optimal solutions." +
-                                        "\n\n" +
-                                        "Utilized diagnostic techniques focusing on IT problem resolution of classified/unclassified specific applications which reduced the costs of the technology stack." +
-                                        "\n\n" +
-                                        "Implemented appropriate technical solutions for the audio/video call features to reduce technology production costs by 85%, which saved over 8%+ of the company’s total annual expenses." +
-                                        "\n\n" +
-                                        "Served as the primary point of contact for company partners, integrating 3+ systems successfully, including Tokopedia and Juiker."
+                                description = "Led engineers to identify root causes and implement scalable technical fixes.\n\n" +
+                                        "Streamlined IT issue resolution across classified and unclassified systems, lowering infra complexity and cutting stack costs.\n\n" +
+                                        "Re-architected audio/video call features, reducing production costs by over 85% and saving 8%+ of annual company expenses.\n\n" +
+                                        "Spearheaded integration with external partners, successfully connecting 3+ platforms including Tokopedia and Juiker."
                             ),
                             WorkExperience(
                                 duration = "Nov 2020 - Dec 2021",
                                 title = "Project Technical Director",
                                 company = "QTCOMM/PT. ICE Messenger Indonesia",
-                                description = "Supervised various units in Taiwan and Indonesia, optimizing procedures and operational workflow based on employee needs through effective collaboration and communication, which increased efficiency by 40%+." +
-                                        "\n\n" +
-                                        "Provided exceptional product development services, including but not limited to updating mobile applications and implementing new features such as data encryption, QA test, and fixing bugs." +
-                                        "\n\n" +
-                                        "Spearheaded the product roadmap of IndoChat from conceptualization through execution, identifying gaps in product capabilities and coverage and formulating product strategic direction in addressing needs." +
-                                        "\n\n" +
-                                        "Conducted research regarding data tracking to establish event tracking systems and provide on-time decisive analysis; adjusted sign-up flow consistently, which generated a conversion rate of over 70%+."
+                                description = "Supervised teams across Taiwan and Indonesia, streamlining workflows based on team feedback—improving efficiency by 40%+.\n\n" +
+                                        "Led end-to-end product development, delivering mobile app updates, data encryption features, QA testing, and critical bug fixes.\n\n" +
+                                        "Owned the IndoChat product roadmap from concept to launch, defining strategy, closing feature gaps, and aligning execution with user needs.\n\n"+
+                                        "Built event tracking systems and provided real-time product insights; iterated sign-up flow to achieve 70%+ conversion rate."
                             ),
                             WorkExperience(
                                 duration = "Jun 2019 - Nov 2020",
                                 title = "Android Team Leader",
                                 company = "QTCOMM/PT. ICE Messenger Indonesia",
-                                description = "Led Android engineers to develop and implement features for various android applications to polish architectural and product design details for open-ended tasks based on owner specifications." +
-                                        "\n\n" +
-                                        "Devised documentation for applications, detailing operation aspects, functions, and features to ensure accuracy." +
-                                        "\n\n" +
-                                        "Supervised creation and testing of 3+ Android apps from research and planning through deployment and post-launch support." +
-                                        "\n\n" +
-                                        "Researched and developed Android apps, utilizing comprehensive knowledge of the mobile landscape and innovations to remain on the cutting edge of the Android market." +
-                                        "\n\n" +
-                                        "Built CI/CD to ensure tests and delivery can be triggered automatically which reduced manual builds for 50+ minutes."
+                                description = "Led Android engineers to deliver features across multiple apps, refining architecture and product design based on evolving specs.\n\n" +
+                                        "Authored technical documentation to clearly outline app functionality and operational workflows.\n\n" +
+                                        "Oversaw end-to-end development of 3+ Android apps—from research and planning to launch and post-release support.\n\n" +
+                                        "Explored and applied emerging Android trends to keep products aligned with market standards.\n\n" +
+                                        "Built CI/CD pipelines to automate testing and deployment, cutting manual build time by over 50 minutes."
                             ),
                             WorkExperience(
                                 duration = "Jan 2018 - May 2019",
@@ -173,11 +162,9 @@ fun App() {
                                 duration = "Apr 2016 - Dec 2017",
                                 title = "Android Engineer",
                                 company = "PKLOT (Acquired by Acer)",
-                                description = "Designed and implemented services, applications, and frameworks to integrate solutions into innovative core technologies." +
-                                        "\n\n" +
-                                        "Developed software supporting digital technologies for license plate recognition to manage and match users who want to pay the fuel cost in gas stations." +
-                                        "\n\n" +
-                                        "Provided timely issue resolution in collaboration with backend developers to ensure accuracy for a successful app launch."
+                                description ="Designed and implemented services, applications, and frameworks to power core tech integrations.\n\n" +
+                                        "Built software for license plate recognition, enabling seamless fuel payment matching at gas stations.\n\n" +
+                                        "Collaborated with backend engineers to resolve issues and ensure a smooth, accurate app launch."
                             ),
                             WorkExperience(
                                 duration = "Apr 2015 - Jan 2016",
@@ -191,7 +178,7 @@ fun App() {
                                 duration = "Oct 2014 - Nov 2014",
                                 title = "Android Engineer",
                                 company = "Zinwell",
-                                description = "Developed a proof of concept for the E-Commerce application of Zinwell in collaboration with a UI designer and other engineers to develop the cutting-edge application to provide a valuable and innovative product with the best quality and value to all Zinwell stockholders."
+                                description = "Developed a proof of concept for Zinwell’s e-commerce app, Small Trade, in collaboration with UI designers and engineers, delivering an innovative, high-quality solution aligned with stakeholder goals."
                             ),
                             WorkExperience(
                                 duration = "Jun 2012 - Jul 2014",

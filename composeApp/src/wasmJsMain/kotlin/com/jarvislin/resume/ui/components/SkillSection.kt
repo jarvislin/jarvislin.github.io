@@ -13,33 +13,28 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun SkillsSection(useMobileLayout: Boolean) {
     val allSkills: List<Skill> = listOf(
-        "Android Development" to 0.95f,
-        "Git" to 0.7f,
-        "Testing" to 0.75f,
-        "Java" to 0.85f,
-        "SQL" to 0.55f,
-        "RxJava" to 0.8f,
-        "Project Mangement" to 0.6f,
-        "Google Analytics / Amplitude...etc." to 0.75f,
-        "Material Design" to 0.85f,
-        "CI/CD" to 0.8f,
-        "Kotlin" to 0.95f,
-        "PHP" to 0.75f,
-        "Linux" to 0.6f,
-        "Design Pattern" to 0.7f,
-        "Product Design" to 0.65f,
-        "Location-based Services" to 0.8f
-    ).map { (label, level) -> Skill(label, level) }
+        Skill("Fullstack Development", 0.9f),
+        Skill("Mobile Development", 1.0f),
+        Skill("Scalable Architecture", 0.95f),
+        Skill("CI/CD Automation", 0.9f),
+        Skill("Cross-functional Collaboration", 1.0f),
+        Skill("Product Strategy", 0.8f),
+        Skill("Analytics Integration", 0.85f),
+        Skill("UI/UX Collaboration", 0.9f),
+        Skill("Location-Based Services", 0.85f),
+        Skill("Team Leadership", 0.8f)
+    )
 
-    val skillsLeft = allSkills.filterIndexed { index, skill -> index % 2 == 0 }
-    val skillsRight = allSkills.filterIndexed { index, skill -> index % 2 == 1 }
+    val midpoint = (allSkills.size + 1) / 2
+    val skillsLeft = allSkills.subList(0, midpoint)
+    val skillsRight = allSkills.subList(midpoint, allSkills.size)
 
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .widthIn(max = maxWebComponentWidth)
-    )  {
-        Card{
+    ) {
+        Card {
             if (useMobileLayout) {
                 Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                     allSkills.map { SkillBar(it) }
@@ -47,7 +42,7 @@ fun SkillsSection(useMobileLayout: Boolean) {
             } else {
                 Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                     Column(modifier = Modifier.weight(1f)) { skillsLeft.map { SkillBar(it) } }
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(24.dp))
                     Column(modifier = Modifier.weight(1f)) { skillsRight.map { SkillBar(it) } }
                 }
             }
