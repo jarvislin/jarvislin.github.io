@@ -1,25 +1,27 @@
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.jarvislin.resume.ui.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -42,7 +44,7 @@ fun AchievementSection(useMobileLayout: Boolean) {
         verticalArrangement = Arrangement.spacedBy(SPACING_DP_8.dp),
         modifier = Modifier
             .widthIn(max = maxWebComponentWidth + 32.dp)
-            .heightIn(max = 3000.dp) // for preventing error
+            .heightIn(max = 3000.dp) // workaround for preventing error
             .padding(horizontal = SPACING_DP_16.dp),
         contentPadding = PaddingValues(vertical = SPACING_DP_8.dp)
     ) {
@@ -77,10 +79,10 @@ fun AchievementCard(
     modifier: Modifier = Modifier
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    var isPressed by remember { mutableStateOf(false) }
+    var isHovered by remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.95f else 1f,
+        targetValue = if (isHovered) 0.95f else 1f,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
 
@@ -88,20 +90,12 @@ fun AchievementCard(
         onClick = { showDialog = true },
         modifier = modifier
             .scale(scale)
-            .pointerInput(Unit) {
-                detectTapGestures(onPress = {
-                    isPressed = true
-                    tryAwaitRelease()
-                    isPressed = false
-                })
-            }
+            .onPointerEvent(PointerEventType.Enter) { isHovered = true }
+            .onPointerEvent(PointerEventType.Exit) { isHovered = false }
             .semantics {
                 contentDescription = "Achievement: ${achievement.title}. Tap to read more details."
                 role = Role.Button
-            },
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = if (isPressed) 8.dp else 4.dp
-        )
+            }
     ) {
         Column(
             modifier = Modifier.fillMaxHeight()
