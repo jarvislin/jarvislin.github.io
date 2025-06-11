@@ -6,64 +6,81 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jarvislin.resume.data.About
+import com.jarvislin.resume.data.AboutData
 import com.jarvislin.resume.utils.NewTabUriHandler
+import com.jarvislin.resume.utils.UIConstants
+import com.jarvislin.resume.utils.UIConstants.SPACING_DP_16
+import com.jarvislin.resume.utils.UIConstants.SPACING_DP_8
 import org.jetbrains.compose.resources.painterResource
-import resume.composeapp.generated.resources.*
 
 @Composable
 fun AboutSection(useMobileLayout: Boolean) {
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp).widthIn(max = maxWebComponentWidth)
+        modifier = Modifier
+            .padding(horizontal = SPACING_DP_16.dp)
+            .widthIn(max = maxWebComponentWidth)
     ) {
-        OutlinedButton(
-            onClick = { NewTabUriHandler.openUri("https://drive.google.com/file/d/19rTCemHp7vG50n-AOHgcrF5jJC7Vsuii/view?usp=sharing") },
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).align(CenterHorizontally),
-        ) {
-            Text("DOWNLOAD RESUME")
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Text(
-            text = "Tech lead with 13+ years of experience building end-to-end software solutions, driving cross-team execution, and aligning product vision with engineering excellence.",
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.secondary,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.align(CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(if (useMobileLayout) 1 else 2),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.heightIn(max = 1000.dp)
-        ) {
-            val points = listOf(
-                About(
-                    "Specialized in taking products from concept to launch, including defining specs and analyzing metrics.",
-                    Res.drawable.barchart
-                ),
-                About(
-                    "Effective in both independent and cross-functional team environments with clear communication.",
-                    Res.drawable.chat
-                ),
-                About(
-                    "Delivered 20+ app products, including those with 100M+ downloads and Editor’s Choice awards.",
-                    Res.drawable.category
-                ),
-                About(
-                    "Experienced in supervising engineering and product teams across international settings.",
-                    Res.drawable.group
-                ),
-            )
-            items(points) {
-                AboutCard(it, useMobileLayout)
-            }
+        val alignModifier = Modifier.align(CenterHorizontally)
+        ResumeDownloadButton(alignModifier)
+        VerticalSpacer()
+        IntroductionText(alignModifier)
+        VerticalSpacer()
+        AboutPointsGrid(useMobileLayout)
+    }
+}
+
+@Composable
+private fun VerticalSpacer() {
+    Spacer(modifier = Modifier.height(UIConstants.SPACING_DP_12.dp))
+}
+
+@Composable
+private fun ResumeDownloadButton(modifier: Modifier) {
+    OutlinedButton(
+        onClick = { NewTabUriHandler.openUri(AboutData.RESUME_URL) },
+        modifier = modifier.padding(8.dp)
+    ) {
+        Text("DOWNLOAD RESUME", fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+private fun IntroductionText(modifier: Modifier) {
+    Text(
+        text = AboutData.INTRO_TEXT,
+        style = MaterialTheme.typography.bodyLarge,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.secondary,
+        textAlign = TextAlign.Center,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun AboutPointsGrid(useMobileLayout: Boolean) {
+    val columns = remember(useMobileLayout) {
+        if (useMobileLayout) GridCells.Fixed(1) else GridCells.Adaptive(minSize = 300.dp)
+    }
+
+    LazyVerticalGrid(
+        columns = columns,
+        verticalArrangement = Arrangement.spacedBy(SPACING_DP_8.dp),
+        horizontalArrangement = Arrangement.spacedBy(SPACING_DP_8.dp),
+        modifier = Modifier.heightIn(max = UIConstants.MAX_GRID_HEIGHT_DP.dp),
+        userScrollEnabled = false
+    ) {
+        items(
+            items = AboutData.points,
+            key = { it.description.hashCode() }
+        ) { aboutPoint ->
+            AboutCard(aboutPoint, useMobileLayout)
         }
     }
 }
@@ -71,11 +88,15 @@ fun AboutSection(useMobileLayout: Boolean) {
 @Composable
 fun AboutCard(about: About, useMobileLayout: Boolean) {
     Card {
-        Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+        Row(
+            modifier = Modifier.padding(
+                horizontal = UIConstants.SPACING_DP_16.dp,
+                vertical = UIConstants.SPACING_DP_12.dp
+            )
+        ) {
             Icon(painterResource(about.resource), null)
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(SPACING_DP_8.dp))
             Text(about.description, minLines = if (useMobileLayout) 1 else 3)
         }
     }
 }
-
