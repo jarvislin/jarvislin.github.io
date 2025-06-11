@@ -25,7 +25,7 @@ fun AchievementDialog(achievement: Achievement, onDismiss: () -> Unit) {
         Box {
             Card(Modifier.padding(vertical = 16.dp)) {
                 Image(
-                    painter = achievement.image,
+                    painter = painterResource(achievement.image),
                     contentDescription = achievement.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
