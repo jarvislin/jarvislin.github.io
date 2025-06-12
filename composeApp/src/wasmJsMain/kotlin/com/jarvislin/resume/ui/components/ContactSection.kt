@@ -9,9 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.jarvislin.resume.viewmodels.MainViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun ContactSection() {
+    val viewModel = koinInject<MainViewModel>()
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
@@ -39,7 +42,10 @@ fun ContactSection() {
             maxLines = 6
         )
         Spacer(Modifier.size(16.dp))
-        Button(onClick = { }, modifier = Modifier.padding(horizontal = 16.dp).align(CenterHorizontally)) {
+        Button(
+            onClick = { viewModel.sendMessage(name, email, message) },
+            modifier = Modifier.padding(horizontal = 16.dp).align(CenterHorizontally)
+        ) {
             Text("SUBMIT", fontWeight = FontWeight.Bold)
         }
     }

@@ -40,6 +40,10 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(project.dependencies.platform("io.github.jan-tennert.supabase:bom:3.1.4"))
+            implementation("io.github.jan-tennert.supabase:auth-kt")
+            implementation("io.github.jan-tennert.supabase:functions-kt")
+            implementation("io.insert-koin:koin-compose:4.1.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
