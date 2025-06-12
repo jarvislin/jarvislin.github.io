@@ -22,6 +22,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Run Kotlin WASM Tests
+        run: ./gradlew wasmJsTest
+
       - name: Build Kotlin WASM Project
         run: ./gradlew wasmJsBrowserDistribution
 
