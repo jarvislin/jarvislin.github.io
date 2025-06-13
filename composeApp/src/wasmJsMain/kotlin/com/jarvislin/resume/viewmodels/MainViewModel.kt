@@ -4,10 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jarvislin.resume.data.AppError
-import com.jarvislin.resume.data.EmailFormatError
-import com.jarvislin.resume.data.EmptyMessageError
-import com.jarvislin.resume.data.EmptyNameError
+import com.jarvislin.resume.data.*
 import com.jarvislin.resume.repositories.ContactRepository
 import kotlinx.coroutines.launch
 
@@ -21,48 +18,86 @@ class MainViewModel(private val repository: ContactRepository) : ViewModel() {
         }
     }
 
-    fun sendMessage(name: String, email: String, message: String) {
-        if (EmailValidator.isValidEmail(email).not()) {
-            _uiState.value = uiState.value.copy(messageError = EmailFormatError)
+    fun submit() {
+        _uiState.value = uiState.value.copy(error = null) // reset
+        if (uiState.value.email.trim().isEmpty()) {
+            _uiState.value = uiState.value.copy(error = EmptyEmailError)
             return
         }
-        if (name.trim().isEmpty()) {
-            _uiState.value = uiState.value.copy(messageError = EmptyNameError)
+        if (EmailValidator.isValidEmail(uiState.value.email).not()) {
+            _uiState.value = uiState.value.copy(error = EmailFormatError)
             return
         }
-        if (message.trim().isEmpty()) {
-            _uiState.value = uiState.value.copy(messageError = EmptyMessageError)
+        if (uiState.value.subscribe.not() && uiState.value.message.trim().isEmpty()) {
+            _uiState.value = uiState.value.copy(error = EmptyMessageError)
             return
         }
-        viewModelScope.launch {
-            repository.sendMessage(name, message, email)
-        }
-    }
 
-    fun saveEmail(email: String) {
-        if (EmailValidator.isValidEmail(email).not()) {
-            _uiState.value = uiState.value.copy(emailError = EmailFormatError)
-            return
+        viewModelScope.launch {
+            _uiState.value = uiState.value.copy(loading = true)
+            repository.submit(uiState.value.name, uiState.value.email, uiState.value.message, uiState.value.subscribe)
+                .onSuccess {
+                    _uiState.value = uiState.value.copy(loading = false, showSuccessDialog = true)
+                }
+                .onFailure {
+                    _uiState.value = uiState.value.copy(loading = false, showFailureDialog = true)
+                }
         }
-        viewModelScope.launch { repository.follow(email) }
     }
 
     fun switchTheme() {
         _uiState.value = uiState.value.copy(useDarkTheme = uiState.value.useDarkTheme.not())
     }
+
+    fun dismissSuccessDialog() {
+        _uiState.value = uiState.value.copy(showSuccessDialog = false)
+    }
+
+    fun dismissFailureDialog() {
+        _uiState.value = uiState.value.copy(showFailureDialog = false)
+    }
+
+    fun onNameChange(name: String) {
+        _uiState.value = uiState.value.copy(name = name)
+    }
+
+    fun onEmailChange(email: String) {
+        _uiState.value = uiState.value.copy(email = email)
+    }
+
+    fun onMessageChange(message: String) {
+        _uiState.value = uiState.value.copy(message = message)
+    }
+
+    fun onSubscribeChange() {
+        _uiState.value = uiState.value.copy(subscribe = uiState.value.subscribe.not())
+    }
 }
 
 data class MainUiState(
     val useDarkTheme: Boolean = true,
-    val messageLoading: Boolean = false,
-    val messageError: AppError? = null,
-    val emailLoading: Boolean = false,
-    val emailError: AppError? = null,
+    val loading: Boolean = false,
+    val error: AppError? = null,
+    val showSuccessDialog: Boolean = false,
+    val showFailureDialog: Boolean = false,
+    val name: String = "",
+    val email: String = "",
+    val message: String = "",
+    val subscribe: Boolean = false,
 )
 
 object EmailValidator {
+    private val emailRegex = Regex(
+        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    )
+
     fun isValidEmail(email: String): Boolean {
-        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
-        return emailRegex.matches(email)
+        return email.isNotBlank() &&
+                email.length <= 254 &&
+                !email.contains("..") &&
+                !email.startsWith(".") &&
+                !email.endsWith(".") &&
+                email.count { it == '@' } == 1 &&
+                emailRegex.matches(email)
     }
 }

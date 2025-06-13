@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("dev.mokkery") version "2.8.0"
+    kotlin("plugin.serialization") version "2.1.21"
 }
 
 kotlin {

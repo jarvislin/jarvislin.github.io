@@ -4,40 +4,30 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.functions.functions
 import io.ktor.client.call.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 interface ContactRepository {
-    suspend fun sendMessage(name: String, email: String, message: String): Result<Unit>
-    suspend fun follow(email: String): Result<Unit>
+    suspend fun submit(name: String, email: String, message: String, subscribe: Boolean): Result<Unit>
     suspend fun signIn()
 }
 
-class ContactRepositoryImpl(supabaseClient: SupabaseClient) : ContactRepository {
-    private val auth = supabaseClient.auth
-    private val functions = supabaseClient.functions
+class ContactRepositoryImpl(client: SupabaseClient) : ContactRepository {
+    private val auth = client.auth
+    private val functions = client.functions
 
-    override suspend fun follow(email: String): Result<Unit> {
-        val payload = mapOf("email" to email)
-        val response = functions.invoke("store-email", payload)
-
-        return if (response.status.value != 200) {
-            Result.failure(Exception("store-email failed: ${response.body<String>()}"))
-        } else {
-            Result.success(Unit)
-        }
-    }
-
-    override suspend fun sendMessage(name: String, email: String, message: String): Result<Unit> {
-        val payload = mapOf(
-            "name" to name,
-            "email" to email,
-            "message" to message
+    override suspend fun submit(name: String, email: String, message: String, subscribe: Boolean): Result<Unit> {
+        val payload = ContactPayload(
+            name,
+            email,
+            message,
+            subscribe,
         )
-        val response = functions.invoke("store-message", payload)
-
-        return if (response.status.value != 200) {
-            Result.failure(Exception("store-message failed: ${response.body<String>()}"))
-        } else {
-            Result.success(Unit)
+        return runCatching {
+            val response = functions.invoke("store-message", payload)
+            if (response.status.value != 200) {
+                throw Exception("store-message failed: ${response.body<String>()}")
+            }
         }
     }
 
@@ -45,3 +35,15 @@ class ContactRepositoryImpl(supabaseClient: SupabaseClient) : ContactRepository 
         auth.signInAnonymously()
     }
 }
+
+@Serializable
+data class ContactPayload(
+    @SerialName("name")
+    val name: String,
+    @SerialName("email")
+    val email: String,
+    @SerialName("message")
+    val message: String,
+    @SerialName("subscribe")
+    val subscribe: Boolean
+)

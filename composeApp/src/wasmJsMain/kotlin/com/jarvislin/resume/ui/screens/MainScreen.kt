@@ -207,7 +207,7 @@ fun MainScreen() {
                 item {
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
-                        "Contact Me",
+                        "Get in Touch",
                         fontWeight = FontWeight.Medium,
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onSurface,
