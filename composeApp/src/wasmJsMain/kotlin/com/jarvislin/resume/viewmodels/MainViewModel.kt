@@ -37,7 +37,14 @@ class MainViewModel(private val repository: ContactRepository) : ViewModel() {
             _uiState.value = uiState.value.copy(loading = true)
             repository.submit(uiState.value.name, uiState.value.email, uiState.value.message, uiState.value.subscribe)
                 .onSuccess {
-                    _uiState.value = uiState.value.copy(loading = false, showSuccessDialog = true)
+                    _uiState.value = uiState.value.copy(
+                        loading = false,
+                        showSuccessDialog = true,
+                        name = "",
+                        email = "",
+                        message = "",
+                        subscribe = false
+                    )
                 }
                 .onFailure {
                     _uiState.value = uiState.value.copy(loading = false, showFailureDialog = true)
