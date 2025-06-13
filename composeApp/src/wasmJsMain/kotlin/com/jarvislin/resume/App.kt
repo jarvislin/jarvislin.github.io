@@ -22,7 +22,9 @@ fun App() {
         val viewModel = koinInject<MainViewModel>()
         val state by viewModel.uiState
 
-        viewModel.signIn() // sign in when app launched
+        LaunchedEffect(Unit) {
+            viewModel.signIn() // sign in when app launched
+        }
 
         MaterialTheme(colorScheme = if (state.useDarkTheme) darkScheme else lightScheme) {
             MainScreen()
