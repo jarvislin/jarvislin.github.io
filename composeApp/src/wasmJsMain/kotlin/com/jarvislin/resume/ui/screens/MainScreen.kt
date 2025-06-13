@@ -31,7 +31,6 @@ fun MainScreen() {
         MenuItem("PROJECTS", 3),
         MenuItem("EXPERIENCES", 4),
         MenuItem("REFERENCES", 5),
-//        MenuItem("CONTACT", 6),
     )
     Scaffold(topBar = { ResponsiveMenuBar(menuItems, listState, useMobileLayout) }) { paddingValues ->
         LazyColumn(
@@ -132,7 +131,7 @@ fun MainScreen() {
                             company = "QTCOMM/PT. ICE Messenger Indonesia",
                             description = "Supervised teams across Taiwan and Indonesia, streamlining workflows based on team feedback—improving efficiency by 40%+.\n\n" +
                                     "Led end-to-end product development, delivering mobile app updates, data encryption features, QA testing, and critical bug fixes.\n\n" +
-                                    "Owned the IndoChat product roadmap from concept to launch, defining strategy, closing feature gaps, and aligning execution with user needs.\n\n"+
+                                    "Owned the IndoChat product roadmap from concept to launch, defining strategy, closing feature gaps, and aligning execution with user needs.\n\n" +
                                     "Built event tracking systems and provided real-time product insights; iterated sign-up flow to achieve 70%+ conversion rate."
                         ),
                         WorkExperience(
@@ -159,7 +158,7 @@ fun MainScreen() {
                             duration = "Apr 2016 - Dec 2017",
                             title = "Android Engineer",
                             company = "PKLOT (Acquired by Acer)",
-                            description ="Designed and implemented services, applications, and frameworks to power core tech integrations.\n\n" +
+                            description = "Designed and implemented services, applications, and frameworks to power core tech integrations.\n\n" +
                                     "Built software for license plate recognition, enabling seamless fuel payment matching at gas stations.\n\n" +
                                     "Collaborated with backend engineers to resolve issues and ensure a smooth, accurate app launch."
                         ),
@@ -202,21 +201,20 @@ fun MainScreen() {
 
                 Spacer(modifier = Modifier.height(16.dp))
                 ReferenceSection()
-                Spacer(modifier = Modifier.height(32.dp))
             }
-                item {
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Text(
-                        "Get in Touch",
-                        fontWeight = FontWeight.Medium,
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    "Get in Touch",
+                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    ContactSection()
-                    Spacer(modifier = Modifier.height(32.dp))
-                }
+                Spacer(modifier = Modifier.height(16.dp))
+                ContactSection()
+                Spacer(modifier = Modifier.height(160.dp))
+            }
         }
     }
 }

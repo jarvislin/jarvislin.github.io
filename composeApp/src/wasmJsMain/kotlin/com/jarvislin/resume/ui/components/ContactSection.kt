@@ -3,10 +3,12 @@ package com.jarvislin.resume.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.jarvislin.resume.data.EmailFormatError
 import com.jarvislin.resume.data.EmptyEmailError
@@ -49,6 +51,7 @@ fun ContactCard(modifier: Modifier = Modifier) {
                 onValueChange = { viewModel.onEmailChange(it) },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 isError = state.error is EmptyEmailError || state.error is EmailFormatError,
                 supportingText = {
                     if (state.error is EmptyEmailError || state.error is EmailFormatError) {
@@ -62,6 +65,7 @@ fun ContactCard(modifier: Modifier = Modifier) {
                 label = { Text("Message") },
                 modifier = Modifier.fillMaxWidth(),
                 maxLines = 4,
+                minLines = 3,
                 isError = state.error is EmptyMessageError,
                 supportingText = {
                     if (state.error is EmptyMessageError) {
@@ -84,11 +88,11 @@ fun ContactCard(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(SPACING_DP_12.dp))
             Button(
                 onClick = { viewModel.submit() },
-                modifier = Modifier.align(Alignment.End),
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 enabled = state.loading.not()
             ) {
                 if (state.loading) {
-                    CircularProgressIndicator(Modifier.size(14.dp))
+                    CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
                 } else {
                     Text("Submit")
                 }
