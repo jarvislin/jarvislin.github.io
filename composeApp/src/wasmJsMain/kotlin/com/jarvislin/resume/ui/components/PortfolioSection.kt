@@ -2,6 +2,7 @@
 
 package com.jarvislin.resume.ui.components
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -310,8 +311,8 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
                 TextButton(
                     onClick = { selectedTab = tab },
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = if (selectedTab == tab) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        containerColor = if (selectedTab == tab) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface,
+                        contentColor = if (selectedTab == tab) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        containerColor = if (selectedTab == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                     )
                 ) {
                     Text(
@@ -330,45 +331,41 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
             columns = GridCells.Fixed(if (useMobileLayout) 3 else 4),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth().heightIn(max = 3000.dp)
+            modifier = Modifier.fillMaxWidth().heightIn(max = 3000.dp).animateContentSize()
         ) {
             val filtered = if (selectedTab == Project.Category.All) projects.take(countOfLoadedProjects)
             else projects.filter { it.category == selectedTab }
-            items(filtered) { item ->
-                PortfolioCard(item, useMobileLayout)
+            items(filtered, key = { it.title }) { item ->
+                PortfolioCard(item, useMobileLayout, Modifier.animateItem())
             }
         }
 
         if (countOfLoadedProjects < projects.size && selectedTab == Project.Category.All) {
             Spacer(modifier = Modifier.height(24.dp))
-            AssistChip(
-                onClick = { onClickLoad() },
-                label = { Text("LOAD MORE") },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(Res.drawable.add),
-                        contentDescription = "Load more",
-                        modifier = Modifier.rotate(rotation)
-                    )
-                },
+            FloatingActionButton(onClick = { onClickLoad() },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .onPointerEvent(eventType = PointerEventType.Enter) { isHovered = true }
-                    .onPointerEvent(eventType = PointerEventType.Exit) { isHovered = false }
-            )
+                    .onPointerEvent(eventType = PointerEventType.Exit) { isHovered = false }) {
+                Icon(
+                    painter = painterResource(Res.drawable.add),
+                    contentDescription = "Load more",
+                    modifier = Modifier.rotate(rotation)
+                )
+            }
             Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
 
 @Composable
-fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
+fun PortfolioCard(item: Project, useMobileLayout: Boolean, modifier: Modifier) {
     var showDialog by remember { mutableStateOf(false) }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(Color.White)
             .clickable { showDialog = true }
     ) {
@@ -383,7 +380,14 @@ fun PortfolioCard(item: Project, useMobileLayout: Boolean) {
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .background(Brush.verticalGradient(colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.6f))))
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
+                        )
+                    )
+                )
         )
 
         Column(
