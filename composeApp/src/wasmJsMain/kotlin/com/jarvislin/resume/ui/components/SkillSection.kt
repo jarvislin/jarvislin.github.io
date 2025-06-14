@@ -1,15 +1,18 @@
 package com.jarvislin.resume.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jarvislin.resume.data.Skill
+import kotlinx.coroutines.delay
 
 @Composable
 fun SkillsSection(useMobileLayout: Boolean) {
@@ -53,6 +56,19 @@ fun SkillsSection(useMobileLayout: Boolean) {
 
 @Composable
 fun SkillBar(skill: Skill) {
+    var startAnimation by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay((0..600).random().toLong())
+        startAnimation = true
+    }
+
+    val animatedProgress by animateFloatAsState(
+        targetValue = if (startAnimation) skill.level else 0f,
+        animationSpec = tween(durationMillis = 600),
+        label = "Skill Progress"
+    )
+
     Column(modifier = Modifier.padding(vertical = 8.dp)) {
         Text(
             text = skill.label,
@@ -61,7 +77,7 @@ fun SkillBar(skill: Skill) {
         )
         Spacer(modifier = Modifier.height(4.dp))
         LinearProgressIndicator(
-            progress = { skill.level },
+            progress = { animatedProgress },
             modifier = Modifier.fillMaxWidth()
         )
     }
