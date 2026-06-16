@@ -1,0 +1,122 @@
+---
+import { workExperiences } from '../data/resume';
+
+type Exp = typeof workExperiences[0];
+const pairs: [Exp, Exp | null][] = [];
+for (let i = 0; i < workExperiences.length; i += 2) {
+  pairs.push([workExperiences[i], workExperiences[i + 1] ?? null]);
+}
+---
+
+<section id="experiences" class="px-4 mt-8">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Work Experiences</h2>
+
+    <!-- Mobile layout: single column -->
+    <div class="flex flex-col items-center gap-0 md:hidden">
+      {workExperiences.map((exp, i) => (
+        <div class="w-full flex flex-col items-center">
+          <div class="card w-full overflow-hidden">
+            <div class="h-2 bg-primary w-full"></div>
+            <div class="p-4">
+              {exp.duration && <p class="text-xs font-bold text-primary">{exp.duration}</p>}
+              {exp.title && <p class="text-base font-semibold text-on-surface mt-1">{exp.title}</p>}
+              {exp.company && <p class="text-base text-on-surface">{exp.company}</p>}
+              {exp.description && (
+                <div class="mt-3 space-y-2">
+                  {exp.description.split('\n\n').map(para => (
+                    <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          {i < workExperiences.length - 1 && (
+            <div class="w-0.5 h-4 bg-secondary-container"></div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Desktop layout: pair-based rows, right card offset for stagger -->
+    <div class="hidden md:block relative">
+      <!-- Center line: JS will set top/height to span exactly first→last dot -->
+      <div id="work-timeline-line" class="absolute left-1/2 -translate-x-1/2 w-0.5 bg-secondary-container z-0"></div>
+
+      <div class="flex flex-col gap-6">
+        {pairs.map(([leftExp, rightExp]) => (
+          <div class="grid grid-cols-2 gap-6 items-start">
+
+            <!-- Left card -->
+            <div class="relative">
+              <div class="card overflow-hidden">
+                <div class="h-2 bg-primary w-full"></div>
+                <div class="p-4">
+                  {leftExp.duration && <p class="text-xs font-bold text-primary">{leftExp.duration}</p>}
+                  {leftExp.title && <p class="text-base font-semibold text-on-surface mt-1">{leftExp.title}</p>}
+                  {leftExp.company && <p class="text-base text-on-surface">{leftExp.company}</p>}
+                  {leftExp.description && (
+                    <div class="mt-3 space-y-2">
+                      {leftExp.description.split('\n\n').map(para => (
+                        <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div class="work-dot absolute right-0 top-6 translate-x-[18px] z-10 w-3 h-3 rounded-full bg-primary ring-2 ring-surface"></div>
+            </div>
+
+            <!-- Right card: pt-8 creates the stagger offset within the shared row -->
+            <div class="pt-8">
+              {rightExp && (
+                <div class="relative">
+                  <div class="work-dot absolute left-0 top-6 -translate-x-[18px] z-10 w-3 h-3 rounded-full bg-primary ring-2 ring-surface"></div>
+                  <div class="card overflow-hidden">
+                    <div class="h-2 bg-primary w-full"></div>
+                    <div class="p-4">
+                      {rightExp.duration && <p class="text-xs font-bold text-primary">{rightExp.duration}</p>}
+                      {rightExp.title && <p class="text-base font-semibold text-on-surface mt-1">{rightExp.title}</p>}
+                      {rightExp.company && <p class="text-base text-on-surface">{rightExp.company}</p>}
+                      {rightExp.description && (
+                        <div class="mt-3 space-y-2">
+                          {rightExp.description.split('\n\n').map(para => (
+                            <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function positionTimelineLine() {
+    const line = document.getElementById('work-timeline-line');
+    const dots = document.querySelectorAll<HTMLElement>('.work-dot');
+    if (!line || dots.length === 0) return;
+
+    const container = line.parentElement!;
+    const containerTop = container.getBoundingClientRect().top + window.scrollY;
+    const firstDotRect = dots[0].getBoundingClientRect();
+    const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
+
+    const top = firstDotRect.top + window.scrollY + firstDotRect.height / 2 - containerTop;
+    const bottom = lastDotRect.top + window.scrollY + lastDotRect.height / 2 - containerTop;
+
+    line.style.top = `${top}px`;
+    line.style.height = `${bottom - top}px`;
+  }
+
+  positionTimelineLine();
+  window.addEventListener('resize', positionTimelineLine);
+</script>

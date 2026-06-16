@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light theme (default) */
+:root {
+  --color-primary: #006A62;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #9DF2E6;
+  --color-secondary: #4A635F;
+  --color-secondary-container: #CCE8E3;
+  --color-on-secondary-container: #324B48;
+  --color-surface: #F4FBF8;
+  --color-on-surface: #161D1C;
+  --color-surface-variant: #DAE5E2;
+  --color-on-surface-variant: #3F4947;
+  --color-surface-container: #E9EFED;
+  --color-surface-container-high: #E3EAE7;
+  --color-surface-container-highest: #DDE4E2;
+  --color-surface-container-low: #EFF5F3;
+  --color-outline: #6F7977;
+  --color-outline-variant: #BEC9C6;
+  --color-error: #BA1A1A;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --color-primary: #81D5CA;
+  --color-on-primary: #003732;
+  --color-primary-container: #005049;
+  --color-secondary: #B1CCC7;
+  --color-secondary-container: #324B48;
+  --color-on-secondary-container: #CCE8E3;
+  --color-surface: #0E1514;
+  --color-on-surface: #DDE4E2;
+  --color-surface-variant: #3F4947;
+  --color-on-surface-variant: #BEC9C6;
+  --color-surface-container: #1A2120;
+  --color-surface-container-high: #252B2A;
+  --color-surface-container-highest: #303635;
+  --color-surface-container-low: #161D1C;
+  --color-outline: #899390;
+  --color-outline-variant: #3F4947;
+  --color-error: #FFB4AB;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Card base */
+.card {
+  background-color: var(--color-surface-container);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Dialog */
+dialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Skill bar animation */
+.skill-bar-fill {
+  width: 0%;
+  transition: width 0.6s ease-out;
+}
+
+.skill-bar-fill.animate {
+  width: var(--target-width);
+}
+
+/* Crossfade for references */
+.crossfade-enter {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Achievement hover scale */
+.achievement-card {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.achievement-card:hover {
+  transform: scale(0.96);
+}
+
+/* Project card overlay */
+.project-overlay {
+  background: linear-gradient(to bottom, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+  transition: opacity 0.25s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 0.45;
+}
+
+/* Timeline connector */
+.timeline-dot {
+  background-color: var(--color-primary);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.timeline-line {
+  background-color: var(--color-secondary-container);
+  width: 2px;
+  flex-grow: 1;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline);
+  border-radius: 3px;
+}

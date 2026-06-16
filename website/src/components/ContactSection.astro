@@ -1,0 +1,139 @@
+---
+---
+
+<section id="contact" class="px-4 mt-8 mb-40">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Get in Touch</h2>
+    <div class="card w-full p-4">
+      <p class="text-base text-on-surface leading-relaxed">
+        Have a question or project in mind? Leave a message — and if you're interested, check the box to get early access to my no-code resume builder.
+      </p>
+      <div class="mt-4 space-y-3">
+        <div>
+          <label for="contact-name" class="block text-sm text-on-surface-variant mb-1">Name</label>
+          <input
+            id="contact-name"
+            type="text"
+            placeholder="Your name"
+            class="w-full px-3 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary transition-colors"
+          />
+        </div>
+        <div>
+          <label for="contact-email" class="block text-sm text-on-surface-variant mb-1">Email <span class="text-error">*</span></label>
+          <input
+            id="contact-email"
+            type="email"
+            placeholder="your@email.com"
+            class="w-full px-3 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary transition-colors"
+          />
+          <p id="email-error" class="text-xs text-error mt-1 hidden"></p>
+        </div>
+        <div>
+          <label for="contact-message" class="block text-sm text-on-surface-variant mb-1">Message</label>
+          <textarea
+            id="contact-message"
+            rows="4"
+            placeholder="Your message..."
+            class="w-full px-3 py-2.5 rounded-lg border border-outline-variant bg-surface text-on-surface text-sm focus:outline-none focus:border-primary transition-colors resize-none"
+          ></textarea>
+          <p id="message-error" class="text-xs text-error mt-1 hidden"></p>
+        </div>
+        <label class="flex items-center gap-3 cursor-pointer select-none">
+          <input
+            id="contact-subscribe"
+            type="checkbox"
+            class="w-4 h-4 rounded accent-primary cursor-pointer"
+          />
+          <span class="text-sm text-on-surface">Notify me when your no-code resume builder is ready.</span>
+        </label>
+        <div class="flex justify-center pt-1">
+          <button
+            id="contact-submit"
+            type="button"
+            class="px-8 py-2.5 bg-primary text-on-primary text-sm font-medium rounded-full hover:opacity-90 active:opacity-70 transition-opacity"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Placeholder dialogs (submission not wired) -->
+<dialog id="contact-success-dialog" class="rounded-xl max-w-sm w-full">
+  <div class="card bg-surface-container p-6 text-center">
+    <h3 class="text-lg font-bold text-on-surface mb-2">Success</h3>
+    <p class="text-sm text-on-surface-variant">Thanks for reaching out! I'll get back to you soon.</p>
+    <button id="contact-success-ok" class="mt-4 px-6 py-2 text-primary text-sm font-medium">OK</button>
+  </div>
+</dialog>
+
+<dialog id="contact-failure-dialog" class="rounded-xl max-w-sm w-full">
+  <div class="card bg-surface-container p-6 text-center">
+    <h3 class="text-lg font-bold text-on-surface mb-2">Something went wrong</h3>
+    <p class="text-sm text-on-surface-variant">Please try again later.</p>
+    <button id="contact-failure-ok" class="mt-4 px-6 py-2 text-primary text-sm font-medium">OK</button>
+  </div>
+</dialog>
+
+<script>
+  const emailInput = document.getElementById('contact-email') as HTMLInputElement;
+  const messageInput = document.getElementById('contact-message') as HTMLTextAreaElement;
+  const subscribeInput = document.getElementById('contact-subscribe') as HTMLInputElement;
+  const emailError = document.getElementById('email-error')!;
+  const messageError = document.getElementById('message-error')!;
+  const submitBtn = document.getElementById('contact-submit')!;
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  function validate(): boolean {
+    let valid = true;
+    emailError.classList.add('hidden');
+    messageError.classList.add('hidden');
+    emailInput.classList.remove('border-error');
+    messageInput.classList.remove('border-error');
+
+    const email = emailInput.value.trim();
+    if (!email) {
+      emailError.textContent = 'Email is required.';
+      emailError.classList.remove('hidden');
+      emailInput.classList.add('border-error');
+      valid = false;
+    } else if (!emailRegex.test(email) || email.includes('..') || email.startsWith('.')) {
+      emailError.textContent = 'Please enter a valid email address.';
+      emailError.classList.remove('hidden');
+      emailInput.classList.add('border-error');
+      valid = false;
+    }
+
+    if (!subscribeInput.checked && !messageInput.value.trim()) {
+      messageError.textContent = 'Message is required.';
+      messageError.classList.remove('hidden');
+      messageInput.classList.add('border-error');
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  submitBtn.addEventListener('click', () => {
+    if (validate()) {
+      // Submission not yet wired — show placeholder success
+      (document.getElementById('contact-success-dialog') as HTMLDialogElement).showModal();
+    }
+  });
+
+  document.getElementById('contact-success-ok')?.addEventListener('click', () => {
+    (document.getElementById('contact-success-dialog') as HTMLDialogElement).close();
+    // Reset form
+    (document.getElementById('contact-name') as HTMLInputElement).value = '';
+    emailInput.value = '';
+    messageInput.value = '';
+    subscribeInput.checked = false;
+  });
+
+  document.getElementById('contact-failure-ok')?.addEventListener('click', () => {
+    (document.getElementById('contact-failure-dialog') as HTMLDialogElement).close();
+  });
+</script>

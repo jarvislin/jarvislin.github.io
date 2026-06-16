@@ -1,0 +1,63 @@
+---
+import { skills } from '../data/resume';
+
+const mid = Math.ceil(skills.length / 2);
+const left = skills.slice(0, mid);
+const right = skills.slice(mid);
+---
+
+<section id="skills" class="px-4 mt-8">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Professional Skills</h2>
+    <div class="card w-full p-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+        <div>
+          {left.map(skill => (
+            <div class="py-2">
+              <p class="text-sm font-medium text-on-surface mb-1">{skill.label}</p>
+              <div class="h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                <div
+                  class="skill-bar-fill h-full bg-primary rounded-full"
+                  style={`--target-width: ${skill.level * 100}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          {right.map(skill => (
+            <div class="py-2">
+              <p class="text-sm font-medium text-on-surface mb-1">{skill.label}</p>
+              <div class="h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                <div
+                  class="skill-bar-fill h-full bg-primary rounded-full"
+                  style={`--target-width: ${skill.level * 100}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const bars = document.querySelectorAll<HTMLElement>('.skill-bar-fill');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const delay = Math.random() * 400;
+          setTimeout(() => el.classList.add('animate'), delay);
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  bars.forEach(bar => observer.observe(bar));
+</script>

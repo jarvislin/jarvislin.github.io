@@ -1,0 +1,77 @@
+---
+import { achievements } from '../data/resume';
+---
+
+<section id="achievements" class="px-4 mt-8">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Achievements</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+      {achievements.map(achievement => (
+        <button
+          class="achievement-card card text-left cursor-pointer hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          data-id={achievement.id}
+          aria-label={`Achievement: ${achievement.title}. Click to read more.`}
+        >
+          <img
+            src={achievement.image}
+            alt={achievement.title}
+            class="w-full object-cover rounded-t-xl"
+            style="aspect-ratio:16/9"
+            loading="lazy"
+          />
+          <div class="p-4 flex-1">
+            <h3 class="text-base font-semibold text-on-surface mb-2">{achievement.title}</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">{achievement.description}</p>
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Achievement dialogs -->
+{achievements.map(achievement => (
+  <dialog id={`achievement-dialog-${achievement.id}`} class="w-full max-w-lg rounded-xl">
+    <div class="card bg-surface-container p-0 relative">
+      <img
+        src={achievement.image}
+        alt={achievement.title}
+        class="w-full object-cover rounded-t-xl"
+        style="aspect-ratio:16/10"
+      />
+      <button
+        class="close-achievement-btn absolute top-3 left-3 w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:opacity-80 transition-opacity"
+        aria-label="Dismiss"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="p-4 space-y-3 max-h-64 overflow-y-auto">
+        {achievement.paragraphs.map(p => (
+          <p class="text-sm text-on-surface leading-relaxed">{p}</p>
+        ))}
+      </div>
+    </div>
+  </dialog>
+))}
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.achievement-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-id');
+      const dialog = document.getElementById(`achievement-dialog-${id}`) as HTMLDialogElement;
+      dialog?.showModal();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.close-achievement-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      (btn.closest('dialog') as HTMLDialogElement)?.close();
+    });
+  });
+
+  document.querySelectorAll('dialog').forEach(dialog => {
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  });
+</script>

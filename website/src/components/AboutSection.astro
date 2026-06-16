@@ -1,0 +1,36 @@
+---
+import { profile, introText, aboutPoints } from '../data/resume';
+
+const iconSvgs: Record<string, string> = {
+  barchart: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+  chat: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+  category: `<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>`,
+  group: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+};
+---
+
+<div class="px-4 mt-4">
+  <div class="flex flex-col items-center mx-auto w-full max-w-content">
+  <a
+    href={profile.resumeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-2 px-6 py-2 border border-primary text-primary text-sm font-bold rounded-full hover:bg-primary hover:text-on-primary transition-colors"
+  >
+    DOWNLOAD RESUME
+  </a>
+
+  <p class="mt-4 text-base font-semibold text-secondary text-center leading-relaxed">
+    {introText}
+  </p>
+
+  <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
+    {aboutPoints.map(point => (
+      <div class="card flex items-start gap-3 px-4 py-3">
+        <svg class="w-5 h-5 flex-shrink-0 text-on-surface mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[point.icon]} />
+        <p class="text-sm text-on-surface leading-relaxed">{point.description}</p>
+      </div>
+    ))}
+  </div>
+  </div>
+</div>

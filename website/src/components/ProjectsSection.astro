@@ -1,0 +1,233 @@
+---
+import { projects } from '../data/resume';
+
+const linkIconSvgs: Record<string, string> = {
+  GitHub: `<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>`,
+  PlayStore: `<polygon points="5 3 19 12 5 21 5 3"/>`,
+  AppStore: `<path d="M12 20.94c1.5.58 3 .95 4.56.95 2 0 2.5-.5 2.44-2.44V12.56C19 10.56 18.5 10 16.56 10c-1.56 0-3.06.37-4.56.94M12 20.94C10.5 21.52 9 21.89 7.44 21.89c-2 0-2.5-.5-2.44-2.44V12.56C5 10.56 5.5 10 7.44 10 9 10 10.5 10.37 12 10.94M12 20.94V10.94M9 6l3-3 3 3M12 3v8"/>`,
+};
+---
+
+<section id="projects" class="px-4 mt-8">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Projects</h2>
+
+    <!-- Filter tabs -->
+    <div class="flex justify-center gap-1 mb-4" id="project-tabs">
+      {['All', 'Work', 'Side'].map((cat, i) => (
+        <button
+          class="tab-btn px-4 py-1.5 text-sm font-semibold rounded transition-colors"
+          data-cat={cat}
+          class:list={[i === 0 ? 'bg-primary text-on-primary' : 'text-on-surface-variant bg-surface']}
+        >
+          {cat === 'Side' ? 'Side Hustle' : cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project grid -->
+    <div id="project-grid" class="grid grid-cols-3 md:grid-cols-4 gap-2">
+      {projects.map((project, idx) => (
+        <button
+          class="project-card relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+          data-idx={idx}
+          data-cat={project.category}
+          aria-label={`View ${project.title}`}
+        >
+          <img src={project.logo} alt={project.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+          <div class="project-overlay absolute inset-0"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-2 md:p-3">
+            <p class="text-xs md:text-sm font-bold text-white text-center leading-tight">{project.title}</p>
+            <p class="hidden md:block text-xs text-white/70">{project.category}</p>
+          </div>
+        </button>
+      ))}
+    </div>
+
+    <!-- Load more -->
+    <div id="load-more-wrap" class="flex justify-center mt-6">
+      <button
+        id="load-more-btn"
+        class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center hover:opacity-80 transition-all"
+        aria-label="Load more projects"
+      >
+        <svg id="load-more-icon" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Project dialogs -->
+{projects.map((project, idx) => (
+  <dialog id={`project-dialog-${idx}`} class="w-full max-w-lg rounded-xl">
+    <div class="card bg-surface-container-high rounded-xl overflow-hidden">
+      <!-- Header -->
+      <div class="flex items-center gap-3 p-3 bg-surface-container-low">
+        <img src={project.logo} alt={project.title} class="w-16 h-16 object-cover rounded-xl flex-shrink-0" />
+        <div>
+          <p class="font-semibold text-on-surface">{project.title}</p>
+          <p class="text-xs text-on-surface-variant">{project.tags.map(t => `#${t}`).join(', ')}</p>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="max-h-[60vh] overflow-y-auto">
+        <p class="text-sm text-on-surface-variant leading-relaxed px-4 py-3">{project.description}</p>
+
+        {project.screenshots.length > 0 && (
+          <div class="gallery px-4 pb-3" data-dialog-idx={idx}>
+            <div class="flex flex-wrap gap-2">
+              {project.screenshots.map((src, si) => (
+                <button
+                  class="gallery-thumb w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 border-secondary focus:outline-none"
+                  data-src={src}
+                  data-si={si}
+                  aria-label={`View screenshot ${si + 1}`}
+                >
+                  <img src={src} alt="" class="w-full h-full object-cover" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {project.links.length > 0 && (
+          <div class="flex flex-wrap gap-2 px-4 pb-4">
+            {project.links.map(link => (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
+              >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={linkIconSvgs[link.type]} />
+                {link.title}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="flex justify-end px-4 pb-3">
+        <button class="close-project-btn text-sm text-primary px-2 py-1">Dismiss</button>
+      </div>
+    </div>
+  </dialog>
+))}
+
+<!-- Gallery viewer dialog -->
+<dialog id="gallery-viewer" class="w-full max-w-lg rounded-xl bg-transparent">
+  <div class="relative">
+    <button id="gallery-close" class="mb-2 ml-4 w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="relative rounded-xl overflow-hidden mx-4">
+      <img id="gallery-img" src="" alt="" class="w-full object-contain rounded-xl" />
+      <button id="gallery-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button id="gallery-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const INITIAL_COUNT = 12;
+  let shownCount = INITIAL_COUNT;
+  let currentFilter = 'All';
+
+  const allCards = Array.from(document.querySelectorAll<HTMLButtonElement>('.project-card'));
+  const loadMoreWrap = document.getElementById('load-more-wrap')!;
+  const loadMoreBtn = document.getElementById('load-more-btn')!;
+  const loadMoreIcon = document.getElementById('load-more-icon')!;
+
+  function applyFilter() {
+    const filtered = currentFilter === 'All'
+      ? allCards
+      : allCards.filter(c => c.dataset.cat === currentFilter);
+
+    allCards.forEach(c => { c.style.display = 'none'; });
+
+    const visible = currentFilter === 'All' ? filtered.slice(0, shownCount) : filtered;
+    visible.forEach(c => { c.style.display = ''; });
+
+    const canLoadMore = currentFilter === 'All' && shownCount < allCards.length;
+    loadMoreWrap.style.display = canLoadMore ? 'flex' : 'none';
+  }
+
+  applyFilter();
+
+  // Tab filter
+  document.querySelectorAll<HTMLButtonElement>('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.cat!;
+      shownCount = INITIAL_COUNT;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.toggle('bg-primary', b.dataset.cat === currentFilter);
+        b.classList.toggle('text-on-primary', b.dataset.cat === currentFilter);
+        b.classList.toggle('text-on-surface-variant', b.dataset.cat !== currentFilter);
+        b.classList.toggle('bg-surface', b.dataset.cat !== currentFilter);
+      });
+      applyFilter();
+    });
+  });
+
+  // Load more
+  loadMoreBtn.addEventListener('mouseenter', () => { loadMoreIcon.style.transform = 'rotate(90deg)'; });
+  loadMoreBtn.addEventListener('mouseleave', () => { loadMoreIcon.style.transform = 'rotate(0deg)'; });
+  loadMoreBtn.addEventListener('click', () => {
+    shownCount = allCards.length;
+    applyFilter();
+  });
+
+  // Open project dialog
+  allCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const idx = card.dataset.idx!;
+      (document.getElementById(`project-dialog-${idx}`) as HTMLDialogElement)?.showModal();
+    });
+  });
+
+  // Close project dialogs
+  document.querySelectorAll<HTMLButtonElement>('.close-project-btn').forEach(btn => {
+    btn.addEventListener('click', () => { (btn.closest('dialog') as HTMLDialogElement)?.close(); });
+  });
+  document.querySelectorAll('dialog').forEach(d => {
+    d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+  });
+
+  // Gallery viewer
+  let galleryImages: string[] = [];
+  let galleryIndex = 0;
+  const galleryViewer = document.getElementById('gallery-viewer') as HTMLDialogElement;
+  const galleryImg = document.getElementById('gallery-img') as HTMLImageElement;
+  const galleryPrev = document.getElementById('gallery-prev') as HTMLButtonElement;
+  const galleryNext = document.getElementById('gallery-next') as HTMLButtonElement;
+
+  function updateGallery() {
+    galleryImg.src = galleryImages[galleryIndex];
+    galleryPrev.style.display = galleryIndex === 0 ? 'none' : '';
+    galleryNext.style.display = galleryIndex === galleryImages.length - 1 ? 'none' : '';
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const gallery = thumb.closest('.gallery')!;
+      const allThumbs = Array.from(gallery.querySelectorAll('.gallery-thumb'));
+      galleryImages = allThumbs.map(t => (t as HTMLButtonElement).dataset.src!);
+      galleryIndex = parseInt(thumb.dataset.si!);
+      updateGallery();
+      galleryViewer.showModal();
+    });
+  });
+
+  galleryPrev.addEventListener('click', () => { galleryIndex--; updateGallery(); });
+  galleryNext.addEventListener('click', () => { galleryIndex++; updateGallery(); });
+  document.getElementById('gallery-close')?.addEventListener('click', () => galleryViewer.close());
+</script>

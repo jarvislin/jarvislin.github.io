@@ -1,0 +1,74 @@
+---
+import { references } from '../data/resume';
+---
+
+<section id="references" class="px-4 mt-8">
+  <div class="mx-auto w-full max-w-content">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">References</h2>
+    <div class="card w-full relative overflow-hidden" id="reference-card">
+      {references.map((ref, i) => (
+        <div
+          class="reference-slide px-4 py-5"
+          data-idx={i}
+          style={i === 0 ? '' : 'display:none'}
+        >
+          <div class="flex gap-4">
+            <div class="flex-1 min-w-0">
+              <div class="flex gap-3">
+                <svg class="w-7 h-7 flex-shrink-0 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                </svg>
+                <p class="text-base text-on-surface leading-relaxed">{ref.quote}</p>
+              </div>
+              <hr class="my-4 border-outline-variant ml-10" />
+              <p class="font-bold text-on-surface ml-10">{ref.author}</p>
+              <p class="text-xs text-on-surface-variant ml-10 uppercase tracking-wide">{ref.title}</p>
+            </div>
+
+            <!-- Nav buttons -->
+            <div class="flex flex-col gap-3 flex-shrink-0">
+              <button
+                class="ref-next w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
+                data-current={i}
+                aria-label="Next reference"
+              >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button
+                class="ref-prev w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
+                data-current={i}
+                aria-label="Previous reference"
+              >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.reference-slide'));
+  const total = slides.length;
+  let current = 0;
+
+  function showSlide(idx: number) {
+    slides[current].style.display = 'none';
+    current = (idx + total) % total;
+    slides[current].style.display = '';
+    slides[current].classList.add('crossfade-enter');
+    slides[current].addEventListener('animationend', () => {
+      slides[current].classList.remove('crossfade-enter');
+    }, { once: true });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.ref-next').forEach(btn => {
+    btn.addEventListener('click', () => showSlide(current + 1));
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.ref-prev').forEach(btn => {
+    btn.addEventListener('click', () => showSlide(current - 1));
+  });
+</script>
