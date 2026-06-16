@@ -11,6 +11,10 @@ plugins {
 }
 
 kotlin {
+    js(IR) { // Declare JS source-sets
+        browser()
+        binaries.executable()
+    }
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         outputModuleName = "composeApp"
@@ -49,6 +53,18 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        val jsMain by getting {
+            dependencies {
+                // Import libraries
+                implementation(compose.html.core)
+                implementation(compose.runtime)
+            }
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
         }
     }
 }
