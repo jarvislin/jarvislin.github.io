@@ -14,11 +14,11 @@ export const profile = {
 };
 
 export const introText =
-  'Tech lead with 13+ years of experience building end-to-end software solutions, driving cross-team execution, and aligning product vision with engineering excellence.';
+  'Founding engineer with 13+ years of experience building end-to-end software solutions, shipping products from zero to launch, and bridging technical execution with business impact.';
 
 export const aboutPoints = [
   { description: 'Specialized in taking products from concept to launch, including defining specs and analyzing metrics.', icon: 'barchart' },
-  { description: 'Effective in both independent and cross-functional team environments with clear communication.', icon: 'chat' },
+  { description: 'Thrives in ambiguity — defining scope from scratch and shipping end-to-end without a playbook.', icon: 'chat' },
   { description: 'Delivered 20+ app products, including those with 100M+ downloads and Editor\'s Choice awards.', icon: 'category' },
   { description: 'Experienced in supervising engineering and product teams globally across international settings.', icon: 'group' },
 ];
@@ -112,7 +112,7 @@ export const projects: Project[] = [
     logo: '/images/jetpack.webp',
     tags: ['App', 'Kotlin'],
     links: [
-      { title: 'GitHub', type: 'GitHub', url: 'https://github.com/jarvislin/HackerNews-KMP' },
+      { title: 'GitHub', type: 'GitHub', url: 'https://github.com/wordpress-mobile/WordPress-Android' },
       { title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=com.jetpack.android' },
     ],
     screenshots: [],
@@ -124,7 +124,7 @@ export const projects: Project[] = [
     logo: '/images/wordpress.webp',
     tags: ['App', 'Android', 'Kotlin'],
     links: [
-      { title: 'GitHub', type: 'GitHub', url: 'https://github.com/jarvislin/HackerNews-KMP' },
+      { title: 'GitHub', type: 'GitHub', url: 'https://github.com/wordpress-mobile/WordPress-Android' },
       { title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=org.wordpress.android' },
     ],
     screenshots: [],

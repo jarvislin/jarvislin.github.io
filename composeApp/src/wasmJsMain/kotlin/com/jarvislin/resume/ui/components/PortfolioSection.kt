@@ -71,7 +71,7 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
                 Project.Link(
                     "GitHub",
                     Project.Link.Type.GitHub,
-                    "https://github.com/jarvislin/HackerNews-KMP"
+                    "https://github.com/wordpress-mobile/WordPress-Android"
                 ),
                 Project.Link(
                     "Google Play",
@@ -90,7 +90,7 @@ fun PortfolioSection(useMobileLayout: Boolean, onClickLoad: () -> Unit, countOfL
                 Project.Link(
                     "GitHub",
                     Project.Link.Type.GitHub,
-                    "https://github.com/jarvislin/HackerNews-KMP"
+                    "https://github.com/wordpress-mobile/WordPress-Android"
                 ),
                 Project.Link(
                     "Google Play",
