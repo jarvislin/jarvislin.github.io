@@ -26,7 +26,7 @@ const iconSvgs: Record<string, string> = {
 
   <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
     {aboutPoints.map(point => (
-      <div class="card flex items-start gap-3 px-4 py-3">
+      <div class="card reveal flex items-start gap-3 px-4 py-3">
         <svg class="w-5 h-5 flex-shrink-0 text-on-surface mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[point.icon]} />
         <p class="text-sm text-on-surface leading-relaxed">{point.description}</p>
       </div>

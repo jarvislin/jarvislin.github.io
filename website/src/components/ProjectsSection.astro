@@ -29,7 +29,7 @@ const linkIconSvgs: Record<string, string> = {
     <div id="project-grid" class="grid grid-cols-3 md:grid-cols-4 gap-2">
       {projects.map((project, idx) => (
         <button
-          class="project-card relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+          class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
           data-idx={idx}
           data-cat={project.category}
           aria-label={`View ${project.title}`}

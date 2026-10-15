@@ -6,6 +6,10 @@ const pairs: [Exp, Exp | null][] = [];
 for (let i = 0; i < workExperiences.length; i += 2) {
   pairs.push([workExperiences[i], workExperiences[i + 1] ?? null]);
 }
+
+const INITIAL_COUNT = 4;
+const initialPairCount = Math.ceil(INITIAL_COUNT / 2);
+const hasMore = workExperiences.length > INITIAL_COUNT;
 ---
 
 <section id="experiences" class="px-4 mt-8">
@@ -15,8 +19,8 @@ for (let i = 0; i < workExperiences.length; i += 2) {
     <!-- Mobile layout: single column -->
     <div class="flex flex-col items-center gap-0 md:hidden">
       {workExperiences.map((exp, i) => (
-        <div class="w-full flex flex-col items-center">
-          <div class="card w-full overflow-hidden">
+        <div class="work-item w-full flex flex-col items-center" data-idx={i} style={i < INITIAL_COUNT ? '' : 'display:none'}>
+          <div class="card reveal w-full overflow-hidden">
             <div class="h-2 bg-primary w-full"></div>
             <div class="p-4">
               {exp.duration && <p class="text-xs font-bold text-primary">{exp.duration}</p>}
@@ -44,11 +48,11 @@ for (let i = 0; i < workExperiences.length; i += 2) {
       <div id="work-timeline-line" class="absolute left-1/2 -translate-x-1/2 w-0.5 bg-secondary-container z-0"></div>
 
       <div class="flex flex-col gap-6">
-        {pairs.map(([leftExp, rightExp]) => (
-          <div class="grid grid-cols-2 gap-6 items-start">
+        {pairs.map(([leftExp, rightExp], pairIdx) => (
+          <div class="work-row grid grid-cols-2 gap-6 items-start" data-pair-idx={pairIdx} style={pairIdx < initialPairCount ? '' : 'display:none'}>
 
             <!-- Left card -->
-            <div class="relative">
+            <div class="relative reveal">
               <div class="card overflow-hidden">
                 <div class="h-2 bg-primary w-full"></div>
                 <div class="p-4">
@@ -68,7 +72,7 @@ for (let i = 0; i < workExperiences.length; i += 2) {
             </div>
 
             <!-- Right card: pt-8 creates the stagger offset within the shared row -->
-            <div class="pt-8">
+            <div class="pt-8 reveal">
               {rightExp && (
                 <div class="relative">
                   <div class="work-dot absolute left-0 top-6 -translate-x-[18px] z-10 w-3 h-3 rounded-full bg-primary ring-2 ring-surface"></div>
@@ -96,13 +100,25 @@ for (let i = 0; i < workExperiences.length; i += 2) {
       </div>
     </div>
 
+    {hasMore && (
+      <div class="flex justify-center mt-6">
+        <button
+          id="work-show-more-btn"
+          class="px-6 py-2.5 border border-primary text-primary text-sm font-bold rounded-full hover:bg-primary hover:text-on-primary transition-colors"
+        >
+          Show full experience
+        </button>
+      </div>
+    )}
+
   </div>
 </section>
 
 <script>
   function positionTimelineLine() {
     const line = document.getElementById('work-timeline-line');
-    const dots = document.querySelectorAll<HTMLElement>('.work-dot');
+    // Hidden rows still match .work-dot; only measure ones actually laid out.
+    const dots = Array.from(document.querySelectorAll<HTMLElement>('.work-dot')).filter(d => d.offsetParent !== null);
     if (!line || dots.length === 0) return;
 
     const container = line.parentElement!;
@@ -119,4 +135,12 @@ for (let i = 0; i < workExperiences.length; i += 2) {
 
   positionTimelineLine();
   window.addEventListener('resize', positionTimelineLine);
+
+  document.getElementById('work-show-more-btn')?.addEventListener('click', (e) => {
+    document.querySelectorAll<HTMLElement>('.work-item, .work-row').forEach(el => { el.style.display = ''; });
+    (e.currentTarget as HTMLElement).closest('div')!.style.display = 'none';
+    positionTimelineLine();
+    // Re-measure once the newly revealed cards finish their reveal transition.
+    setTimeout(positionTimelineLine, 550);
+  });
 </script>
