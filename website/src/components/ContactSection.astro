@@ -1,12 +1,12 @@
 ---
+import { profile } from '../data/resume';
 ---
-
-<section id="contact" class="px-4 pt-16 md:pt-24 pb-12">
+<section id="contact" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-on-surface text-center mb-8">Get in Touch</h2>
-    <div class="card reveal w-full p-6 md:p-10">
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Get in Touch</h2>
+    <div class="card reveal w-full p-4 md:p-6">
       <p class="text-base text-on-surface leading-relaxed">
-        Have a question or project in mind? Leave a message — and if you're interested, check the box to get early access to my no-code resume builder.
+        Have a question, a collaboration idea, or just want to say hi? Leave a message and I'll get back to you.
       </p>
       <div class="mt-4 space-y-3">
         <div>
@@ -29,7 +29,7 @@
           <p id="email-error" class="text-xs text-error mt-1 hidden"></p>
         </div>
         <div>
-          <label for="contact-message" class="block text-sm text-on-surface-variant mb-1">Message</label>
+          <label for="contact-message" class="block text-sm text-on-surface-variant mb-1">Message <span class="text-error">*</span></label>
           <textarea
             id="contact-message"
             rows="4"
@@ -38,19 +38,13 @@
           ></textarea>
           <p id="message-error" class="text-xs text-error mt-1 hidden"></p>
         </div>
-        <label class="flex items-center gap-3 cursor-pointer select-none">
-          <input
-            id="contact-subscribe"
-            type="checkbox"
-            class="w-4 h-4 rounded accent-primary cursor-pointer"
-          />
-          <span class="text-sm text-on-surface">Notify me when your no-code resume builder is ready.</span>
-        </label>
+        <!-- Honeypot: real visitors never see or tick this; Web3Forms drops submissions where it is checked -->
+        <input id="contact-botcheck" type="checkbox" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
         <div class="flex justify-center pt-1">
           <button
             id="contact-submit"
             type="button"
-            class="px-8 py-2.5 bg-primary text-on-primary text-sm font-medium rounded-full hover:opacity-90 active:opacity-70 transition-opacity"
+            class="px-8 py-2.5 bg-primary text-on-primary text-sm font-medium rounded-full hover:opacity-90 active:opacity-70 transition-opacity disabled:opacity-50"
           >
             Submit
           </button>
@@ -60,31 +54,37 @@
   </div>
 </section>
 
-<!-- Placeholder dialogs (submission not wired) -->
 <dialog id="contact-success-dialog" class="rounded-xl max-w-sm w-full">
   <div class="card bg-surface-container p-6 text-center">
-    <h3 class="text-lg font-bold text-on-surface mb-2">Success</h3>
+    <h3 class="text-lg font-bold text-on-surface mb-2">Message sent</h3>
     <p class="text-sm text-on-surface-variant">Thanks for reaching out! I'll get back to you soon.</p>
     <button id="contact-success-ok" class="mt-4 px-6 py-2 text-primary text-sm font-medium">OK</button>
   </div>
 </dialog>
-
 <dialog id="contact-failure-dialog" class="rounded-xl max-w-sm w-full">
   <div class="card bg-surface-container p-6 text-center">
     <h3 class="text-lg font-bold text-on-surface mb-2">Something went wrong</h3>
-    <p class="text-sm text-on-surface-variant">Please try again later.</p>
+    <p class="text-sm text-on-surface-variant">
+      Please try again later, or email me at
+      <a href={`mailto:${profile.email}`} class="text-primary underline">{profile.email}</a>.
+    </p>
     <button id="contact-failure-ok" class="mt-4 px-6 py-2 text-primary text-sm font-medium">OK</button>
   </div>
 </dialog>
 
 <script>
+  // Public key from https://web3forms.com (safe to ship in the page). It also decides which inbox receives the messages.
+  const ACCESS_KEY = '6e595131-3798-427b-8abf-98e1ac8081fe';
+
+  const nameInput = document.getElementById('contact-name') as HTMLInputElement;
   const emailInput = document.getElementById('contact-email') as HTMLInputElement;
   const messageInput = document.getElementById('contact-message') as HTMLTextAreaElement;
-  const subscribeInput = document.getElementById('contact-subscribe') as HTMLInputElement;
+  const botcheck = document.getElementById('contact-botcheck') as HTMLInputElement;
   const emailError = document.getElementById('email-error')!;
   const messageError = document.getElementById('message-error')!;
-  const submitBtn = document.getElementById('contact-submit')!;
-
+  const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement;
+  const successDialog = document.getElementById('contact-success-dialog') as HTMLDialogElement;
+  const failureDialog = document.getElementById('contact-failure-dialog') as HTMLDialogElement;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   function validate(): boolean {
@@ -107,7 +107,7 @@
       valid = false;
     }
 
-    if (!subscribeInput.checked && !messageInput.value.trim()) {
+    if (!messageInput.value.trim()) {
       messageError.textContent = 'Message is required.';
       messageError.classList.remove('hidden');
       messageInput.classList.add('border-error');
@@ -117,23 +117,42 @@
     return valid;
   }
 
-  submitBtn.addEventListener('click', () => {
-    if (validate()) {
-      // Submission not yet wired — show placeholder success
-      (document.getElementById('contact-success-dialog') as HTMLDialogElement).showModal();
+  submitBtn.addEventListener('click', async () => {
+    if (!validate()) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: 'New message from your resume site',
+          from_name: 'Resume site',
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          message: messageInput.value.trim(),
+          botcheck: botcheck.checked,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message ?? res.statusText);
+      successDialog.showModal();
+    } catch (err) {
+      console.error('Contact form failed:', err);
+      failureDialog.showModal();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
     }
   });
 
   document.getElementById('contact-success-ok')?.addEventListener('click', () => {
-    (document.getElementById('contact-success-dialog') as HTMLDialogElement).close();
-    // Reset form
-    (document.getElementById('contact-name') as HTMLInputElement).value = '';
+    successDialog.close();
+    nameInput.value = '';
     emailInput.value = '';
     messageInput.value = '';
-    subscribeInput.checked = false;
   });
 
-  document.getElementById('contact-failure-ok')?.addEventListener('click', () => {
-    (document.getElementById('contact-failure-dialog') as HTMLDialogElement).close();
-  });
+  document.getElementById('contact-failure-ok')?.addEventListener('click', () => failureDialog.close());
 </script>

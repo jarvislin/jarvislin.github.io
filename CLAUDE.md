@@ -40,6 +40,6 @@ website/src/
 - **Scroll reveal**：加上 `.reveal` class 的元素會在進入視窗時淡入（Layout.astro 內單一 IntersectionObserver），並尊重 `prefers-reduced-motion`。
 - **Projects**：分頁 Featured（預設）/ All / Work / Side Hustle；`resume.ts` 中 `featured: true` 的專案才會出現在 Featured。
 - **Work Experience**：預設只顯示最近 4 筆，其餘由「Show full experience」展開。
-- **聯絡表單**：`ContactSection.astro` 目前未掛在 `index.astro`；前端驗證已完成，Supabase 送出邏輯尚未接入。
+- **聯絡表單**：`ContactSection.astro` 已掛在 `index.astro`，前端驗證後以 `fetch` POST 到 Web3Forms（無後端）。`ACCESS_KEY` 常數是 web3forms.com 的公開金鑰，收件信箱由該 key 決定（要換信箱就到 Web3Forms 重新申請）。
 - **nav active 狀態**：TopBar 以 IntersectionObserver 追蹤目前區塊，頁面初始預設 highlight `#about`。
 - **canonical / OG**：Layout.astro 的 canonical 與 og:image 使用 `https://jarvislin.github.io/`。

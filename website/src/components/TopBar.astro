@@ -6,6 +6,7 @@ const navItems = [
   { label: 'PROJECTS', href: '#projects' },
   { label: 'EXPERIENCES', href: '#experiences' },
   { label: 'REFERENCES', href: '#references' },
+  { label: 'CONTACT', href: '#contact' },
 ];
 ---
 
@@ -98,7 +99,7 @@ const navItems = [
   syncThemeIcon();
 
   // Active nav highlight on scroll
-  const sections = ['about', 'skills', 'achievements', 'projects', 'experiences', 'references'];
+  const sections = ['about', 'skills', 'achievements', 'projects', 'experiences', 'references', 'contact'];
   const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
 
   function setActive(id: string) {
