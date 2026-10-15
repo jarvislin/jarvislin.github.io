@@ -1,4 +1,4 @@
-name: Deploy Kotlin WASM to GitHub Pages
+name: Deploy Astro site to GitHub Pages
 
 on:
   push:
@@ -14,26 +14,23 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          node-version: 20
 
-      - name: Run Kotlin WASM Tests
-        run: ./gradlew wasmJsTest
+      - name: Install dependencies
+        run: npm install
+        working-directory: website
 
-      - name: Build Kotlin WASM Project
-        run: ./gradlew wasmJsBrowserDistribution
-
-      - name: Copy files
-        run: cp -r assets/* composeApp/build/dist/wasmJs/productionExecutable/
+      - name: Build
+        run: npm run build
+        working-directory: website
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: composeApp/build/dist/wasmJs/productionExecutable
-
+          publish_dir: website/dist
