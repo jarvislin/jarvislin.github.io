@@ -1,9 +1,9 @@
 export const profile = {
   name: 'Jarvis Lin',
-  title: 'Founder · Developer · Impact Creator',
+  title: 'Founder · Product Engineer',
   email: 'admin@jarvislin.com',
   location: 'Taipei, Taiwan',
-  education: 'National Formosa University, Bachelor, Computer Science and Information Engineering',
+  education: 'National Formosa University, Bachelor, Computer Science and Information Engineering, 2007–2011',
   avatar: '/images/avatar_16_9.webp',
   resumeUrl: 'https://drive.google.com/file/d/19rTCemHp7vG50n-AOHgcrF5jJC7Vsuii/view?usp=sharing',
   links: [
@@ -14,33 +14,72 @@ export const profile = {
 };
 
 export const introText =
-  'Founding engineer with 13+ years of experience building end-to-end software solutions, shipping products from zero to launch, and bridging technical execution with business impact.';
+  'Founder of JINNO, building LingoWave — an AI-powered communication app for Taiwanese care families and migrant caregivers. Product engineer with 14+ years of experience shipping products from zero to launch.';
 
 export const aboutPoints = [
   { description: 'Specialized in taking products from concept to launch, including defining specs and analyzing metrics.', icon: 'barchart' },
   { description: 'Thrives in ambiguity — defining scope from scratch and shipping end-to-end without a playbook.', icon: 'chat' },
-  { description: 'Delivered 20+ app products, including those with 100M+ downloads and Editor\'s Choice awards.', icon: 'category' },
-  { description: 'Experienced in supervising engineering and product teams globally across international settings.', icon: 'group' },
+  { description: 'Delivered 20+ app products, including Tumblr (100M+ downloads) and PKLOT App (Google Play Editor\'s Choice).', icon: 'category' },
+  { description: 'Led a cross-border team of 18 engineers, QA, designers, and PMs across Taiwan and Indonesia.', icon: 'group' },
 ];
 
-export const skills = [
-  { label: 'Fullstack Development', level: 0.9 },
-  { label: 'Mobile Development', level: 1.0 },
-  { label: 'Scalable Architecture', level: 0.9 },
-  { label: 'CI/CD Automation', level: 0.9 },
-  { label: 'Cross-functional Collaboration', level: 1.0 },
-  { label: 'Product Strategy', level: 0.8 },
-  { label: 'Analytics Integration', level: 0.85 },
-  { label: 'UI/UX Collaboration', level: 0.9 },
-  { label: 'Location-Based Services', level: 0.85 },
-  { label: 'Project Management', level: 0.85 },
+export interface SkillGroup {
+  label: string;
+  items: { name: string; primary?: boolean }[];
+}
+
+export const skillGroups: SkillGroup[] = [
+  {
+    label: 'Languages',
+    items: [
+      { name: 'Kotlin', primary: true },
+      { name: 'Java', primary: true },
+      { name: 'PHP' },
+      { name: 'Go' },
+      { name: 'Dart' },
+      { name: 'Swift' },
+    ],
+  },
+  {
+    label: 'Mobile',
+    items: [{ name: 'Android', primary: true }, { name: 'Compose Multiplatform', primary: true }, { name: 'iOS' }],
+  },
+  {
+    label: 'Engineering & Delivery',
+    items: [
+      { name: 'Fullstack Development' },
+      { name: 'Scalable Architecture' },
+      { name: 'CI/CD Automation' },
+      { name: 'Analytics Integration' },
+      { name: 'Location-Based Services' },
+    ],
+  },
+  {
+    label: 'Leadership & Product',
+    items: [
+      { name: 'Cross-functional Collaboration' },
+      { name: 'Product Strategy' },
+      { name: 'Project Management' },
+      { name: 'UI/UX Collaboration' },
+    ],
+  },
 ];
 
 export const achievements = [
   {
+    id: 'appstore',
+    title: 'Ahead of the AI Giants',
+    description: "May 2026 — Crops Price Checker reached #1 on the App Store's free Productivity chart, ahead of Google Gemini, ChatGPT, and Claude.",
+    image: '/images/appstore_top.webp',
+    paragraphs: [
+      "In May 2026, Crops Price Checker — my app showing current and historical fruit and vegetable prices from Taiwan's Council of Agriculture open data — reached #1 on the App Store's free Productivity chart.",
+      "The climb followed social media exposure that drove about a million article views. It ranked above Google Gemini, ChatGPT, and Claude: a small utility built on public data, ahead of the biggest AI brands on the chart.",
+    ],
+  },
+  {
     id: 'mvp',
     title: 'From Doubt to MVP',
-    description: 'Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.',
+    description: 'Dec 2024 — Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.',
     image: '/images/mvp.webp',
     paragraphs: [
       "At the Taipei 101 project showcase, I pitched my AI-powered translation tool to a room of industry leaders. Despite a technical hiccup, a tourism rep told me, \"Your solution directly addresses the challenges we face.\"",
@@ -50,17 +89,17 @@ export const achievements = [
   {
     id: 'competition',
     title: 'A Celebration of Victory',
-    description: 'As the Co-founder, I participated in the startup competition among 141 teams, and we emerged as the champions.',
+    description: 'Jun 2022 — As co-founder, I entered a startup competition of 141 teams, and we won first place.',
     image: '/images/competition.webp',
     paragraphs: [
-      "Out of 141 teams, we won first place in Taiwan's Economic Daily startup competition—earning front-page coverage for our bold proposal to modernize Indonesia's tax system with a centralized e-invoice platform.",
+      "Out of 141 teams, we won first place in Taiwan's Economic Daily News startup competition — earning front-page coverage for our proposal to modernize Indonesia's tax system with a centralized e-invoice platform.",
       "What began as a small cross-border effort became a mission-driven startup for public sector innovation. This award marked a turning point in our journey.",
     ],
   },
   {
     id: 'top',
     title: 'Google Play Conquest',
-    description: "My self-crafted app soared to the top of the play store's free rankings, a testament to my passion and dedication.",
+    description: "Mar 2020 — A pharmacy mask tracker I built solo reached #1 in Google Play's free rankings in Taiwan.",
     image: '/images/top.webp',
     paragraphs: [
       "Amid Taiwan's COVID-19 mask shortage, I independently built a real-time pharmacy mask tracker.",
@@ -73,7 +112,7 @@ export type ProjectCategory = 'All' | 'Work' | 'Side';
 
 export interface ProjectLink {
   title: string;
-  type: 'GitHub' | 'PlayStore' | 'AppStore';
+  type: 'GitHub' | 'PlayStore' | 'AppStore' | 'Website';
   url: string;
 }
 
@@ -90,8 +129,30 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'KMP Hub',
+    title: 'LingoWave',
     featured: true,
+    category: 'Work',
+    logo: '/images/lingowave.webp',
+    tags: ['App', 'Android', 'iOS', 'AI'],
+    links: [
+      { title: 'Website', type: 'Website', url: 'https://lingowave.app/' },
+      { title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=tech.jinno.lingowave' },
+      { title: 'App Store', type: 'AppStore', url: 'https://apps.apple.com/us/app/lingowave/id6762041755' },
+    ],
+    screenshots: [],
+    description: 'JINNO\'s flagship app for Taiwanese long-term care families and migrant caregivers. Messages are translated in real time across 6 languages, with shared health records and automated task reminders so nothing in daily care gets missed.',
+  },
+  {
+    title: 'Vipassana Experiences',
+    category: 'Side',
+    logo: '/images/vipassana.webp',
+    tags: ['Web'],
+    links: [{ title: 'Website', type: 'Website', url: 'https://vipassana.titsia.la/' }],
+    screenshots: [],
+    description: 'After completing a 10-day Vipassana retreat myself, I built this site to help people who are still hesitating. It answers common questions and publishes first-hand stories collected through a Google Form (anonymous where requested), filterable by number of courses attended, age, and occupation. Built solo in September 2026.',
+  },
+  {
+    title: 'KMP Hub',
     category: 'Side',
     logo: '/images/kmp_hub.webp',
     tags: ['Web', 'Compose Multiplatform', 'Kotlin'],
@@ -100,10 +161,10 @@ export const projects: Project[] = [
     description: 'KMP Hub is a curated platform for discovering Kotlin Multiplatform libraries and tools. We aim to help developers explore the KMP ecosystem, accelerate cross-platform development, and foster community collaboration.',
   },
   {
-    title: 'Hacker News KMP',
+    title: 'Pulse for Hacker News',
     featured: true,
     category: 'Side',
-    logo: '/images/hackernews.webp',
+    logo: '/images/pulse.webp',
     tags: ['App', 'Android', 'iOS', 'Compose Multiplatform', 'Kotlin'],
     links: [{ title: 'GitHub', type: 'GitHub', url: 'https://github.com/jarvislin/HackerNews-KMP' }],
     screenshots: [],
@@ -143,7 +204,7 @@ export const projects: Project[] = [
     tags: ['App', 'Android', 'Kotlin'],
     links: [{ title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=com.tumblr' }],
     screenshots: [],
-    description: 'Tumblr is a microblogging and social networking app where users can post multimedia content and follow other users\' blogs.',
+    description: 'Tumblr is a microblogging and social networking app where users can post multimedia content and follow other users\' blogs. I was responsible for Feeds, the app\'s core feature.',
   },
   {
     title: 'BikesHere',
@@ -161,13 +222,13 @@ export const projects: Project[] = [
     description: 'Provides geographic information for over 6,000 public bikes across Taiwan, including YouBike, YouBike 2.0, iBike, T-Bike, Pbike, K-bike, and more.',
   },
   {
-    title: 'Life in Taiwan',
+    title: 'Taiwan Species Catalog',
     category: 'Side',
     logo: '/images/life.webp',
     tags: ['App', 'Android', 'Kotlin'],
     links: [],
     screenshots: ['/images/screenshot_life_1.webp', '/images/screenshot_life_2.webp', '/images/screenshot_life_3.webp'],
-    description: 'A comprehensive science education app that provides detailed information on various species, including animals, plants, and insects.',
+    description: 'A comprehensive science education app that provides detailed information on species found in Taiwan, including animals, plants, and insects.',
   },
   {
     title: 'Mask Map',
@@ -199,7 +260,7 @@ export const projects: Project[] = [
     tags: ['App', 'Android', 'Kotlin'],
     links: [{ title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=id.co.indochat.app' }],
     screenshots: [],
-    description: 'A comprehensive mobile application for the Indonesian government featuring chat, video/audio calling, social media integration, news feeds, and invoice scanning.',
+    description: 'A comprehensive mobile application for the Indonesian government featuring chat, video/audio calling, social media integration, news feeds, and invoice scanning. I built the Android MVP on my own, then led the Android team and later served as product owner.',
   },
   {
     title: 'Autopass',
@@ -218,7 +279,7 @@ export const projects: Project[] = [
     tags: ['App', 'Android', 'Kotlin'],
     links: [{ title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=com.alfred.parkinglot' }],
     screenshots: [],
-    description: 'A parking and refueling assistant app recognized as one of the best apps on Google Play in Taiwan in both 2016 and 2017.',
+    description: 'A parking and refueling assistant app selected as a Google Play Editor\'s Choice in Taiwan in both 2016 and 2017.',
   },
   {
     title: 'Calories 100',
@@ -231,6 +292,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Crops Price Checker',
+    featured: true,
     category: 'Side',
     logo: '/images/crops_price_checker.webp',
     tags: ['App', 'Android', 'iOS', 'Compose Multiplatform', 'Kotlin'],
@@ -239,7 +301,7 @@ export const projects: Project[] = [
       { title: 'App Store', type: 'AppStore', url: 'https://apps.apple.com/us/app/id6661027883' },
     ],
     screenshots: [],
-    description: "A tool that retrieves open data from Taiwan's Council of Agriculture to display current and historical prices of fruits and vegetables.",
+    description: "Shows current and historical fruit and vegetable prices from Taiwan's Council of Agriculture open data, plus consumer buying guides created with agricultural experts. After social media exposure drove about a million article views, it reached #1 on the App Store's free Productivity chart in May 2026.",
   },
   {
     title: 'Water Restriction',
@@ -294,35 +356,35 @@ export const workExperiences = [
     title: 'Founder & CEO',
     company: 'JINNO',
     description:
-      'Defined and executed the company\'s vision, mission, and long-term strategy.\n\nBuilt and launched AI-powered multilingual communication products used in tourism, hospitality, and social impact sectors.\n\nEngaged directly with enterprise clients to identify pain points and deliver custom solutions.',
+      'Defined and executed the company\'s vision, mission, and long-term strategy.\n\nBuilt and launched LingoWave, an AI-powered communication app for Taiwanese long-term care families and migrant caregivers — real-time translation in 6 languages, shared health records, and automated task reminders.\n\nPartnering with the Health Education Center at Chiayi Christian Hospital, Tzu Chi University, and NGOs.\n\nEngaged directly with enterprise clients to identify pain points and deliver custom solutions.',
   },
   {
     duration: 'Nov 2022 - Jun 2024',
     title: 'Mobile Engineer',
     company: 'Automattic',
     description:
-      'Developed and implemented new features for the Android applications of Tumblr, WordPress, and Jetpack, including improvements to user experience, performance, and security.\n\nCollaborated with cross-functional teams to troubleshoot and resolve technical and product issues.',
+      'Developed and implemented new features for the Android applications of Tumblr, WordPress, and Jetpack, including improvements to user experience, performance, and security.\n\nResponsible for Tumblr\'s Feeds, the app\'s core feature.\n\nPlaced 2nd in Tumblr\'s internal hackathon; the project shipped the following April Fools\' Day as the Boop Button, drawing an enthusiastic response from users.\n\nCollaborated with cross-functional teams to troubleshoot and resolve technical and product issues.',
   },
   {
     duration: 'Dec 2021 - Nov 2022',
     title: 'Co-Founder & Technical Director',
     company: 'QTCOMM',
     description:
-      'Led engineers to identify root causes and implement scalable technical fixes.\n\nStreamlined IT issue resolution across classified and unclassified systems, lowering infra complexity and cutting stack costs.\n\nRe-architected audio/video call features, reducing production costs by over 85% and saving 8%+ of annual company expenses.\n\nSpearheaded integration with external partners, successfully connecting 3+ platforms including Tokopedia and Juiker.',
+      'Led engineers to identify root causes and implement scalable technical fixes.\n\nStreamlined IT issue resolution across classified and unclassified systems, lowering infra complexity and cutting stack costs.\n\nRe-architected audio/video call features, replacing the previous solution and cutting its cost by over 85% — saving the company 8% of its annual expenses.\n\nSpearheaded integration with external partners, successfully connecting 3+ platforms including Tokopedia and Juiker.',
   },
   {
     duration: 'Nov 2020 - Dec 2021',
     title: 'Project Technical Director',
     company: 'QTCOMM / PT. ICE Messenger Indonesia',
     description:
-      'Supervised teams across Taiwan and Indonesia, streamlining workflows based on team feedback—improving efficiency by 40%+.\n\nLed end-to-end product development, delivering mobile app updates, data encryption features, QA testing, and critical bug fixes.\n\nOwned the IndoChat product roadmap from concept to launch.\n\nBuilt event tracking systems; iterated sign-up flow to achieve 70%+ conversion rate.',
+      'Led a cross-border team of 18 across Taiwan and Indonesia — engineers, QA, designers, PMs, and tech leads — streamlining workflows based on team feedback and improving efficiency by 40%.\n\nLed end-to-end product development, delivering mobile app updates, data encryption features, QA testing, and critical bug fixes.\n\nServed as product owner of IndoChat, responsible for all product planning and the roadmap from concept to launch.\n\nBuilt event tracking systems; iterated sign-up flow to achieve 70% conversion rate.',
   },
   {
     duration: 'Jun 2019 - Nov 2020',
     title: 'Android Team Leader',
     company: 'QTCOMM / PT. ICE Messenger Indonesia',
     description:
-      'Led Android engineers to deliver features across multiple apps, refining architecture and product design based on evolving specs.\n\nOversaw end-to-end development of 3+ Android apps—from research and planning to launch and post-release support.\n\nBuilt CI/CD pipelines to automate testing and deployment, cutting manual build time by over 50 minutes.',
+      'Independently built the IndoChat Android MVP as the sole developer, then continued development with teammates as Team Leader.\n\nLed Android engineers to deliver features across multiple apps, refining architecture and product design based on evolving specs.\n\nOversaw end-to-end development of 3+ Android apps—from research and planning to launch and post-release support.\n\nBuilt CI/CD pipelines to automate testing and deployment, saving over 50 minutes of manual work per build.',
   },
   {
     duration: 'Jan 2018 - May 2019',
@@ -350,7 +412,7 @@ export const workExperiences = [
     title: 'Android Engineer',
     company: 'Zinwell',
     description:
-      "Developed a proof of concept for Zinwell's e-commerce app, Small Trade, in collaboration with UI designers and engineers.",
+      "Built a proof of concept for Zinwell's e-commerce app, Small Trade.",
   },
   {
     duration: 'Jun 2012 - Jul 2014',
