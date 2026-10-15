@@ -85,11 +85,13 @@ export interface Project {
   logo: string;
   links: ProjectLink[];
   screenshots: string[];
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
   {
     title: 'KMP Hub',
+    featured: true,
     category: 'Side',
     logo: '/images/kmp_hub.webp',
     tags: ['Web', 'Compose Multiplatform', 'Kotlin'],
@@ -99,6 +101,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Hacker News KMP',
+    featured: true,
     category: 'Side',
     logo: '/images/hackernews.webp',
     tags: ['App', 'Android', 'iOS', 'Compose Multiplatform', 'Kotlin'],
@@ -108,6 +111,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Jetpack',
+    featured: true,
     category: 'Work',
     logo: '/images/jetpack.webp',
     tags: ['App', 'Kotlin'],
@@ -120,6 +124,7 @@ export const projects: Project[] = [
   },
   {
     title: 'WordPress',
+    featured: true,
     category: 'Work',
     logo: '/images/wordpress.webp',
     tags: ['App', 'Android', 'Kotlin'],
@@ -132,6 +137,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Tumblr',
+    featured: true,
     category: 'Work',
     logo: '/images/tumblr.webp',
     tags: ['App', 'Android', 'Kotlin'],
@@ -165,6 +171,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Mask Map',
+    featured: true,
     category: 'Side',
     logo: '/images/mask.webp',
     tags: ['App', 'Android', 'Kotlin'],
@@ -186,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     title: 'IndoChat',
+    featured: true,
     category: 'Work',
     logo: '/images/indochat.webp',
     tags: ['App', 'Android', 'Kotlin'],
@@ -204,6 +212,7 @@ export const projects: Project[] = [
   },
   {
     title: 'PKLOT App',
+    featured: true,
     category: 'Work',
     logo: '/images/pklotapp.webp',
     tags: ['App', 'Android', 'Kotlin'],

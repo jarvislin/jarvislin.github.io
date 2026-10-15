@@ -14,7 +14,7 @@ const linkIconSvgs: Record<string, string> = {
 
     <!-- Filter tabs -->
     <div class="flex justify-center gap-1 mb-4" id="project-tabs">
-      {['All', 'Work', 'Side'].map((cat, i) => (
+      {['Featured', 'All', 'Work', 'Side'].map((cat, i) => (
         <button
           class="tab-btn px-4 py-1.5 text-sm font-semibold rounded transition-colors"
           data-cat={cat}
@@ -32,6 +32,7 @@ const linkIconSvgs: Record<string, string> = {
           class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
           data-idx={idx}
           data-cat={project.category}
+          data-featured={project.featured ? 'true' : 'false'}
           aria-label={`View ${project.title}`}
         >
           <img src={project.logo} alt={project.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
@@ -140,7 +141,7 @@ const linkIconSvgs: Record<string, string> = {
 <script>
   const INITIAL_COUNT = 12;
   let shownCount = INITIAL_COUNT;
-  let currentFilter = 'All';
+  let currentFilter = 'Featured';
 
   const allCards = Array.from(document.querySelectorAll<HTMLButtonElement>('.project-card'));
   const loadMoreWrap = document.getElementById('load-more-wrap')!;
@@ -150,7 +151,9 @@ const linkIconSvgs: Record<string, string> = {
   function applyFilter() {
     const filtered = currentFilter === 'All'
       ? allCards
-      : allCards.filter(c => c.dataset.cat === currentFilter);
+      : currentFilter === 'Featured'
+        ? allCards.filter(c => c.dataset.featured === 'true')
+        : allCards.filter(c => c.dataset.cat === currentFilter);
 
     allCards.forEach(c => { c.style.display = 'none'; });
 
