@@ -97,14 +97,29 @@ dialog::backdrop {
   }
 }
 
-/* Skill bar animation */
-.skill-bar-fill {
-  width: 0%;
-  transition: width 0.6s ease-out;
+/* Skill chips: staggered fade-up once the group is revealed, glow on hover */
+.skill-chip {
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.2s, border-color 0.2s;
+  transition-delay: calc(var(--i) * 45ms);
 }
-
-.skill-bar-fill.animate {
-  width: var(--target-width);
+.skill-group.revealed .skill-chip {
+  opacity: 1;
+  transform: none;
+}
+.skill-group.revealed .skill-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  transition-delay: 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-chip {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Crossfade for references */
