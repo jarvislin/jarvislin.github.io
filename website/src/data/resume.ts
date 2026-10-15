@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Jarvis Lin',
-  title: 'Founder · Developer · Impact Creator',
+  title: 'Founder · Software Engineer',
   email: 'admin@jarvislin.com',
   location: 'Taipei, Taiwan',
   education: 'National Formosa University, Bachelor, Computer Science and Information Engineering',
@@ -14,13 +14,13 @@ export const profile = {
 };
 
 export const introText =
-  'Founding engineer with 13+ years of experience building end-to-end software solutions, shipping products from zero to launch, and bridging technical execution with business impact.';
+  'Founder of JINNO, building LingoWave — an AI-powered communication app for Taiwanese care families and migrant caregivers. Software engineer with 14+ years of experience shipping products from zero to launch.';
 
 export const aboutPoints = [
   { description: 'Specialized in taking products from concept to launch, including defining specs and analyzing metrics.', icon: 'barchart' },
   { description: 'Thrives in ambiguity — defining scope from scratch and shipping end-to-end without a playbook.', icon: 'chat' },
   { description: 'Delivered 20+ app products, including those with 100M+ downloads and Editor\'s Choice awards.', icon: 'category' },
-  { description: 'Experienced in supervising engineering and product teams globally across international settings.', icon: 'group' },
+  { description: 'Led engineering and product teams across Taiwan and Indonesia.', icon: 'group' },
 ];
 
 export const skills = [
@@ -38,9 +38,19 @@ export const skills = [
 
 export const achievements = [
   {
+    id: 'appstore',
+    title: 'Ahead of the AI Giants',
+    description: "May 2026 — Crops Price Checker reached #1 on the App Store's free Productivity chart, ahead of Google Gemini, ChatGPT, and Claude.",
+    image: '/images/appstore_top.webp',
+    paragraphs: [
+      "In May 2026, Crops Price Checker — my app showing current and historical fruit and vegetable prices from Taiwan's Council of Agriculture open data — reached #1 on the App Store's free Productivity chart.",
+      "It ranked above Google Gemini, ChatGPT, and Claude: a small utility built on public data, ahead of the biggest AI brands on the chart.",
+    ],
+  },
+  {
     id: 'mvp',
     title: 'From Doubt to MVP',
-    description: 'Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.',
+    description: 'Dec 2024 — Named MVP at the Taipei 101 Tourism and Technology Showcase for impactful solo innovations in the tourism sector.',
     image: '/images/mvp.webp',
     paragraphs: [
       "At the Taipei 101 project showcase, I pitched my AI-powered translation tool to a room of industry leaders. Despite a technical hiccup, a tourism rep told me, \"Your solution directly addresses the challenges we face.\"",
@@ -50,17 +60,17 @@ export const achievements = [
   {
     id: 'competition',
     title: 'A Celebration of Victory',
-    description: 'As the Co-founder, I participated in the startup competition among 141 teams, and we emerged as the champions.',
+    description: 'Jun 2022 — As co-founder, I entered a startup competition of 141 teams, and we won first place.',
     image: '/images/competition.webp',
     paragraphs: [
-      "Out of 141 teams, we won first place in Taiwan's Economic Daily startup competition—earning front-page coverage for our bold proposal to modernize Indonesia's tax system with a centralized e-invoice platform.",
+      "Out of 141 teams, we won first place in Taiwan's Economic Daily News startup competition — earning front-page coverage for our proposal to modernize Indonesia's tax system with a centralized e-invoice platform.",
       "What began as a small cross-border effort became a mission-driven startup for public sector innovation. This award marked a turning point in our journey.",
     ],
   },
   {
     id: 'top',
     title: 'Google Play Conquest',
-    description: "My self-crafted app soared to the top of the play store's free rankings, a testament to my passion and dedication.",
+    description: "Mar 2020 — A pharmacy mask tracker I built solo reached #1 in Google Play's free rankings in Taiwan.",
     image: '/images/top.webp',
     paragraphs: [
       "Amid Taiwan's COVID-19 mask shortage, I independently built a real-time pharmacy mask tracker.",
@@ -73,7 +83,7 @@ export type ProjectCategory = 'All' | 'Work' | 'Side';
 
 export interface ProjectLink {
   title: string;
-  type: 'GitHub' | 'PlayStore' | 'AppStore';
+  type: 'GitHub' | 'PlayStore' | 'AppStore' | 'Website';
   url: string;
 }
 
@@ -89,6 +99,20 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    title: 'LingoWave',
+    featured: true,
+    category: 'Work',
+    logo: '/images/lingowave.webp',
+    tags: ['App', 'Android', 'iOS', 'AI'],
+    links: [
+      { title: 'Website', type: 'Website', url: 'https://lingowave.app/' },
+      { title: 'Google Play', type: 'PlayStore', url: 'https://play.google.com/store/apps/details?id=tech.jinno.lingowave' },
+      { title: 'App Store', type: 'AppStore', url: 'https://apps.apple.com/us/app/lingowave/id6762041755' },
+    ],
+    screenshots: [],
+    description: 'JINNO\'s flagship app for Taiwanese long-term care families and migrant caregivers. Messages are translated in real time across 6 languages, with shared health records and automated task reminders so nothing in daily care gets missed.',
+  },
   {
     title: 'KMP Hub',
     featured: true,
@@ -294,7 +318,7 @@ export const workExperiences = [
     title: 'Founder & CEO',
     company: 'JINNO',
     description:
-      'Defined and executed the company\'s vision, mission, and long-term strategy.\n\nBuilt and launched AI-powered multilingual communication products used in tourism, hospitality, and social impact sectors.\n\nEngaged directly with enterprise clients to identify pain points and deliver custom solutions.',
+      'Defined and executed the company\'s vision, mission, and long-term strategy.\n\nBuilt and launched LingoWave, an AI-powered communication app for Taiwanese long-term care families and migrant caregivers — real-time translation in 6 languages, shared health records, and automated task reminders.\n\nPartnering with the Health Education Center at Chiayi Christian Hospital, Tzu Chi University, and NGOs.\n\nEngaged directly with enterprise clients to identify pain points and deliver custom solutions.',
   },
   {
     duration: 'Nov 2022 - Jun 2024',
@@ -308,7 +332,7 @@ export const workExperiences = [
     title: 'Co-Founder & Technical Director',
     company: 'QTCOMM',
     description:
-      'Led engineers to identify root causes and implement scalable technical fixes.\n\nStreamlined IT issue resolution across classified and unclassified systems, lowering infra complexity and cutting stack costs.\n\nRe-architected audio/video call features, reducing production costs by over 85% and saving 8%+ of annual company expenses.\n\nSpearheaded integration with external partners, successfully connecting 3+ platforms including Tokopedia and Juiker.',
+      'Led engineers to identify root causes and implement scalable technical fixes.\n\nStreamlined IT issue resolution across classified and unclassified systems, lowering infra complexity and cutting stack costs.\n\nRe-architected audio/video call features, replacing the previous solution and cutting its cost by over 85% — saving the company 8%+ of its annual expenses.\n\nSpearheaded integration with external partners, successfully connecting 3+ platforms including Tokopedia and Juiker.',
   },
   {
     duration: 'Nov 2020 - Dec 2021',
@@ -322,7 +346,7 @@ export const workExperiences = [
     title: 'Android Team Leader',
     company: 'QTCOMM / PT. ICE Messenger Indonesia',
     description:
-      'Led Android engineers to deliver features across multiple apps, refining architecture and product design based on evolving specs.\n\nOversaw end-to-end development of 3+ Android apps—from research and planning to launch and post-release support.\n\nBuilt CI/CD pipelines to automate testing and deployment, cutting manual build time by over 50 minutes.',
+      'Led Android engineers to deliver features across multiple apps, refining architecture and product design based on evolving specs.\n\nOversaw end-to-end development of 3+ Android apps—from research and planning to launch and post-release support.\n\nBuilt CI/CD pipelines to automate testing and deployment, saving over 50 minutes of manual work per build.',
   },
   {
     duration: 'Jan 2018 - May 2019',
