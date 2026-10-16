@@ -42,4 +42,4 @@ website/src/
 - **Work Experience**：預設只顯示最近 4 筆，其餘由「Show full experience」展開。
 - **聯絡表單**：`ContactSection.astro` 已掛在 `index.astro`，前端驗證後以 `fetch` POST 到 Web3Forms（無後端）。`ACCESS_KEY` 常數是 web3forms.com 的公開金鑰，收件信箱由該 key 決定（要換信箱就到 Web3Forms 重新申請）。
 - **nav active 狀態**：TopBar 以 IntersectionObserver 追蹤目前區塊，頁面初始預設 highlight `#about`。
-- **canonical / OG**：Layout.astro 的 canonical 與 og:image 使用 `https://jarvislin.github.io/`。
+- **canonical / OG**：Layout.astro 的 canonical、og:url、og:image 與 JSON-LD 使用自訂網域 `https://resume.jarvislin.com/`。
