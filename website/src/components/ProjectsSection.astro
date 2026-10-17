@@ -1,5 +1,7 @@
 ---
-import { projects } from '../data/resume';
+import { projects, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
+
 
 const linkIconSvgs: Record<string, string> = {
   GitHub: `<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>`,
@@ -7,11 +9,19 @@ const linkIconSvgs: Record<string, string> = {
   PlayStore: `<polygon points="5 3 19 12 5 21 5 3"/>`,
   AppStore: `<path d="M12 20.94c1.5.58 3 .95 4.56.95 2 0 2.5-.5 2.44-2.44V12.56C19 10.56 18.5 10 16.56 10c-1.56 0-3.06.37-4.56.94M12 20.94C10.5 21.52 9 21.89 7.44 21.89c-2 0-2.5-.5-2.44-2.44V12.56C5 10.56 5.5 10 7.44 10 9 10 10.5 10.37 12 10.94M12 20.94V10.94M9 6l3-3 3 3M12 3v8"/>`,
 };
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const items = projects.map(p => localize(p, lang));
 ---
 
 <section id="projects" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Projects</h2>
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.projects}</h2>
 
     <!-- Filter tabs -->
     <div class="flex justify-center gap-1 mb-4" id="project-tabs">
@@ -21,26 +31,26 @@ const linkIconSvgs: Record<string, string> = {
           data-cat={cat}
           class:list={[i === 0 ? 'bg-primary text-on-primary' : 'text-on-surface-variant bg-surface']}
         >
-          {cat === 'Side' ? 'Side Hustle' : cat}
+          {t.tabs[cat as keyof typeof t.tabs]}
         </button>
       ))}
     </div>
 
     <!-- Project grid -->
     <div id="project-grid" class="grid grid-cols-3 md:grid-cols-4 gap-2">
-      {projects.map((project, idx) => (
+      {items.map((project, idx) => (
         <button
           class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
           data-idx={idx}
           data-cat={project.category}
           data-featured={project.featured ? 'true' : 'false'}
-          aria-label={`View ${project.title}`}
+          aria-label={t.viewProject(project.title)}
         >
           <img src={project.logo} alt={project.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
           <div class="project-overlay absolute inset-0"></div>
           <div class="absolute bottom-0 left-0 right-0 p-2 md:p-3">
             <p class="text-xs md:text-sm font-bold text-white text-center leading-tight">{project.title}</p>
-            <p class="hidden md:block text-xs text-white/70">{project.category}</p>
+            <p class="hidden md:block text-xs text-white/70">{t.category[project.category]}</p>
           </div>
         </button>
       ))}
@@ -51,7 +61,7 @@ const linkIconSvgs: Record<string, string> = {
       <button
         id="load-more-btn"
         class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center hover:opacity-80 transition-all"
-        aria-label="Load more projects"
+        aria-label={t.loadMore}
       >
         <svg id="load-more-icon" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -62,7 +72,7 @@ const linkIconSvgs: Record<string, string> = {
 </section>
 
 <!-- Project dialogs -->
-{projects.map((project, idx) => (
+{items.map((project, idx) => (
   <dialog id={`project-dialog-${idx}`} class="w-full max-w-lg rounded-xl">
     <div class="card bg-surface-container-high rounded-xl overflow-hidden">
       <!-- Header -->
@@ -86,7 +96,7 @@ const linkIconSvgs: Record<string, string> = {
                   class="gallery-thumb w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 border-secondary focus:outline-none"
                   data-src={src}
                   data-si={si}
-                  aria-label={`View screenshot ${si + 1}`}
+                  aria-label={t.viewScreenshot(si + 1)}
                 >
                   <img src={src} alt="" class="w-full h-full object-cover" loading="lazy" />
                 </button>
@@ -105,7 +115,7 @@ const linkIconSvgs: Record<string, string> = {
                 class="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
               >
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={linkIconSvgs[link.type]} />
-                {link.title}
+                {link.type === 'Website' ? t.websiteLink : link.title}
               </a>
             ))}
           </div>
@@ -113,7 +123,7 @@ const linkIconSvgs: Record<string, string> = {
       </div>
 
       <div class="flex justify-end px-4 pb-3">
-        <button class="close-project-btn text-sm text-primary px-2 py-1">Dismiss</button>
+        <button class="close-project-btn text-sm text-primary px-2 py-1">{t.dismiss}</button>
       </div>
     </div>
   </dialog>

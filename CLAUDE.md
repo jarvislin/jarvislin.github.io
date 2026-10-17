@@ -27,7 +27,9 @@ website/src/
   layouts/Layout.astro          ← 頁面骨架、meta/OG、JSON-LD、主題初始化、scroll-reveal observer
   pages/index.astro             ← 組合所有 Section，<main class="min-h-screen">（不可加 items-center，會壓縮子元素寬度）
   components/                   ← 各 Section 元件（含 Footer.astro）
-  data/resume.ts                ← 所有靜態資料（profile、skills、projects 等）
+  pages/index.astro, pages/zh/index.astro ← 英文（/）與中文（/zh/）頁面，都只渲染 components/HomePage.astro 並傳入 lang
+  data/resume.ts                ← 所有靜態資料（profile、skills、projects 等）；每個可翻譯項目的中文放在同一項目的 `zh` 欄位，缺少的欄位退回英文
+  i18n/ui.ts                    ← 介面文字的英中對照表、語言路徑與網址
   lib/icons.ts                  ← 共用 SVG 圖示路徑
   styles/global.css             ← CSS 自訂屬性（明/暗主題色）、.card、.reveal、.skill-bar-fill 動畫
 ```
@@ -40,6 +42,7 @@ website/src/
 - **Scroll reveal**：加上 `.reveal` class 的元素會在進入視窗時淡入（Layout.astro 內單一 IntersectionObserver），並尊重 `prefers-reduced-motion`。
 - **Projects**：分頁 Featured（預設）/ All / Work / Side Hustle；`resume.ts` 中 `featured: true` 的專案才會出現在 Featured。
 - **Work Experience**：預設只顯示最近 4 筆，其餘由「Show full experience」展開。
+- **多語言**：英文 `/`（預設）、繁體中文 `/zh/`，兩頁共用同一份版型，元件接收 `lang` prop，資料用 `localize(item, lang)` 取中文。語言切換是 TopBar 的一般連結（保留 hash），點擊後把選擇存到 `localStorage.lang`；Layout 的 inline script 會在 `/` 且已選中文時導向 `/zh/`。新增專案、經歷等資料時要同時補上 `zh`。
 - **聯絡表單**：`ContactSection.astro` 已掛在 `index.astro`，前端驗證後以 `fetch` POST 到 Web3Forms（無後端）。`ACCESS_KEY` 常數是 web3forms.com 的公開金鑰，收件信箱由該 key 決定（要換信箱就到 Web3Forms 重新申請）。
 - **nav active 狀態**：TopBar 以 IntersectionObserver 追蹤目前區塊，頁面初始預設 highlight `#about`。
 - **canonical / OG**：Layout.astro 的 canonical、og:url、og:image 與 JSON-LD 使用自訂網域 `https://resume.jarvislin.com/`。

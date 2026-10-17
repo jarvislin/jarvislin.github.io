@@ -1,12 +1,21 @@
 ---
+import { ui, langPath, htmlLang, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'en' ? 'zh' : 'en';
 const navItems = [
-  { label: 'ABOUT', href: '#about' },
-  { label: 'SKILLS', href: '#skills' },
-  { label: 'ACHIEVEMENTS', href: '#achievements' },
-  { label: 'PROJECTS', href: '#projects' },
-  { label: 'EXPERIENCES', href: '#experiences' },
-  { label: 'REFERENCES', href: '#references' },
-  { label: 'CONTACT', href: '#contact' },
+  { label: t.nav.about, href: '#about' },
+  { label: t.nav.skills, href: '#skills' },
+  { label: t.nav.achievements, href: '#achievements' },
+  { label: t.nav.projects, href: '#projects' },
+  { label: t.nav.experiences, href: '#experiences' },
+  { label: t.nav.references, href: '#references' },
+  { label: t.nav.contact, href: '#contact' },
 ];
 ---
 
@@ -33,7 +42,9 @@ const navItems = [
     <button
       id="theme-toggle"
       onclick="window.toggleTheme()"
-      aria-label="Switch to light mode"
+      aria-label={t.themeToLight}
+      data-to-light={t.themeToLight}
+      data-to-dark={t.themeToDark}
       class="ml-2 p-2 rounded-full hover:bg-surface-container transition-colors text-on-secondary-container"
     >
       <svg id="icon-sun" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -48,12 +59,24 @@ const navItems = [
       </svg>
     </button>
 
+    <!-- Language toggle: a real link to the other language page, so it works without JS -->
+    <a
+      id="lang-toggle"
+      href={langPath[other]}
+      hreflang={htmlLang[other]}
+      lang={htmlLang[other]}
+      data-lang={other}
+      aria-label={t.langToggle.aria}
+      class="ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container hover:bg-surface-container transition-colors"
+    >
+      {t.langToggle.label}
+    </a>
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
       class="md:hidden ml-1 px-3 py-1.5 border border-on-secondary-container rounded text-sm text-on-secondary-container"
     >
-      MENU
+      {t.menu}
     </button>
   </nav>
 </header>
@@ -61,7 +84,7 @@ const navItems = [
 <!-- Mobile nav dialog -->
 <dialog id="mobile-menu-dialog" class="w-64 rounded-xl p-0">
   <div class="card p-4 bg-surface-container">
-    <p class="font-bold text-on-surface mb-2">Navigate to</p>
+    <p class="font-bold text-on-surface mb-2">{t.navigateTo}</p>
     {navItems.map((item, i) => (
       <div>
         <a
@@ -74,7 +97,7 @@ const navItems = [
       </div>
     ))}
     <div class="flex justify-end mt-2">
-      <button id="close-mobile-menu" class="text-sm text-primary px-2 py-1">Dismiss</button>
+      <button id="close-mobile-menu" class="text-sm text-primary px-2 py-1">{t.dismiss}</button>
     </div>
   </div>
 </dialog>
@@ -89,6 +112,13 @@ const navItems = [
   closeBtn?.addEventListener('click', () => dialog?.close());
   dialog?.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
   mobileLinks.forEach(link => link.addEventListener('click', () => dialog?.close()));
+
+  // Remember the chosen language and keep the current section when switching
+  const langToggle = document.getElementById('lang-toggle') as HTMLAnchorElement | null;
+  langToggle?.addEventListener('click', () => {
+    try { localStorage.setItem('lang', langToggle.dataset.lang ?? 'en'); } catch {}
+    langToggle.href = langToggle.getAttribute('href')!.split('#')[0] + location.hash;
+  });
 
   // Sync theme icon
   function syncThemeIcon() {

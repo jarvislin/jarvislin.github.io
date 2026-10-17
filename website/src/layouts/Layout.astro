@@ -1,33 +1,39 @@
 ---
 import '../styles/global.css';
+import { ui, htmlLang, langPath, siteUrl, languages, type Lang } from '../i18n/ui';
 
 interface Props {
-  title?: string;
-  description?: string;
+  lang?: Lang;
 }
 
-const {
-  title = 'Jarvis Lin - Founder · Product Engineer',
-  description = 'Founder of JINNO, building LingoWave, an AI communication app for Taiwanese care families and migrant caregivers. Product engineer with 14+ years of experience, ex-Automattic.',
-} = Astro.props;
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const url = siteUrl + langPath[lang];
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang={htmlLang[lang]} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href="https://resume.jarvislin.com/" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <script is:inline>
+      // Remember the language choice: a visitor who last picked Chinese lands on /zh/ when opening the bare URL.
+      try { if (location.pathname === '/' && localStorage.getItem('lang') === 'zh') location.replace('/zh/' + location.hash); } catch (e) {}
+    </script>
+    <title>{t.title}</title>
+    <meta name="description" content={t.description} />
+    <link rel="canonical" href={url} />
+    {languages.map(l => <link rel="alternate" hreflang={htmlLang[l]} href={siteUrl + langPath[l]} />)}
+    <link rel="alternate" hreflang="x-default" href={siteUrl + langPath.en} />
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://resume.jarvislin.com/" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_TW' : 'en_US'} />
+    <meta property="og:url" content={url} />
     <meta property="og:image" content="https://resume.jarvislin.com/images/avatar_16_9.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={t.title} />
+    <meta name="twitter:description" content={t.description} />
     <meta name="twitter:image" content="https://resume.jarvislin.com/images/avatar_16_9.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -83,7 +89,7 @@ const {
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         const btn = document.getElementById('theme-toggle');
-        if (btn) btn.setAttribute('aria-label', next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        if (btn) btn.setAttribute('aria-label', (next === 'dark' ? btn.dataset.toLight : btn.dataset.toDark) ?? '');
       };
     </script>
   </body>

@@ -1,11 +1,20 @@
 ---
-import { skillGroups } from '../data/resume';
+import { skillGroups, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const groups = skillGroups.map(g => ({ ...localize(g, lang), items: g.items.map(i => localize(i, lang)) }));
 ---
 <section id="skills" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Professional Skills</h2>
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.skills}</h2>
     <div class="card reveal w-full px-4 py-2">
-      {skillGroups.map(group => (
+      {groups.map(group => (
         <div class="skill-group reveal py-4 border-t border-outline-variant first:border-t-0 md:grid md:grid-cols-[11rem_1fr] md:gap-x-6">
           <h3 class="text-base font-semibold text-on-surface-variant mb-2 md:mb-0 md:pt-0.5">{group.label}</h3>
           <ul class="flex flex-wrap gap-2">

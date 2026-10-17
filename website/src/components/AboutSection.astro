@@ -1,6 +1,15 @@
 ---
-import { profile, introText, aboutPoints } from '../data/resume';
+import { profile, intro, aboutPoints, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
 
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const introText = localize(intro, lang).text;
+const points = aboutPoints.map(a => localize(a, lang));
 const iconSvgs: Record<string, string> = {
   barchart: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
   chat: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
@@ -17,7 +26,7 @@ const iconSvgs: Record<string, string> = {
     rel="noopener noreferrer"
     class="mt-2 px-6 py-2 border border-primary text-primary text-sm font-bold rounded-full hover:bg-primary hover:text-on-primary transition-colors"
   >
-    DOWNLOAD RESUME
+    {t.downloadResume}
   </a>
 
   <p class="mt-4 text-base font-semibold text-secondary text-center leading-relaxed">
@@ -25,7 +34,7 @@ const iconSvgs: Record<string, string> = {
   </p>
 
   <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
-    {aboutPoints.map(point => (
+    {points.map(point => (
       <div class="card reveal flex items-start gap-3 px-4 py-3">
         <svg class="w-5 h-5 flex-shrink-0 text-on-surface mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[point.icon]} />
         <p class="text-sm text-on-surface leading-relaxed">{point.description}</p>

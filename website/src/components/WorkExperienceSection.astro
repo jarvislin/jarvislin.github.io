@@ -1,24 +1,33 @@
 ---
-import { workExperiences } from '../data/resume';
+import { workExperiences, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
 
-type Exp = typeof workExperiences[0];
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const items = workExperiences.map(e => localize(e, lang));
+
+type Exp = typeof items[0];
 const pairs: [Exp, Exp | null][] = [];
-for (let i = 0; i < workExperiences.length; i += 2) {
-  pairs.push([workExperiences[i], workExperiences[i + 1] ?? null]);
+for (let i = 0; i < items.length; i += 2) {
+  pairs.push([items[i], items[i + 1] ?? null]);
 }
 
 const INITIAL_COUNT = 4;
 const initialPairCount = Math.ceil(INITIAL_COUNT / 2);
-const hasMore = workExperiences.length > INITIAL_COUNT;
+const hasMore = items.length > INITIAL_COUNT;
 ---
 
 <section id="experiences" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Work Experiences</h2>
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.experiences}</h2>
 
     <!-- Mobile layout: single column -->
     <div class="flex flex-col items-center gap-0 md:hidden">
-      {workExperiences.map((exp, i) => (
+      {items.map((exp, i) => (
         <div class="work-item w-full flex flex-col items-center" data-idx={i} style={i < INITIAL_COUNT ? '' : 'display:none'}>
           <div class="card reveal w-full overflow-hidden">
             <div class="h-2 bg-primary w-full"></div>
@@ -35,7 +44,7 @@ const hasMore = workExperiences.length > INITIAL_COUNT;
               )}
             </div>
           </div>
-          {i < workExperiences.length - 1 && (
+          {i < items.length - 1 && (
             <div class="w-0.5 h-4 bg-secondary-container"></div>
           )}
         </div>
@@ -106,7 +115,7 @@ const hasMore = workExperiences.length > INITIAL_COUNT;
           id="work-show-more-btn"
           class="px-6 py-2.5 border border-primary text-primary text-sm font-bold rounded-full hover:bg-primary hover:text-on-primary transition-colors"
         >
-          Show full experience
+          {t.showFullExperience}
         </button>
       </div>
     )}

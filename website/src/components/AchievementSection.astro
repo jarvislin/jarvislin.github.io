@@ -1,16 +1,25 @@
 ---
-import { achievements } from '../data/resume';
+import { achievements, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const items = achievements.map(a => localize(a, lang));
 ---
 
 <section id="achievements" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">Achievements</h2>
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.achievements}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-      {achievements.map(achievement => (
+      {items.map(achievement => (
         <button
           class="achievement-card card reveal text-left cursor-pointer hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
           data-id={achievement.id}
-          aria-label={`Achievement: ${achievement.title}. Click to read more.`}
+          aria-label={t.achievementAria(achievement.title)}
         >
           <img
             src={achievement.image}
@@ -30,7 +39,7 @@ import { achievements } from '../data/resume';
 </section>
 
 <!-- Achievement dialogs -->
-{achievements.map(achievement => (
+{items.map(achievement => (
   <dialog id={`achievement-dialog-${achievement.id}`} class="w-full max-w-lg rounded-xl">
     <div class="card bg-surface-container p-0 relative">
       <img
@@ -41,7 +50,7 @@ import { achievements } from '../data/resume';
       />
       <button
         class="close-achievement-btn absolute top-3 left-3 w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:opacity-80 transition-opacity"
-        aria-label="Dismiss"
+        aria-label={t.dismiss}
       >
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>

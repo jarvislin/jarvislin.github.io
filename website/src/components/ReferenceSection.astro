@@ -1,12 +1,21 @@
 ---
-import { references } from '../data/resume';
+import { references, localize } from '../data/resume';
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = ui[lang];
+const items = references.map(r => localize(r, lang));
 ---
 
 <section id="references" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">References</h2>
+    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.references}</h2>
     <div class="card reveal w-full relative overflow-hidden" id="reference-card">
-      {references.map((ref, i) => (
+      {items.map((ref, i) => (
         <div
           class="reference-slide px-4 py-5"
           data-idx={i}
@@ -30,14 +39,14 @@ import { references } from '../data/resume';
               <button
                 class="ref-next w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
                 data-current={i}
-                aria-label="Next reference"
+                aria-label={t.reference.next}
               >
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
               <button
                 class="ref-prev w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:border-primary hover:text-primary transition-colors"
                 data-current={i}
-                aria-label="Previous reference"
+                aria-label={t.reference.prev}
               >
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
               </button>

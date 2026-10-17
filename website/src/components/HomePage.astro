@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from './TopBar.astro';
+import ProfileSection from './ProfileSection.astro';
+import AboutSection from './AboutSection.astro';
+import SkillSection from './SkillSection.astro';
+import AchievementSection from './AchievementSection.astro';
+import ProjectsSection from './ProjectsSection.astro';
+import WorkExperienceSection from './WorkExperienceSection.astro';
+import ReferenceSection from './ReferenceSection.astro';
+import ContactSection from './ContactSection.astro';
+import Footer from './Footer.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <TopBar lang={lang} />
+  <main class="min-h-screen">
+    <ProfileSection lang={lang} />
+    <AboutSection lang={lang} />
+    <SkillSection lang={lang} />
+    <AchievementSection lang={lang} />
+    <ProjectsSection lang={lang} />
+    <WorkExperienceSection lang={lang} />
+    <ReferenceSection lang={lang} />
+    <ContactSection lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>
