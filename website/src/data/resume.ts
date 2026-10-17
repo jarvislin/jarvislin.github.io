@@ -48,22 +48,22 @@ export const aboutPoints: L<{ description: string; icon: string }>[] = [
   {
     description: 'Specialized in taking products from concept to launch, including defining specs and analyzing metrics.',
     icon: 'barchart',
-    zh: { description: '專長將產品從概念推進到上線，包括定義規格與分析數據。' },
+    zh: { description: '擅長將產品從概念推進到上線，包括定義規格與分析數據。' },
   },
   {
     description: 'Thrives in ambiguity — defining scope from scratch and shipping end-to-end without a playbook.',
     icon: 'chat',
-    zh: { description: '擅長在不確定中前進——從零定義範圍，沒有現成做法也能端到端交付。' },
+    zh: { description: '熟悉在混亂中前進——從零定義範圍，解決各種不確定後完成交付。' },
   },
   {
     description: 'Delivered 20+ app products, including Tumblr (100M+ downloads) and PKLOT App (Google Play Editor\'s Choice).',
     icon: 'category',
-    zh: { description: '交付過 20 款以上的 App，包括 Tumblr（下載量逾 1 億）與停車大聲公（Google Play 編輯精選）。' },
+    zh: { description: '開發過 20 款以上的 App，包含下載破 1 億的 Tumblr 與多次入圍 Google Play 官方編輯精選的停車大聲公。' },
   },
   {
     description: 'Led a cross-border team of 18 engineers, QA, designers, and PMs across Taiwan and Indonesia.',
     icon: 'group',
-    zh: { description: '帶領橫跨台灣與印尼、共 18 位工程師、QA、設計師與 PM 的跨國團隊。' },
+    zh: { description: '曾帶領台灣、印尼 18 位成員的跨國團隊，包含工程師、QA、設計師與 PM。' },
   },
 ];
 
@@ -88,7 +88,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: 'Mobile',
-    zh: { label: '行動開發' },
+    zh: { label: '手機端開發' },
     items: [{ name: 'Android', primary: true }, { name: 'Compose Multiplatform', primary: true }, { name: 'iOS' }],
   },
   {
@@ -124,18 +124,18 @@ export const achievements: L<{
   {
     id: 'appstore',
     title: 'Ahead of the AI Giants',
-    description: "May 2026 — Crops Price Checker reached #1 on the App Store's free Productivity chart, ahead of Google Gemini, ChatGPT, and Claude.",
+    description: "May 2026 — Produce Price Tracker reached #1 on the App Store's free Productivity chart, ahead of Google Gemini, ChatGPT, and Claude.",
     image: '/images/appstore_top.webp',
     paragraphs: [
-      "In May 2026, Crops Price Checker — my app showing current and historical fruit and vegetable prices from Taiwan's Council of Agriculture open data — reached #1 on the App Store's free Productivity chart.",
+      "In May 2026, Produce Price Tracker — my app showing current and historical fruit and vegetable prices from Taiwan's Council of Agriculture open data — reached #1 on the App Store's free Productivity chart.",
       "The climb followed social media exposure that drove about a million article views. It ranked above Google Gemini, ChatGPT, and Claude: a small utility built on public data, ahead of the biggest AI brands on the chart.",
     ],
     zh: {
-      title: '擠下 AI 巨頭',
-      description: '2026 年 5 月——蔬果花卉行情站（Crops Price Checker）登上 App Store 免費「生產力」榜第一，領先 Google Gemini、ChatGPT 與 Claude。',
+      title: 'AI 巨頭之上',
+      description: '2026 年 5 月——蔬果花卉行情站登上 App Store 免費「生產力」榜第一，領先 Google Gemini、ChatGPT 與 Claude。',
       paragraphs: [
-        '2026 年 5 月，我做的蔬果花卉行情站（Crops Price Checker）——串接農業部開放資料，顯示蔬果的即時與歷史價格——登上 App Store 免費「生產力」排行榜第一名。',
-        '這波上升來自社群平台的曝光，帶來約 100 萬次文章瀏覽。它排在 Google Gemini、ChatGPT 與 Claude 之前：一個用公開資料做成的小工具，擠到榜單上最大的幾個 AI 品牌前面。',
+        '2026 年 5 月，我做的蔬果花卉行情站——串接農業部開放資料，顯示蔬果的即時與歷史價格——登上 App Store 免費「生產力」排行榜第一名。',
+        '這波流量來自社群平台的曝光，帶來約 100 萬次的瀏覽數。它排在 Google Gemini、ChatGPT 與 Claude 之上：一個用公開資料做成的小工具，擠到榜單上最大的幾個 AI 品牌前面。',
       ],
     },
   },
@@ -149,11 +149,11 @@ export const achievements: L<{
       "Later, I was named MVP — a solo creator recognized among established teams. It affirmed that this work isn't just about tech, but real-world impact.",
     ],
     zh: {
-      title: '從質疑到 MVP',
+      title: '從自我懷疑到拿下優勝',
       description: '2024 年 12 月——在台北 101 的科技交流站獲選 MVP，肯定我在觀光領域獨力完成的創新。',
       paragraphs: [
-        '在台北 101 的專案展示上，我向一屋子的產業代表介紹我的 AI 翻譯工具。雖然現場出了點技術狀況，一位觀光業代表仍對我說：「你的解決方案正好回應了我們面臨的難題。」',
-        '後來我獲選 MVP——一位獨自創作的人，在許多成熟團隊之中被肯定。這讓我確信，這份工作不只是技術，而是真實世界的影響。',
+        '在台北 101 的成果發表上，我向全場的產業代表跟評審介紹我的 AI 翻譯工具。雖然現場出了點技術狀況，一位觀光業代表仍對我說：「我們產業需要像你這樣的人！」',
+        '後來我獲選 MVP 優勝——以一人團隊的身份跟上市上櫃的團隊較勁、獲得肯定。這讓我確信：這份工作不只是技術，而是真實世界的影響。',
       ],
     },
   },
@@ -168,9 +168,9 @@ export const achievements: L<{
     ],
     zh: {
       title: '勝利的時刻',
-      description: '2022 年 6 月——身為共同創辦人，我們在 141 組團隊參加的新創競賽中拿下第一名。',
+      description: '2022 年 6 月——身為共同創辦人，我們在 141 組團隊參加的創業之星拿下第一名。',
       paragraphs: [
-        '在 141 組團隊中，我們拿下《經濟日報》新創競賽第一名，並登上報紙頭版——我們提出以集中式電子發票平台，協助印尼現代化稅務系統。',
+        '在 141 組團隊中，我們拿下《經濟日報》創業之星企業組第一名，並登上報紙頭版——我們提出以集中式電子發票平台，協助印尼現代化稅務系統。',
         '這個從小規模跨國合作開始的計畫，後來成為一家以公共部門創新為使命的新創公司。這個獎項是我們旅程的轉捩點。',
       ],
     },
@@ -186,10 +186,10 @@ export const achievements: L<{
     ],
     zh: {
       title: 'Google Play 登頂',
-      description: '2020 年 3 月——我獨自開發的藥局口罩地圖，登上台灣 Google Play 免費榜第一名。',
+      description: '2020 年 3 月——我獨自開發的口罩資訊地圖，登上台灣 Google Play 免費排行第一名。',
       paragraphs: [
-        '台灣爆發 COVID-19 口罩荒時，我獨立開發了即時藥局口罩地圖。',
-        '一個月內，它就登上 Google Play 第一名，成為疫情期間重要的公共工具——把技術與真實世界的影響結合在一起。',
+        'COVID-19 期間，台灣口罩不足，我獨立開發了即時藥局口罩地圖。',
+        '一個月內它登上 Google Play 第一名，成為疫情期間重要的公共工具——把技術與真實世界的影響結合在一起。',
       ],
     },
   },
@@ -229,7 +229,7 @@ export const projects: Project[] = [
     screenshots: [],
     description: 'JINNO\'s flagship app for Taiwanese long-term care families and migrant caregivers. Messages are translated in real time across 6 languages, with shared health records and automated task reminders so nothing in daily care gets missed.',
     zh: {
-      description: 'JINNO 的旗艦 App，為台灣長照家庭與外籍看護而設計。訊息可即時翻譯成 6 種語言，並結合共享健康紀錄與自動排程提醒，讓日常照護不再漏接。',
+      description: 'JINNO 的主力產品，為台灣長照家庭與外籍看護而設計。訊息可即時翻譯成 6 種語言，並結合共享健康紀錄與自動排程提醒，讓日常照護不再漏接。',
     },
   },
   {
@@ -242,7 +242,7 @@ export const projects: Project[] = [
     description: 'After completing a 10-day Vipassana retreat myself, I built this site to help people who are still hesitating. It answers common questions and publishes first-hand stories collected through a Google Form (anonymous where requested), filterable by number of courses attended, age, and occupation. Built solo in September 2026.',
     zh: {
       title: '十日內觀｜真實經驗分享',
-      description: '我自己完成十日內觀課程後，做了這個網站，幫助仍在猶豫的人。網站回答常見疑問，並公開透過 Google 表單蒐集的第一手經驗（需要時可匿名），可依參加次數、年齡與職業篩選。2026 年 9 月獨立製作。',
+      description: '我自己完成十日內觀課程後，做了這個網站，幫助仍在猶豫的人。網站回答常見疑問，並公開透過 Google 表單蒐集的第一手經驗，可依參加次數、年齡與職業篩選。',
     },
   },
   {
@@ -312,7 +312,7 @@ export const projects: Project[] = [
     screenshots: [],
     description: 'Tumblr is a microblogging and social networking app where users can post multimedia content and follow other users\' blogs. I was responsible for Feeds, the app\'s core feature.',
     zh: {
-      description: 'Tumblr 是一個微網誌與社群網路 App，使用者可以發佈多媒體內容並追蹤其他人的部落格。我負責 Feeds，也就是 App 的核心功能。',
+      description: 'Tumblr 是一個微網誌與社群網路 App，使用者可以發佈多媒體內容並追蹤其他人的部落格。我負責 Feeds，也就是文章相關的核心功能。',
     },
   },
   {
@@ -372,6 +372,7 @@ export const projects: Project[] = [
     screenshots: ['/images/screenshot_adoptly_1.webp', '/images/screenshot_adoptly_2.webp'],
     description: 'Adoptly provides a way to adopt animals which live in shelters. It also shows information about shelters.',
     zh: {
+      title: '浪浪抵家',
       description: '提供認養收容所動物的管道，也呈現收容所的相關資訊。',
     },
   },
@@ -397,7 +398,7 @@ export const projects: Project[] = [
     screenshots: [],
     description: 'A location-based platform offering a range of services for drivers, including finding parking and refueling options.',
     zh: {
-      description: '以位置為基礎的平台，為駕駛提供多項服務，包括尋找停車場與加油站。',
+      description: '以位置為基礎的平台，為駕駛提供多項服務，包括尋找停車場與加油站的支付。',
     },
   },
   {
@@ -427,7 +428,7 @@ export const projects: Project[] = [
     },
   },
   {
-    title: 'Crops Price Checker',
+    title: 'Produce Price Tracker',
     featured: true,
     category: 'Side',
     logo: '/images/crops_price_checker.webp',
@@ -500,7 +501,7 @@ export const projects: Project[] = [
     screenshots: ['/images/screenshot_vrfor3d_1.webp', '/images/screenshot_vrfor3d_2.webp', '/images/screenshot_vrfor3d_3.webp'],
     description: "A 3D model viewer designed to showcase models created with Ortery's hardware.",
     zh: {
-      description: '3D 模型檢視器，用來展示以 Ortery 硬體製作的模型。',
+      description: '3D 模型檢視器，用來展示以 Ortery 光箱製作的模型。',
     },
   },
 ];
@@ -544,7 +545,7 @@ export const workExperiences: WorkExperience[] = [
       duration: '2021 年 12 月 – 2022 年 11 月',
       title: '共同創辦人暨技術總監',
       description:
-        '帶領工程師找出根本原因，並實施可擴展的技術修正。\n\n簡化涵蓋機密與非機密系統的 IT 問題處理流程，降低基礎架構複雜度並削減技術堆疊成本。\n\n重新設計音視訊通話功能的架構，取代原有方案，使其成本降低逾 85%——為公司節省 8% 的年度支出。\n\n主導與外部夥伴的整合，成功串接 3 個以上的平台，包括 Tokopedia 與 Juiker。',
+        '帶領工程師找出根本原因，並實施可擴展的技術修正。\n\n簡化涵蓋機密與非機密系統的 IT 問題處理流程，降低基礎架構複雜度並削減技術堆疊成本。\n\n重新設計音視訊通話功能的架構，取代原有方案，使其成本降低逾 85%——為公司節省 8% 的年度支出。\n\n擔任外部夥伴的技術窗口，成功串接 3 個以上的平台，包括 Tokopedia 與 Juiker。',
     },
   },
   {
@@ -583,7 +584,7 @@ export const workExperiences: WorkExperience[] = [
       duration: '2018 年 1 月 – 2019 年 5 月',
       title: 'Android 工程師',
       description:
-        '開發以位置為基礎的 Android App，具備穩健的架構與複雜的使用者介面，服務範圍包含停車場、加油站與駕駛相關服務。\n\n負責程式碼維護與系統升級，以發揮最佳效能。',
+        '開發以地理位置為基礎的 Android App，具備穩健的架構與複雜的使用者介面，服務範圍包含停車場、加油站與駕駛相關服務。\n\n負責程式碼維護與系統升級，以發揮最佳效能。',
     },
   },
   {
@@ -595,7 +596,7 @@ export const workExperiences: WorkExperience[] = [
     zh: {
       duration: '2016 年 4 月 – 2017 年 12 月',
       title: 'Android 工程師',
-      company: 'PKLOT（已被宏碁收購）',
+      company: '停車大聲公（已被宏碁收購）',
       description:
         '設計並實作服務、應用程式與框架，支撐核心技術整合。\n\n開發車牌辨識軟體，讓加油站能順暢完成油費付款比對。',
     },
@@ -622,7 +623,8 @@ export const workExperiences: WorkExperience[] = [
     zh: {
       duration: '2014 年 10 月 – 2014 年 11 月',
       title: 'Android 工程師',
-      description: '為 Zinwell 的電商 App「Small Trade」建立概念驗證。',
+      company: '兆赫電子',
+      description: '為兆赫電子內部創業的電商 App「小買賣」建立概念驗證。',
     },
   },
   {
@@ -634,6 +636,7 @@ export const workExperiences: WorkExperience[] = [
     zh: {
       duration: '2012 年 6 月 – 2014 年 7 月',
       title: '軟體工程師',
+      company: '萬里科技',
       description:
         '參與行動 App 與網站的開發。\n\n參與 Scen3D 與 SaaSPhoto 的實作，負責前端與整合工作。',
     },
@@ -648,7 +651,6 @@ export const references: L<{ author: string; title: string; quote: string }>[] =
       'Jarvis is highly skilled in Android related development technology and is proficient in both front-end and back-end web technologies. He prioritizes teamwork and is willing to share his knowledge and information. He is easy to work with and never stops learning, making him an exceptional and ideal partner.',
     // TODO: add zh.author once the Chinese name is decided
     zh: {
-      title: 'Meet.jobs，技術主管',
       quote:
         'Jarvis 對 Android 相關開發技術非常精熟，同時也擅長前後端網頁技術。他重視團隊合作，樂於分享知識與資訊，好相處又持續學習，是一位出色而理想的夥伴。',
     },
