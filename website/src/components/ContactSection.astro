@@ -17,38 +17,45 @@ const t = ui[lang].contact;
         {t.intro}
       </p>
       <div class="mt-4 space-y-3">
+        <!-- Outlined text fields: the label sits in the field and floats onto the border when focused or filled (input before label so CSS can use ~) -->
         <div>
-          <label for="contact-name" class="block text-body-md text-on-surface-variant mb-1">{t.name}</label>
-          <input
-            id="contact-name"
-            type="text"
-            placeholder={t.namePlaceholder}
-            class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-surface text-on-surface text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-          />
+          <div class="field">
+            <input
+              id="contact-name"
+              type="text"
+              placeholder={t.namePlaceholder}
+              class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-transparent text-on-surface text-body-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+            />
+            <label for="contact-name">{t.name}</label>
+          </div>
         </div>
         <div>
-          <label for="contact-email" class="block text-body-md text-on-surface-variant mb-1">{t.email} <span class="text-error">*</span></label>
-          <input
-            id="contact-email"
-            type="email"
-            aria-required="true"
-            aria-describedby="email-error"
-            placeholder={t.emailPlaceholder}
-            class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-surface text-on-surface text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-          />
-          <p id="email-error" role="alert" class="text-body-sm text-error mt-1 hidden"></p>
+          <div class="field">
+            <input
+              id="contact-email"
+              type="email"
+              aria-required="true"
+              aria-describedby="email-error"
+              placeholder={t.emailPlaceholder}
+              class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-transparent text-on-surface text-body-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+            />
+            <label for="contact-email">{t.email} <span class="text-error">*</span></label>
+          </div>
+          <p id="email-error" role="alert" class="text-body-sm text-error mt-1 px-3 hidden"></p>
         </div>
         <div>
-          <label for="contact-message" class="block text-body-md text-on-surface-variant mb-1">{t.message} <span class="text-error">*</span></label>
-          <textarea
-            id="contact-message"
-            rows="4"
-            aria-required="true"
-            aria-describedby="message-error"
-            placeholder={t.messagePlaceholder}
-            class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-surface text-on-surface text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
-          ></textarea>
-          <p id="message-error" role="alert" class="text-body-sm text-error mt-1 hidden"></p>
+          <div class="field">
+            <textarea
+              id="contact-message"
+              rows="4"
+              aria-required="true"
+              aria-describedby="message-error"
+              placeholder={t.messagePlaceholder}
+              class="w-full px-3 py-2.5 rounded-shape-xs border border-outline bg-transparent text-on-surface text-body-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
+            ></textarea>
+            <label for="contact-message">{t.message} <span class="text-error">*</span></label>
+          </div>
+          <p id="message-error" role="alert" class="text-body-sm text-error mt-1 px-3 hidden"></p>
         </div>
         <!-- Honeypot: real visitors never see or tick this; Web3Forms drops submissions where it is checked -->
         <input id="contact-botcheck" type="checkbox" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />

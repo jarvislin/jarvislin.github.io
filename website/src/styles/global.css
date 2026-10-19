@@ -33,6 +33,7 @@
   /* Motion easing */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
 }
 
 /* Dark theme */
@@ -143,6 +144,50 @@ body {
   border-radius: var(--shape-xl);
 }
 
+/* Outlined text field: label inside the field, floats onto the border when focused or filled */
+.field {
+  position: relative;
+}
+.field > label {
+  position: absolute;
+  left: 12px;
+  top: 23px;
+  transform: translateY(-50%);
+  margin-left: -4px;
+  padding: 0 4px;
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  pointer-events: none;
+  transition: top 0.2s var(--ease-standard), font-size 0.2s var(--ease-standard), line-height 0.2s var(--ease-standard), color 0.2s;
+}
+.field > :is(input, textarea):focus ~ label,
+.field > :is(input, textarea):not(:placeholder-shown) ~ label {
+  top: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.field > :is(input, textarea):focus ~ label {
+  color: var(--color-primary);
+}
+.field:has(.border-error) > label {
+  color: var(--color-error);
+}
+.field > :is(input, textarea)::placeholder {
+  color: transparent;
+  transition: color 0.2s;
+}
+.field > :is(input, textarea):focus::placeholder {
+  color: var(--color-on-surface-variant);
+}
+@media (prefers-reduced-motion: reduce) {
+  .field > label,
+  .field > :is(input, textarea)::placeholder {
+    transition: none;
+  }
+}
+
 /* Dialog */
 dialog {
   background: transparent;
@@ -156,34 +201,61 @@ dialog::backdrop {
   background: color-mix(in srgb, var(--color-scrim) 32%, transparent);
 }
 
-@keyframes dialog-in {
-  from { opacity: 0; transform: translateY(16px) scale(0.94); }
-  to   { opacity: 1; transform: none; }
+/* Dialog motion: enter 400ms emphasized-decelerate, exit 200ms accelerate.
+   Exit needs transition-behavior: allow-discrete; browsers without it just close instantly. */
+dialog,
+dialog::backdrop {
+  opacity: 0;
+  transition:
+    opacity 0.2s var(--ease-emphasized-accelerate),
+    transform 0.2s var(--ease-emphasized-accelerate),
+    overlay 0.2s allow-discrete,
+    display 0.2s allow-discrete;
 }
-@keyframes drawer-in {
-  from { transform: translateX(-100%); }
-  to   { transform: none; }
+dialog {
+  transform: translateY(16px) scale(0.94);
 }
-@keyframes scrim-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+dialog[open],
+dialog[open]::backdrop {
+  opacity: 1;
+  transition-duration: 0.4s;
+  transition-timing-function: var(--ease-emphasized-decelerate);
 }
 dialog[open] {
-  animation: dialog-in 0.4s var(--ease-emphasized-decelerate);
+  transform: none;
 }
-dialog[open]::backdrop {
-  animation: scrim-in 0.4s var(--ease-standard);
+@starting-style {
+  dialog[open],
+  dialog[open]::backdrop {
+    opacity: 0;
+  }
+  dialog[open] {
+    transform: translateY(16px) scale(0.94);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog,
+  dialog::backdrop {
+    transition: none;
+  }
 }
 
-/* Modal navigation drawer (mobile menu) */
+/* Modal navigation drawer (mobile menu): slides in from the start edge */
 dialog.drawer-dialog {
   margin: 0;
   height: 100%;
   max-height: 100%;
   width: min(320px, 85vw);
+  opacity: 1;
+  transform: translateX(-100%);
 }
 dialog.drawer-dialog[open] {
-  animation-name: drawer-in;
+  transform: none;
+}
+@starting-style {
+  dialog.drawer-dialog[open] {
+    transform: translateX(-100%);
+  }
 }
 .drawer {
   height: 100%;
@@ -253,9 +325,7 @@ dialog.drawer-dialog[open] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .crossfade-enter,
-  dialog[open],
-  dialog[open]::backdrop {
+  .crossfade-enter {
     animation: none;
   }
 }
