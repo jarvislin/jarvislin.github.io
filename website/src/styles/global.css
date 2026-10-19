@@ -54,6 +54,53 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Keyboard focus ring (MD3: 3dp primary indicator, visible for keyboard only) */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Touch target: keeps the visual size, extends the hit area to 48px (MD3 minimum) */
+.tap:not(.absolute) {
+  position: relative;
+}
+.tap::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 48px;
+  min-height: 48px;
+  transform: translate(-50%, -50%);
+}
+
+/* Nav link: constant weight, state layer on hover, indicator bar for the current section */
+.nav-link {
+  position: relative;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.nav-link:hover {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+.nav-link[aria-current]::after {
+  transform: scaleX(1);
+}
+
 /* Card base */
 .card {
   background-color: var(--color-surface-container);

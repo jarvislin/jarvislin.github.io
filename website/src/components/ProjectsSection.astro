@@ -27,7 +27,7 @@ const items = projects.map(p => localize(p, lang));
     <div class="flex justify-center gap-1 mb-4" id="project-tabs">
       {['Featured', 'All', 'Work', 'Side'].map((cat, i) => (
         <button
-          class="tab-btn px-4 py-1.5 text-sm font-semibold rounded transition-colors"
+          class="tab-btn tap px-4 py-1.5 text-sm font-semibold rounded transition-colors"
           data-cat={cat}
           class:list={[i === 0 ? 'bg-primary text-on-primary' : 'text-on-surface-variant bg-surface']}
         >
@@ -40,7 +40,7 @@ const items = projects.map(p => localize(p, lang));
     <div id="project-grid" class="grid grid-cols-3 md:grid-cols-4 gap-2">
       {items.map((project, idx) => (
         <button
-          class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+          class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-white"
           data-idx={idx}
           data-cat={project.category}
           data-featured={project.featured ? 'true' : 'false'}
@@ -73,13 +73,13 @@ const items = projects.map(p => localize(p, lang));
 
 <!-- Project dialogs -->
 {items.map((project, idx) => (
-  <dialog id={`project-dialog-${idx}`} class="w-full max-w-lg rounded-xl">
+  <dialog id={`project-dialog-${idx}`} aria-labelledby={`project-dialog-title-${idx}`} class="w-full max-w-lg rounded-xl">
     <div class="card bg-surface-container-high rounded-xl overflow-hidden">
       <!-- Header -->
       <div class="flex items-center gap-3 p-3 bg-surface-container-low">
         <img src={project.logo} alt={project.title} class="w-16 h-16 object-cover rounded-xl flex-shrink-0" />
         <div>
-          <p class="font-semibold text-on-surface">{project.title}</p>
+          <p id={`project-dialog-title-${idx}`} class="font-semibold text-on-surface">{project.title}</p>
           <p class="text-xs text-on-surface-variant">{project.tags.map(t => `#${t}`).join(', ')}</p>
         </div>
       </div>
@@ -93,7 +93,7 @@ const items = projects.map(p => localize(p, lang));
             <div class="flex flex-wrap gap-2">
               {project.screenshots.map((src, si) => (
                 <button
-                  class="gallery-thumb w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 border-secondary focus:outline-none"
+                  class="gallery-thumb w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 border-secondary"
                   data-src={src}
                   data-si={si}
                   aria-label={t.viewScreenshot(si + 1)}
@@ -112,7 +112,7 @@ const items = projects.map(p => localize(p, lang));
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
+                class="tap flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
               >
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={linkIconSvgs[link.type]} />
                 {link.type === 'Website' ? t.websiteLink : link.title}
@@ -123,7 +123,7 @@ const items = projects.map(p => localize(p, lang));
       </div>
 
       <div class="flex justify-end px-4 pb-3">
-        <button class="close-project-btn text-sm text-primary px-2 py-1">{t.dismiss}</button>
+        <button class="close-project-btn tap text-sm text-primary px-2 py-1">{t.dismiss}</button>
       </div>
     </div>
   </dialog>
@@ -132,17 +132,17 @@ const items = projects.map(p => localize(p, lang));
 <!-- Gallery viewer dialog -->
 <dialog id="gallery-viewer" class="w-full max-w-lg rounded-xl bg-transparent">
   <div class="relative">
-    <button id="gallery-close" class="mb-2 ml-4 w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+    <button id="gallery-close" aria-label={t.dismiss} class="tap mb-2 ml-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
     <div class="relative rounded-xl overflow-hidden mx-4">
       <img id="gallery-img" src="" alt="" class="w-full object-contain rounded-xl" />
-      <button id="gallery-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
+      <button id="gallery-prev" class="tap absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <button id="gallery-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
+      <button id="gallery-next" class="tap absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
@@ -236,6 +236,7 @@ const items = projects.map(p => localize(p, lang));
       const allThumbs = Array.from(gallery.querySelectorAll('.gallery-thumb'));
       galleryImages = allThumbs.map(t => (t as HTMLButtonElement).dataset.src!);
       galleryIndex = parseInt(thumb.dataset.si!);
+      galleryViewer.setAttribute('aria-label', thumb.getAttribute('aria-label') ?? '');
       updateGallery();
       galleryViewer.showModal();
     });

@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.label}
-            class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors"
+            class="tap w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[link.icon]} />
           </a>
@@ -37,7 +37,7 @@ const year = new Date().getFullYear();
     </div>
     <div class="mx-auto w-full max-w-content mt-8 pt-6 border-t border-outline-variant flex flex-col-reverse md:flex-row items-center justify-between gap-2 text-xs text-on-surface-variant">
       <p>{t.footer.rights(year, p.name)}</p>
-      <a href="#about" class="hover:text-primary transition-colors">{t.footer.backToTop}</a>
+      <a href="#about" class="tap hover:text-primary transition-colors">{t.footer.backToTop}</a>
     </div>
   </div>
 </footer>

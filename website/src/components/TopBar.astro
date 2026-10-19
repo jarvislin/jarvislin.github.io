@@ -31,7 +31,7 @@ const navItems = [
       {navItems.map(item => (
         <a
           href={item.href}
-          class="nav-link px-3 py-2 text-sm font-thin text-on-secondary-container hover:font-extrabold transition-all"
+          class="nav-link inline-flex items-center min-h-12 px-3 text-sm font-medium text-on-secondary-container"
         >
           {item.label}
         </a>
@@ -45,7 +45,7 @@ const navItems = [
       aria-label={t.themeToLight}
       data-to-light={t.themeToLight}
       data-to-dark={t.themeToDark}
-      class="ml-2 p-2 rounded-full hover:bg-surface-container transition-colors text-on-secondary-container"
+      class="tap ml-2 p-2.5 rounded-full hover:bg-surface-container transition-colors text-on-secondary-container"
     >
       <svg id="icon-sun" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
@@ -67,14 +67,15 @@ const navItems = [
       lang={htmlLang[other]}
       data-lang={other}
       aria-label={t.langToggle.aria}
-      class="ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container hover:bg-surface-container transition-colors"
+      class="tap ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container hover:bg-surface-container transition-colors"
     >
       {t.langToggle.label}
     </a>
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden ml-1 px-3 py-1.5 border border-on-secondary-container rounded text-sm text-on-secondary-container"
+      aria-haspopup="dialog"
+      class="tap md:hidden ml-1 px-3 py-1.5 border border-on-secondary-container rounded text-sm text-on-secondary-container"
     >
       {t.menu}
     </button>
@@ -82,14 +83,14 @@ const navItems = [
 </header>
 
 <!-- Mobile nav dialog -->
-<dialog id="mobile-menu-dialog" class="w-64 rounded-xl p-0">
+<dialog id="mobile-menu-dialog" aria-labelledby="mobile-menu-title" class="w-64 rounded-xl p-0">
   <div class="card p-4 bg-surface-container">
-    <p class="font-bold text-on-surface mb-2">{t.navigateTo}</p>
+    <p id="mobile-menu-title" class="font-bold text-on-surface mb-2">{t.navigateTo}</p>
     {navItems.map((item, i) => (
       <div>
         <a
           href={item.href}
-          class="mobile-nav-link block w-full text-left px-2 py-2.5 text-sm text-on-secondary-container hover:text-primary transition-colors"
+          class="mobile-nav-link flex items-center w-full min-h-12 px-2 text-sm text-on-secondary-container hover:text-primary transition-colors"
         >
           {item.label}
         </a>
@@ -97,7 +98,7 @@ const navItems = [
       </div>
     ))}
     <div class="flex justify-end mt-2">
-      <button id="close-mobile-menu" class="text-sm text-primary px-2 py-1">{t.dismiss}</button>
+      <button id="close-mobile-menu" class="tap text-sm text-primary px-2 py-1">{t.dismiss}</button>
     </div>
   </div>
 </dialog>
@@ -135,8 +136,8 @@ const navItems = [
   function setActive(id: string) {
     navLinks.forEach(link => {
       const isActive = link.getAttribute('href') === `#${id}`;
-      link.classList.toggle('font-extrabold', isActive);
-      link.classList.toggle('font-thin', !isActive);
+      if (isActive) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
     });
   }
 

@@ -17,7 +17,7 @@ const items = achievements.map(a => localize(a, lang));
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       {items.map(achievement => (
         <button
-          class="achievement-card card reveal text-left cursor-pointer hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
+          class="achievement-card card reveal text-left cursor-pointer hover:shadow-lg"
           data-id={achievement.id}
           aria-label={t.achievementAria(achievement.title)}
         >
@@ -40,7 +40,7 @@ const items = achievements.map(a => localize(a, lang));
 
 <!-- Achievement dialogs -->
 {items.map(achievement => (
-  <dialog id={`achievement-dialog-${achievement.id}`} class="w-full max-w-lg rounded-xl">
+  <dialog id={`achievement-dialog-${achievement.id}`} aria-label={achievement.title} class="w-full max-w-lg rounded-xl">
     <div class="card bg-surface-container p-0 relative">
       <img
         src={achievement.image}
@@ -49,7 +49,7 @@ const items = achievements.map(a => localize(a, lang));
         style="aspect-ratio:16/10"
       />
       <button
-        class="close-achievement-btn absolute top-3 left-3 w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:opacity-80 transition-opacity"
+        class="close-achievement-btn tap absolute top-3 left-3 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:opacity-80 transition-opacity"
         aria-label={t.dismiss}
       >
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
