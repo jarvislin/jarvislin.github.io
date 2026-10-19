@@ -20,6 +20,13 @@ const url = siteUrl + langPath[lang];
       // Remember the language choice: a visitor who last picked Chinese lands on /zh/ when opening the bare URL.
       try { if (location.pathname === '/' && localStorage.getItem('lang') === 'zh') location.replace('/zh/' + location.hash); } catch (e) {}
     </script>
+    <script is:inline>
+      // Theme: saved choice wins, otherwise follow the OS. Runs before paint to avoid a flash.
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('theme')
+          || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      } catch (e) {}
+    </script>
     <title>{t.title}</title>
     <meta name="description" content={t.description} />
     <link rel="canonical" href={url} />
@@ -60,15 +67,6 @@ const url = siteUrl + langPath[lang];
   <body class="bg-surface text-on-surface min-h-screen">
     <slot />
     <script>
-      // Theme toggle
-      function initTheme() {
-        const stored = localStorage.getItem('theme');
-        if (stored) {
-          document.documentElement.setAttribute('data-theme', stored);
-        }
-      }
-      initTheme();
-
       // Scroll-reveal: one shared observer for every `.reveal` element on the page
       const revealObserver = new IntersectionObserver(
         (entries) => {
@@ -88,8 +86,6 @@ const url = siteUrl + langPath[lang];
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
-        const btn = document.getElementById('theme-toggle');
-        if (btn) btn.setAttribute('aria-label', (next === 'dark' ? btn.dataset.toLight : btn.dataset.toDark) ?? '');
       };
     </script>
   </body>

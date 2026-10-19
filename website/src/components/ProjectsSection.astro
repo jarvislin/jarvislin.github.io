@@ -21,14 +21,15 @@ const items = projects.map(p => localize(p, lang));
 
 <section id="projects" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.projects}</h2>
+    <h2 id="projects-heading" class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.projects}</h2>
 
     <!-- Filter tabs -->
-    <div class="flex justify-center gap-1 mb-4" id="project-tabs">
+    <div class="flex justify-center gap-1 mb-4" id="project-tabs" role="group" aria-labelledby="projects-heading">
       {['Featured', 'All', 'Work', 'Side'].map((cat, i) => (
         <button
-          class="tab-btn tap px-4 py-1.5 text-sm font-semibold rounded transition-colors"
+          class="tab-btn tap state px-4 py-1.5 text-sm font-semibold rounded transition-colors"
           data-cat={cat}
+          aria-pressed={i === 0 ? 'true' : 'false'}
           class:list={[i === 0 ? 'bg-primary text-on-primary' : 'text-on-surface-variant bg-surface']}
         >
           {t.tabs[cat as keyof typeof t.tabs]}
@@ -60,7 +61,7 @@ const items = projects.map(p => localize(p, lang));
     <div id="load-more-wrap" class="flex justify-center mt-6">
       <button
         id="load-more-btn"
-        class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center hover:opacity-80 transition-all"
+        class="state w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center"
         aria-label={t.loadMore}
       >
         <svg id="load-more-icon" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -112,7 +113,7 @@ const items = projects.map(p => localize(p, lang));
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="tap flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface hover:border-primary hover:text-primary transition-colors"
+                class="tap state flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface"
               >
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={linkIconSvgs[link.type]} />
                 {link.type === 'Website' ? t.websiteLink : link.title}
@@ -123,7 +124,7 @@ const items = projects.map(p => localize(p, lang));
       </div>
 
       <div class="flex justify-end px-4 pb-3">
-        <button class="close-project-btn tap text-sm text-primary px-2 py-1">{t.dismiss}</button>
+        <button class="close-project-btn tap state rounded-full text-sm text-primary px-2 py-1">{t.dismiss}</button>
       </div>
     </div>
   </dialog>
@@ -132,7 +133,7 @@ const items = projects.map(p => localize(p, lang));
 <!-- Gallery viewer dialog -->
 <dialog id="gallery-viewer" class="w-full max-w-lg rounded-xl bg-transparent">
   <div class="relative">
-    <button id="gallery-close" aria-label={t.dismiss} class="tap mb-2 ml-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+    <button id="gallery-close" aria-label={t.dismiss} class="tap state mb-2 ml-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
@@ -187,6 +188,7 @@ const items = projects.map(p => localize(p, lang));
         b.classList.toggle('text-on-primary', b.dataset.cat === currentFilter);
         b.classList.toggle('text-on-surface-variant', b.dataset.cat !== currentFilter);
         b.classList.toggle('bg-surface', b.dataset.cat !== currentFilter);
+        b.setAttribute('aria-pressed', String(b.dataset.cat === currentFilter));
       });
       applyFilter();
     });

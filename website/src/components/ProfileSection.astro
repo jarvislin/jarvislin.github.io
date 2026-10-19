@@ -60,7 +60,7 @@ const links = p.links.map(l => localize(l, lang));
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.label}
-            class="tap w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors"
+            class="tap state w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant"
           >
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[link.icon]} />
           </a>
@@ -105,7 +105,7 @@ const links = p.links.map(l => localize(l, lang));
           target="_blank"
           rel="noopener noreferrer"
           aria-label={link.label}
-          class="tap w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors"
+          class="tap state w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface-variant"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[link.icon]} />
         </a>

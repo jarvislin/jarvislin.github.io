@@ -61,7 +61,8 @@ body {
 }
 
 /* Touch target: keeps the visual size, extends the hit area to 48px (MD3 minimum) */
-.tap:not(.absolute) {
+.tap:not(.absolute),
+.state:not(.absolute) {
   position: relative;
 }
 .tap::after {
@@ -75,6 +76,22 @@ body {
   min-height: 48px;
   transform: translate(-50%, -50%);
 }
+
+/* State layer (MD3): on-color overlay, 8% hover, 12% focus/pressed */
+.state::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.state:hover::before { opacity: 0.08; }
+.state:focus-visible::before,
+.state:active::before { opacity: 0.12; }
+.state:disabled::before { display: none; }
 
 /* Nav link: constant weight, state layer on hover, indicator bar for the current section */
 .nav-link {
@@ -156,9 +173,7 @@ dialog::backdrop {
   transform: none;
 }
 .skill-group.revealed .skill-chip:hover {
-  transform: translateY(-2px);
   border-color: var(--color-primary);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 35%, transparent);
   transition-delay: 0s;
 }
 @media (prefers-reduced-motion: reduce) {

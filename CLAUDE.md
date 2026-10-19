@@ -36,7 +36,8 @@ website/src/
 
 ## 重要細節
 
-- **主題**：`data-theme="dark"` 掛在 `<html>`，預設深色，`localStorage` 記憶使用者選擇。
+- **主題**：`data-theme` 掛在 `<html>`，由 Layout `<head>` 的 inline script 在繪製前決定：`localStorage` 的選擇優先，否則跟隨系統 `prefers-color-scheme`（無法判斷時深色）。
+- **互動樣式**：`.tap` 把點擊區擴到 48px（視覺大小不變）、`.state` 是 MD3 state layer（hover 8% / focus、pressed 12%），定義於 `global.css`；新增按鈕、連結時套用，不要用 `hover:opacity-*` 或換色代替。
 - **色彩系統**：Material Design 3 色票對應到 CSS 變數（`--color-primary` 等），Tailwind 以 `var()` 引用，定義於 `tailwind.config.mjs`。
 - **版面寬度**：最大內容寬度 840px，Tailwind 自訂 `max-w-content: '840px'`。每個 Section 外層用 `px-4`，內層 div 用 `mx-auto w-full max-w-content` 置中——**不可在外層加 `flex justify-center` 或 `items-center`，否則會讓子元素縮成內容寬度。**
 - **Scroll reveal**：加上 `.reveal` class 的元素會在進入視窗時淡入（Layout.astro 內單一 IntersectionObserver），並尊重 `prefers-reduced-motion`。

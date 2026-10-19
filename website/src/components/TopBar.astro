@@ -19,7 +19,7 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-50 shadow-md bg-secondary-container">
+<header class="sticky top-0 z-50 border-b border-outline-variant bg-secondary-container">
   <nav class="max-w-[1200px] mx-auto px-4 h-14 flex items-center gap-2">
     <!-- Logo -->
     <img src="/images/logo.webp" alt="JL" class="logo-tinted h-8 w-auto flex-shrink-0" />
@@ -45,7 +45,7 @@ const navItems = [
       aria-label={t.themeToLight}
       data-to-light={t.themeToLight}
       data-to-dark={t.themeToDark}
-      class="tap ml-2 p-2.5 rounded-full hover:bg-surface-container transition-colors text-on-secondary-container"
+      class="tap state ml-2 p-2.5 rounded-full text-on-secondary-container"
     >
       <svg id="icon-sun" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
@@ -67,7 +67,7 @@ const navItems = [
       lang={htmlLang[other]}
       data-lang={other}
       aria-label={t.langToggle.aria}
-      class="tap ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container hover:bg-surface-container transition-colors"
+      class="tap state ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container"
     >
       {t.langToggle.label}
     </a>
@@ -98,7 +98,7 @@ const navItems = [
       </div>
     ))}
     <div class="flex justify-end mt-2">
-      <button id="close-mobile-menu" class="tap text-sm text-primary px-2 py-1">{t.dismiss}</button>
+      <button id="close-mobile-menu" class="tap state rounded-full text-sm text-primary px-2 py-1">{t.dismiss}</button>
     </div>
   </div>
 </dialog>
@@ -126,6 +126,8 @@ const navItems = [
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     (document.getElementById('icon-sun') as HTMLElement).classList.toggle('hidden', isDark);
     (document.getElementById('icon-moon') as HTMLElement).classList.toggle('hidden', !isDark);
+    const toggle = document.getElementById('theme-toggle')!;
+    toggle.setAttribute('aria-label', (isDark ? toggle.dataset.toLight : toggle.dataset.toDark) ?? '');
   }
   syncThemeIcon();
 
