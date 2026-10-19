@@ -23,7 +23,7 @@ const hasMore = items.length > INITIAL_COUNT;
 
 <section id="experiences" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.experiences}</h2>
+    <h2 class="text-headline-md text-on-surface text-center mb-4">{t.headings.experiences}</h2>
 
     <!-- Mobile layout: single column -->
     <div class="flex flex-col items-center gap-0 md:hidden">
@@ -32,13 +32,13 @@ const hasMore = items.length > INITIAL_COUNT;
           <div class="card reveal w-full overflow-hidden">
             <div class="h-2 bg-primary w-full"></div>
             <div class="p-4">
-              {exp.duration && <p class="text-xs font-bold text-primary">{exp.duration}</p>}
-              {exp.title && <p class="text-base font-semibold text-on-surface mt-1">{exp.title}</p>}
-              {exp.company && <p class="text-base text-on-surface">{exp.company}</p>}
+              {exp.duration && <p class="text-label-md text-primary">{exp.duration}</p>}
+              {exp.title && <p class="text-title-md text-on-surface mt-1">{exp.title}</p>}
+              {exp.company && <p class="text-body-lg text-on-surface">{exp.company}</p>}
               {exp.description && (
                 <div class="mt-3 space-y-2">
                   {exp.description.split('\n\n').map(para => (
-                    <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                    <p class="text-body-md text-on-surface-variant leading-relaxed">{para}</p>
                   ))}
                 </div>
               )}
@@ -65,13 +65,13 @@ const hasMore = items.length > INITIAL_COUNT;
               <div class="card overflow-hidden">
                 <div class="h-2 bg-primary w-full"></div>
                 <div class="p-4">
-                  {leftExp.duration && <p class="text-xs font-bold text-primary">{leftExp.duration}</p>}
-                  {leftExp.title && <p class="text-base font-semibold text-on-surface mt-1">{leftExp.title}</p>}
-                  {leftExp.company && <p class="text-base text-on-surface">{leftExp.company}</p>}
+                  {leftExp.duration && <p class="text-label-md text-primary">{leftExp.duration}</p>}
+                  {leftExp.title && <p class="text-title-md text-on-surface mt-1">{leftExp.title}</p>}
+                  {leftExp.company && <p class="text-body-lg text-on-surface">{leftExp.company}</p>}
                   {leftExp.description && (
                     <div class="mt-3 space-y-2">
                       {leftExp.description.split('\n\n').map(para => (
-                        <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                        <p class="text-body-md text-on-surface-variant leading-relaxed">{para}</p>
                       ))}
                     </div>
                   )}
@@ -88,13 +88,13 @@ const hasMore = items.length > INITIAL_COUNT;
                   <div class="card overflow-hidden">
                     <div class="h-2 bg-primary w-full"></div>
                     <div class="p-4">
-                      {rightExp.duration && <p class="text-xs font-bold text-primary">{rightExp.duration}</p>}
-                      {rightExp.title && <p class="text-base font-semibold text-on-surface mt-1">{rightExp.title}</p>}
-                      {rightExp.company && <p class="text-base text-on-surface">{rightExp.company}</p>}
+                      {rightExp.duration && <p class="text-label-md text-primary">{rightExp.duration}</p>}
+                      {rightExp.title && <p class="text-title-md text-on-surface mt-1">{rightExp.title}</p>}
+                      {rightExp.company && <p class="text-body-lg text-on-surface">{rightExp.company}</p>}
                       {rightExp.description && (
                         <div class="mt-3 space-y-2">
                           {rightExp.description.split('\n\n').map(para => (
-                            <p class="text-sm text-on-surface-variant leading-relaxed">{para}</p>
+                            <p class="text-body-md text-on-surface-variant leading-relaxed">{para}</p>
                           ))}
                         </div>
                       )}
@@ -113,7 +113,7 @@ const hasMore = items.length > INITIAL_COUNT;
       <div class="flex justify-center mt-6">
         <button
           id="work-show-more-btn"
-          class="tap state px-6 py-2.5 border border-primary text-primary text-sm font-bold rounded-full"
+          class="tap state px-6 py-2.5 border border-primary text-primary text-label-lg rounded-full"
         >
           {t.showFullExperience}
         </button>

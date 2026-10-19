@@ -27,11 +27,11 @@ const navItems = [
     <div class="flex-1"></div>
 
     <!-- Desktop nav -->
-    <div id="desktop-nav" class="hidden md:flex items-center">
+    <div id="desktop-nav" class="hidden lg:flex items-center">
       {navItems.map(item => (
         <a
           href={item.href}
-          class="nav-link inline-flex items-center min-h-12 px-3 text-sm font-medium text-on-secondary-container"
+          class="nav-link inline-flex items-center min-h-12 px-3 text-label-lg text-on-secondary-container"
         >
           {item.label}
         </a>
@@ -67,7 +67,7 @@ const navItems = [
       lang={htmlLang[other]}
       data-lang={other}
       aria-label={t.langToggle.aria}
-      class="tap state ml-1 px-3 py-1.5 rounded-full text-sm font-medium text-on-secondary-container"
+      class="tap state ml-1 px-3 py-1.5 rounded-full text-label-lg text-on-secondary-container"
     >
       {t.langToggle.label}
     </a>
@@ -75,7 +75,7 @@ const navItems = [
     <button
       id="mobile-menu-btn"
       aria-haspopup="dialog"
-      class="tap md:hidden ml-1 px-3 py-1.5 border border-on-secondary-container rounded text-sm text-on-secondary-container"
+      class="tap lg:hidden ml-1 px-3 py-1.5 border border-on-secondary-container rounded-full text-label-lg text-on-secondary-container"
     >
       {t.menu}
     </button>
@@ -83,22 +83,22 @@ const navItems = [
 </header>
 
 <!-- Mobile nav dialog -->
-<dialog id="mobile-menu-dialog" aria-labelledby="mobile-menu-title" class="w-64 rounded-xl p-0">
-  <div class="card p-4 bg-surface-container">
-    <p id="mobile-menu-title" class="font-bold text-on-surface mb-2">{t.navigateTo}</p>
-    {navItems.map((item, i) => (
-      <div>
+<!-- Mobile nav: modal navigation drawer -->
+<dialog id="mobile-menu-dialog" aria-labelledby="mobile-menu-title" class="drawer-dialog">
+  <div class="drawer flex flex-col">
+    <p id="mobile-menu-title" class="text-title-sm text-on-surface-variant px-4 py-4">{t.navigateTo}</p>
+    <nav class="flex flex-col">
+      {navItems.map(item => (
         <a
           href={item.href}
-          class="mobile-nav-link flex items-center w-full min-h-12 px-2 text-sm text-on-secondary-container hover:text-primary transition-colors"
+          class="mobile-nav-link state flex items-center min-h-14 px-4 rounded-full text-label-lg text-on-surface-variant"
         >
           {item.label}
         </a>
-        {i < navItems.length - 1 && <hr class="border-outline-variant" />}
-      </div>
-    ))}
-    <div class="flex justify-end mt-2">
-      <button id="close-mobile-menu" class="tap state rounded-full text-sm text-primary px-2 py-1">{t.dismiss}</button>
+      ))}
+    </nav>
+    <div class="flex justify-end mt-auto">
+      <button id="close-mobile-menu" class="tap state rounded-full text-label-lg text-primary px-3 py-2">{t.dismiss}</button>
     </div>
   </div>
 </dialog>
@@ -133,7 +133,7 @@ const navItems = [
 
   // Active nav highlight on scroll
   const sections = ['about', 'skills', 'achievements', 'projects', 'experiences', 'references', 'contact'];
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link, .mobile-nav-link');
 
   function setActive(id: string) {
     navLinks.forEach(link => {

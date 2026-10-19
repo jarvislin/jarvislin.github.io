@@ -12,16 +12,16 @@ const groups = skillGroups.map(g => ({ ...localize(g, lang), items: g.items.map(
 ---
 <section id="skills" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.skills}</h2>
+    <h2 class="text-headline-md text-on-surface text-center mb-4">{t.headings.skills}</h2>
     <div class="card reveal w-full px-4 py-2">
       {groups.map(group => (
         <div class="skill-group reveal py-4 border-t border-outline-variant first:border-t-0 md:grid md:grid-cols-[11rem_1fr] md:gap-x-6">
-          <h3 class="text-base font-semibold text-on-surface-variant mb-2 md:mb-0 md:pt-0.5">{group.label}</h3>
+          <h3 class="text-title-md text-on-surface-variant mb-2 md:mb-0 md:pt-0.5">{group.label}</h3>
           <ul class="flex flex-wrap gap-2">
             {group.items.map((item, i) => (
               <li
                 class:list={[
-                  'skill-chip px-3 py-1 rounded-full text-sm border',
+                  'skill-chip px-3 py-1 rounded-full text-body-md border',
                   item.primary
                     ? 'bg-primary text-on-primary border-primary font-medium'
                     : 'border-outline-variant text-on-surface',

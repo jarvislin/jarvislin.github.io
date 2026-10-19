@@ -13,7 +13,7 @@ const items = achievements.map(a => localize(a, lang));
 
 <section id="achievements" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.achievements}</h2>
+    <h2 class="text-headline-md text-on-surface text-center mb-4">{t.headings.achievements}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       {items.map(achievement => (
         <button
@@ -24,13 +24,13 @@ const items = achievements.map(a => localize(a, lang));
           <img
             src={achievement.image}
             alt={achievement.title}
-            class="w-full object-cover rounded-t-xl"
+            class="w-full object-cover rounded-t-shape-md"
             style="aspect-ratio:16/9"
             loading="lazy"
           />
           <div class="p-4 flex-1">
-            <h3 class="text-base font-semibold text-on-surface mb-2">{achievement.title}</h3>
-            <p class="text-sm text-on-surface-variant leading-relaxed">{achievement.description}</p>
+            <h3 class="text-title-md text-on-surface mb-2">{achievement.title}</h3>
+            <p class="text-body-md text-on-surface-variant leading-relaxed">{achievement.description}</p>
           </div>
         </button>
       ))}
@@ -40,12 +40,12 @@ const items = achievements.map(a => localize(a, lang));
 
 <!-- Achievement dialogs -->
 {items.map(achievement => (
-  <dialog id={`achievement-dialog-${achievement.id}`} aria-label={achievement.title} class="w-full max-w-lg rounded-xl">
-    <div class="card bg-surface-container p-0 relative">
+  <dialog id={`achievement-dialog-${achievement.id}`} aria-label={achievement.title} class="w-full max-w-lg rounded-shape-xl">
+    <div class="card card-xl bg-surface-container p-0 relative">
       <img
         src={achievement.image}
         alt={achievement.title}
-        class="w-full object-cover rounded-t-xl"
+        class="w-full object-cover rounded-t-shape-md"
         style="aspect-ratio:16/10"
       />
       <button
@@ -58,7 +58,7 @@ const items = achievements.map(a => localize(a, lang));
       </button>
       <div class="p-4 space-y-3 max-h-64 overflow-y-auto">
         {achievement.paragraphs.map(p => (
-          <p class="text-sm text-on-surface leading-relaxed">{p}</p>
+          <p class="text-body-md text-on-surface leading-relaxed">{p}</p>
         ))}
       </div>
     </div>

@@ -21,13 +21,13 @@ const items = projects.map(p => localize(p, lang));
 
 <section id="projects" class="px-4 mt-8">
   <div class="mx-auto w-full max-w-content">
-    <h2 id="projects-heading" class="text-3xl font-medium text-on-surface text-center mb-4">{t.headings.projects}</h2>
+    <h2 id="projects-heading" class="text-headline-md text-on-surface text-center mb-4">{t.headings.projects}</h2>
 
     <!-- Filter tabs -->
     <div class="flex justify-center gap-1 mb-4" id="project-tabs" role="group" aria-labelledby="projects-heading">
       {['Featured', 'All', 'Work', 'Side'].map((cat, i) => (
         <button
-          class="tab-btn tap state px-4 py-1.5 text-sm font-semibold rounded transition-colors"
+          class="tab-btn tap state px-4 py-1.5 text-label-lg rounded-shape-sm transition-colors"
           data-cat={cat}
           aria-pressed={i === 0 ? 'true' : 'false'}
           class:list={[i === 0 ? 'bg-primary text-on-primary' : 'text-on-surface-variant bg-surface']}
@@ -41,7 +41,7 @@ const items = projects.map(p => localize(p, lang));
     <div id="project-grid" class="grid grid-cols-3 md:grid-cols-4 gap-2">
       {items.map((project, idx) => (
         <button
-          class="project-card reveal relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-white"
+          class="project-card reveal relative aspect-square rounded-shape-md overflow-hidden cursor-pointer bg-white"
           data-idx={idx}
           data-cat={project.category}
           data-featured={project.featured ? 'true' : 'false'}
@@ -50,8 +50,8 @@ const items = projects.map(p => localize(p, lang));
           <img src={project.logo} alt={project.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
           <div class="project-overlay absolute inset-0"></div>
           <div class="absolute bottom-0 left-0 right-0 p-2 md:p-3">
-            <p class="text-xs md:text-sm font-bold text-white text-center leading-tight">{project.title}</p>
-            <p class="hidden md:block text-xs text-white/70">{t.category[project.category]}</p>
+            <p class="text-label-md md:text-label-lg text-white text-center leading-tight">{project.title}</p>
+            <p class="hidden md:block text-body-sm text-white/70">{t.category[project.category]}</p>
           </div>
         </button>
       ))}
@@ -74,27 +74,27 @@ const items = projects.map(p => localize(p, lang));
 
 <!-- Project dialogs -->
 {items.map((project, idx) => (
-  <dialog id={`project-dialog-${idx}`} aria-labelledby={`project-dialog-title-${idx}`} class="w-full max-w-lg rounded-xl">
-    <div class="card bg-surface-container-high rounded-xl overflow-hidden">
+  <dialog id={`project-dialog-${idx}`} aria-labelledby={`project-dialog-title-${idx}`} class="w-full max-w-lg rounded-shape-xl">
+    <div class="card card-xl bg-surface-container-high overflow-hidden">
       <!-- Header -->
       <div class="flex items-center gap-3 p-3 bg-surface-container-low">
-        <img src={project.logo} alt={project.title} class="w-16 h-16 object-cover rounded-xl flex-shrink-0" />
+        <img src={project.logo} alt={project.title} class="w-16 h-16 object-cover rounded-shape-md flex-shrink-0" />
         <div>
-          <p id={`project-dialog-title-${idx}`} class="font-semibold text-on-surface">{project.title}</p>
-          <p class="text-xs text-on-surface-variant">{project.tags.map(t => `#${t}`).join(', ')}</p>
+          <p id={`project-dialog-title-${idx}`} class="text-title-md text-on-surface">{project.title}</p>
+          <p class="text-body-sm text-on-surface-variant">{project.tags.map(t => `#${t}`).join(', ')}</p>
         </div>
       </div>
 
       <!-- Content -->
       <div class="max-h-[60vh] overflow-y-auto">
-        <p class="text-sm text-on-surface-variant leading-relaxed px-4 py-3">{project.description}</p>
+        <p class="text-body-md text-on-surface-variant leading-relaxed px-4 py-3">{project.description}</p>
 
         {project.screenshots.length > 0 && (
           <div class="gallery px-4 pb-3" data-dialog-idx={idx}>
             <div class="flex flex-wrap gap-2">
               {project.screenshots.map((src, si) => (
                 <button
-                  class="gallery-thumb w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 border-secondary"
+                  class="gallery-thumb w-20 aspect-[3/4] rounded-shape-md overflow-hidden border-2 border-secondary"
                   data-src={src}
                   data-si={si}
                   aria-label={t.viewScreenshot(si + 1)}
@@ -113,7 +113,7 @@ const items = projects.map(p => localize(p, lang));
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="tap state flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-sm text-on-surface"
+                class="tap state flex items-center gap-1.5 px-3 py-1.5 border border-outline-variant rounded-full text-body-md text-on-surface"
               >
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={linkIconSvgs[link.type]} />
                 {link.type === 'Website' ? t.websiteLink : link.title}
@@ -124,22 +124,22 @@ const items = projects.map(p => localize(p, lang));
       </div>
 
       <div class="flex justify-end px-4 pb-3">
-        <button class="close-project-btn tap state rounded-full text-sm text-primary px-2 py-1">{t.dismiss}</button>
+        <button class="close-project-btn tap state rounded-full text-label-lg text-primary px-3 py-2">{t.dismiss}</button>
       </div>
     </div>
   </dialog>
 ))}
 
 <!-- Gallery viewer dialog -->
-<dialog id="gallery-viewer" class="w-full max-w-lg rounded-xl bg-transparent">
+<dialog id="gallery-viewer" class="w-full max-w-lg rounded-shape-xl bg-transparent">
   <div class="relative">
     <button id="gallery-close" aria-label={t.dismiss} class="tap state mb-2 ml-4 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
-    <div class="relative rounded-xl overflow-hidden mx-4">
-      <img id="gallery-img" src="" alt="" class="w-full object-contain rounded-xl" />
+    <div class="relative rounded-shape-md overflow-hidden mx-4">
+      <img id="gallery-img" src="" alt="" class="w-full object-contain rounded-shape-md" />
       <button id="gallery-prev" class="tap absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-secondary text-on-surface flex items-center justify-center opacity-80 hover:opacity-100">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       </button>

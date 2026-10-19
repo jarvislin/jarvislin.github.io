@@ -24,12 +24,12 @@ const iconSvgs: Record<string, string> = {
     href={profile.resumeUrl}
     target="_blank"
     rel="noopener noreferrer"
-    class="tap state mt-2 px-6 py-2 border border-primary text-primary text-sm font-bold rounded-full"
+    class="tap state mt-2 px-6 py-2 border border-primary text-primary text-label-lg rounded-full"
   >
     {t.downloadResume}
   </a>
 
-  <p class="mt-4 text-base font-semibold text-secondary text-center leading-relaxed">
+  <p class="mt-4 text-title-md text-secondary text-center leading-relaxed">
     {introText}
   </p>
 
@@ -37,7 +37,7 @@ const iconSvgs: Record<string, string> = {
     {points.map(point => (
       <div class="card reveal flex items-start gap-3 px-4 py-3">
         <svg class="w-5 h-5 flex-shrink-0 text-on-surface mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconSvgs[point.icon]} />
-        <p class="text-sm text-on-surface leading-relaxed">{point.description}</p>
+        <p class="text-body-md text-on-surface leading-relaxed">{point.description}</p>
       </div>
     ))}
   </div>

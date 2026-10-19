@@ -18,8 +18,8 @@ const year = new Date().getFullYear();
   <div class="px-4 py-10">
     <div class="mx-auto w-full max-w-content flex flex-col md:flex-row md:items-center md:justify-between gap-6">
       <div>
-        <p class="text-lg font-bold text-on-surface">{p.name}</p>
-        <p class="text-sm text-on-surface-variant mt-1">{p.title}</p>
+        <p class="text-title-lg text-on-surface">{p.name}</p>
+        <p class="text-body-md text-on-surface-variant mt-1">{p.title}</p>
       </div>
       <div class="flex gap-3">
         {links.map(link => (
@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
         ))}
       </div>
     </div>
-    <div class="mx-auto w-full max-w-content mt-8 pt-6 border-t border-outline-variant flex flex-col-reverse md:flex-row items-center justify-between gap-2 text-xs text-on-surface-variant">
+    <div class="mx-auto w-full max-w-content mt-8 pt-6 border-t border-outline-variant flex flex-col-reverse md:flex-row items-center justify-between gap-2 text-body-sm text-on-surface-variant">
       <p>{t.footer.rights(year, p.name)}</p>
       <a href="#about" class="tap hover:text-primary transition-colors">{t.footer.backToTop}</a>
     </div>
