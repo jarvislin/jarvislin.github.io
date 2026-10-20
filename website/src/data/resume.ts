@@ -61,7 +61,7 @@ export const aboutPoints: L<{ description: string; icon: string }>[] = [
     zh: { description: '開發過 20 款以上的 App，包含下載破 1 億的 Tumblr 與多次入圍 Google Play 官方編輯精選的停車大聲公。' },
   },
   {
-    description: 'Led a cross-border team of 18 engineers, QA, designers, and PMs across Taiwan and Indonesia.',
+    description: 'Led a cross-border team of 18 across Taiwan and Indonesia, including engineers, QA, designers, and PMs.',
     icon: 'group',
     zh: { description: '曾帶領台灣、印尼 18 位成員的跨國團隊，包含工程師、QA、設計師與 PM。' },
   },
